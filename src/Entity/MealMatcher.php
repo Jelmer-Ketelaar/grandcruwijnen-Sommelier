@@ -4,10 +4,12 @@ namespace App\Entity;
 
 use App\Repository\MealMatcherRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass=MealMatcherRepository::class)
  */
+#[ApiResource(iri: 'https://mealmatcher.grandcruwijnen.nl/api/meal_categories')]
 class MealMatcher
 {
     /**
