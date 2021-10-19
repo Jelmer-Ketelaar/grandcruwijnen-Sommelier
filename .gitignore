@@ -14,8 +14,13 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
+ #64
+.env
+.idea
+.DS_Store
 ###> phpunit/phpunit ###
 /phpunit.xml
 .phpunit.result.cache
 .idea
 ###< phpunit/phpunit ###
+Development
