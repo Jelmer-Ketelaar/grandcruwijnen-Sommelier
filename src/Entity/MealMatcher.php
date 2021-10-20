@@ -2,23 +2,23 @@
 
 namespace App\Entity;
 
+
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MealMatcherRepository;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass=MealMatcherRepository::class)
  */
-#[ApiResource(iri: 'https://mealmatcher.grandcruwijnen.nl/api/meal_categories')]
-class MealMatcher
-{
+#
+class MealMatcher {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
 
+    private $id;
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -28,6 +28,7 @@ class MealMatcher
      * @ORM\Column(type="string", length=255)
      */
     private $image;
+
 
     public function getId(): ?int
     {
