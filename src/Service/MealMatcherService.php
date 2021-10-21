@@ -28,7 +28,10 @@ class MealMatcherService {
         return $categories;
     }
 
-    public function getParentMealCategories()
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getParentMealCategories(): array
     {
         $categories = $this->getMealsCategories();
         $parentCategories = [];
@@ -44,7 +47,10 @@ class MealMatcherService {
         return $parentCategories;
     }
 
-    public function getCategoriesForParent(int $parentId)
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getCategoriesForParent(int $parentId): array
     {
         $categories = $this->getMealsCategories();
         $childCategories = [];
@@ -60,11 +66,13 @@ class MealMatcherService {
         return $childCategories;
     }
 
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getMealsForCategory(int $categoryId)
     {
-        $response = $this->client->request('GET', '/meals/category/'.$categoryId);
+        $response = $this->client->request('GET', '/meals/category/' . $categoryId);
 
-        $meals = json_decode($response->getBody()->getContents());
-        return $meals;
+        return json_decode($response->getBody()->getContents());
     }
 }

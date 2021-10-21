@@ -1,0 +1,47 @@
+html {
+    height: 20%;
+}
+body {
+    font-family: 'Montserrat', sans-serif;
+    height: 100%;
+    background-color: #e9dcd1;
+}
+
+.p {
+    line-height: 1.5;
+}
+
+.grid {
+    display: inline-grid;
+    border: #1111 1px solid;
+    box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%), 0 0 20px -1px rgb(0 0 0 / 15%);
+    margin: 4vw 0 0 4vw;
+    height: 25vh;
+    width: 20vh;
+    border-radius: 10%;
+    background-color: #e9dcd1;
+}
+
+.grid:active {
+    box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%), 0 0 20px -1px rgb(0 0 0 / 15%);
+    transform: translateY(10px) translateX(10px);
+}
+
+.meal-name {
+    color: #b5191f !important;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 2vh;
+}
+
+.image {
+    margin-top: 5vh;
+    height: 10vh;
+}
+
+.text {
+    margin-left: 2vw;
+}
+h1 {
+    font-size: 4rem;
+}
