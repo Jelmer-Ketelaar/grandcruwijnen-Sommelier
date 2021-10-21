@@ -67,4 +67,13 @@ class MealMatcherService {
         $meals = json_decode($response->getBody()->getContents());
         return $meals;
     }
+
+
+    public function getWinesForMeal($wineId) 
+    {
+        $response = $this->client->request('GET', '/api/meal_matches/'.$wineId);
+
+        $wines = json_decode($response->getBody()->getContents());
+        return $wines;
+    }
 }

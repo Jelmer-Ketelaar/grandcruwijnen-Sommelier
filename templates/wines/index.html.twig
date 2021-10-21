@@ -16,16 +16,17 @@
             padding: 2px 6px;
         }
     </style>
-{#https://mealmatcher.grandcruwijnen.nl/meals/%7B12de8bb3-8ce2-43a9-8b09-d56161365ebc%7D#}
+
     <div class="example-wrapper">
         <h1>Welkom bij de online sommelier</h1>
         <p>Hier kunt u uw gerecht kiezen en dan worden er bijpassende wijnen gezocht.</p>
     </div>
-        {% for meal in meals %}
-            <p><a href="{{ path('wines_for_meal', {wineId: meal.id}) }}">{{ meal.name }}</a></p>
-            <img src="https://mealmatcher.grandcruwijnen.nl/meals/{{ meal.id }}" alt="">
+    {% for wine in wines %}
+        <p>{{wine.id}}</p>
+           {# <p><a href="{{ path('wines_for_meal', {wineId: wine.wineId}) }}"> {{ wine.wineId }}</a>
+                </p> #}
+            {# <img src="https://mealmatcher.grandcruwijnen.nl/meal_matches/{{ wine.wineId }}" alt=""> #}
         {% endfor %}
-
 
 {% endblock %}
 
