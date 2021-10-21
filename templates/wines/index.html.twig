@@ -21,13 +21,11 @@
         <h1>Welkom bij de online sommelier</h1>
         <p>Hier kunt u uw gerecht kiezen en dan worden er bijpassende wijnen gezocht.</p>
     </div>
-    {% for wine in wines %}
-        <p>{{wine.id}}</p>
+    {% for match in matches %}
+        <p>{{match.wine.sku}}</p>
            {# <p><a href="{{ path('wines_for_meal', {wineId: wine.wineId}) }}"> {{ wine.wineId }}</a>
                 </p> #}
             {# <img src="https://mealmatcher.grandcruwijnen.nl/meal_matches/{{ wine.wineId }}" alt=""> #}
         {% endfor %}
 
 {% endblock %}
-
-
