@@ -2,17 +2,48 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
-class MealController extends AbstractController
-{
-    #[Route('/', name: 'meal')]
-    public function index(): Response
+use App\Service\MealMatcherService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+
+
+class MealController extends AbstractController {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    #[Route('/', name: 'meal_categories')]
+    public function getMealCategories(MealMatcherService $mealMatcherService): Response
     {
-        return $this->render('meal/index.html.twig', [
-            'controller_name' => 'MealController',
-        ]);
+        return $this->render('categories/index.html.twig', ['meals' => $mealMatcherService->getParentMealCategories()]);
+    }
+
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    #[Route('/{parentId}', name: 'meal_categories_for_parent')]
+    public function getCategoriesForParent(int $parentId, MealMatcherService $mealMatcherService): Response
+    {
+        return $this->render('categories/index.html.twig', ['meals' => $mealMatcherService->getCategoriesForParent($parentId)]);
+    }
+
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    #[Route('/meals/{categoryId}', name: 'meals_for_category')]
+    public function getMealsForCategory(int $categoryId, MealMatcherService $mealMatcherService): Response
+    {
+        return $this->render('meals/index.html.twig', ['meals' => $mealMatcherService->getMealsForCategory($categoryId)]);
+    }
+
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    #[Route('/matches/{mealId}', name: 'wines_for_meals')]
+    public function getWinesForMeals($mealId, MealMatcherService $mealMatcherService): Response
+    {
+
+        return $this->render('wines/index.html.twig', ['matches' => $mealMatcherService->getWinesForMeal($mealId)]);
     }
 }

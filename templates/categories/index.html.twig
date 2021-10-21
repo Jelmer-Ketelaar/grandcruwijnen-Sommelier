@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('style/style.css') }}">
+{% endblock %}
+
+{% block title %}Hello MealController!{% endblock %}
+
+{% block body %}
+
+    <div class="text">
+        <h1>U het gerecht en wij adviseren de wijn!</h1>
+        <p class="p"></p>
+    </div>
+    {% for meal in meals %}
+        <section class="grid">
+            {% if meal.parent is null %}
+                <a href="{{ path('meal_categories_for_parent', {parentId: meal.categoryId}) }}" class="meal-name">
+                    <div class="item">{{ meal.name }}</div>
+                    <img src="https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/93.svg"
+                         alt="" class="image">
+                </a>
+
+            {% else %}
+                <a href="{{ path('meals_for_category', {categoryId: meal.categoryId}) }}" class="meal-name">
+                    <div class="item">{{ meal.name }}</div>
+                </a>
+            {% endif %}
+        </section>
+    {% endfor %}
+{% endblock %}
