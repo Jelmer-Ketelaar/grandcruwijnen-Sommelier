@@ -14,6 +14,13 @@ class MealMatcherService {
     }
 
     /**
+     */
+    public function getIndexPage(): string
+    {
+        return 'landing page/index.html.twig';
+    }
+
+    /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getMealsCategories()
