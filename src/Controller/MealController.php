@@ -13,7 +13,16 @@ class MealController extends AbstractController {
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    #[Route('/', name: 'meal_categories')]
+    #[Route('/', name: 'landing_page')]
+    public function getIndex(MealMatcherService $mealMatcherService): Response
+    {
+        return $this->render('landing page/index.html.twig', ['choices' => $mealMatcherService->getIndexPage()]);
+    }
+
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    #[Route('/categories', name: 'meal_categories')]
     public function getMealCategories(MealMatcherService $mealMatcherService): Response
     {
         return $this->render('categories/index.html.twig', ['meals' => $mealMatcherService->getParentMealCategories()]);
