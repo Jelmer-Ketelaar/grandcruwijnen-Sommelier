@@ -1,9 +1,7 @@
-html {
-    height: 20%;
-}
 body {
     font-family: 'Montserrat', sans-serif;
     height: 100%;
+    width: 100%;
     background-color: #e9dcd1;
 }
 
@@ -44,4 +42,8 @@ body {
 }
 h1 {
     font-size: 4rem;
+}
+
+.container  {
+    margin-top: 5000000vh !important;
 }
