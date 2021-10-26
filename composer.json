@@ -18,6 +18,7 @@
         "doctrine/orm": "^2.10",
         "doctrine/sql-formatter": "^1.1",
         "guzzlehttp/guzzle": "^7.4",
+        "grandcruwijnen/sdk": "^1.0.26",
         "nelmio/cors-bundle": "^2.1",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^6.1",
@@ -103,5 +104,11 @@
             "allow-contrib": false,
             "require": "5.3.*"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://grandcruwijnen-nl.repo.repman.io"
+        }
+    ]
 }

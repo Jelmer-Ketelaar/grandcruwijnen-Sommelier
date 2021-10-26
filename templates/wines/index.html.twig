@@ -32,10 +32,10 @@
         <h1>Welkom bij de online sommelier</h1>
         <p>Hier kunt u uw gerecht kiezen en dan worden er bijpassende wijnen gezocht.</p>
     </div>
-<<<<<<< Updated upstream
+
     {% for wine in wines %}
         <p>{{wine.id}}</p>
-=======
+
 
     <div class="container" style='width:100%;'>
         <div class="row" style='display: flex; flex-wrap: wrap;justify-content:center;'>
@@ -70,21 +70,21 @@
                 </div>
             </div>
         </div>
->>>>>>> Stashed changes
+    {% for match in matches %}
+        <p>{{match.wine.sku}}</p>
+
            {# <p><a href="{{ path('wines_for_meal', {wineId: wine.wineId}) }}"> {{ wine.wineId }}</a>
                 </p> #}
             {# <img src="https://mealmatcher.grandcruwijnen.nl/meal_matches/{{ wine.wineId }}" alt=""> #}
         {% endfor %}
-
-<<<<<<< Updated upstream
 {% endblock %}
 
 
-=======
+{% block javascripts%}
 <script>
 function goBack(){
     window.history.back();
 }
 </script>
 {% endblock %}
->>>>>>> Stashed changes
+

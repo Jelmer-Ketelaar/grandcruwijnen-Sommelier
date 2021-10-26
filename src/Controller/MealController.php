@@ -13,7 +13,16 @@ class MealController extends AbstractController {
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    #[Route('/', name: 'meal_categories')]
+    #[Route('/', name: 'landing_page')]
+    public function getIndex(MealMatcherService $mealMatcherService): Response
+    {
+        return $this->render('landing page/index.html.twig', ['choices' => $mealMatcherService->getIndexPage()]);
+    }
+
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    #[Route('/categories', name: 'meal_categories')]
     public function getMealCategories(MealMatcherService $mealMatcherService): Response
     {
         return $this->render('categories/index.html.twig', ['meals' => $mealMatcherService->getParentMealCategories()]);
@@ -23,7 +32,7 @@ class MealController extends AbstractController {
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     #[Route('/{parentId}', name: 'meal_categories_for_parent')]
-    public function getCategoriesForParent(int $parentId, MealMatcherService $mealMatcherService)
+    public function getCategoriesForParent(int $parentId, MealMatcherService $mealMatcherService): Response
     {
         return $this->render('categories/index.html.twig', ['meals' => $mealMatcherService->getCategoriesForParent($parentId)]);
     }
@@ -32,14 +41,17 @@ class MealController extends AbstractController {
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     #[Route('/meals/{categoryId}', name: 'meals_for_category')]
-    public function getMealsForCategory(int $categoryId, MealMatcherService $mealMatcherService)
+    public function getMealsForCategory(int $categoryId, MealMatcherService $mealMatcherService): Response
     {
         return $this->render('meals/index.html.twig', ['meals' => $mealMatcherService->getMealsForCategory($categoryId)]);
     }
 
-    #[Route('/wines/{wineId}', name: 'wines_for_meal')]
-    public function getWinesForMeals($wineId, MealMatcherService $mealMatcherService)
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    #[Route('/matches/{mealId}', name: 'wines_for_meals')]
+    public function getWinesForMeals($mealId, MealMatcherService $mealMatcherService): Response
     {
-        return $this->render('wines/index.html.twig', ['wines' => $mealMatcherService->getWinesForMeal($wineId)]);
+        return $this->render('wines/index.html.twig', ['matches' => $mealMatcherService->getWinesForMeal($mealId)]);
     }
 }
