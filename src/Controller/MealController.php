@@ -43,7 +43,6 @@ class MealController extends AbstractController {
     #[Route('/matches/{mealId}', name: 'wines_for_meals')]
     public function getWinesForMeals($mealId, MealMatcherService $mealMatcherService): Response
     {
-
         return $this->render('wines/index.html.twig', ['matches' => $mealMatcherService->getWinesForMeal($mealId)]);
     }
 }
