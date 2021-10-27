@@ -7,41 +7,25 @@
 {% block title %}Hello MealController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper {
-        margin: 1em auto;
-        max-width: 800px;
-        width: 95%;
-        font: 18px/1.5 sans-serif;
-    }
 
-    .example-wrapper code {
-        background: #F5F5F5;
-        padding: 2px 6px;
-    }
-</style>
+    <div class="text">
+        <h1>U het gerecht en wij adviseren de wijn!</h1>
+        <p class="p"></p>
+    </div>
+    {% for meal in meals %}
+        <section class="grid">
+            {% if meal.parent is null %}
+                <a href="{{ path('meal_categories_for_parent', {parentId: meal.categoryId}) }}" class="meal-name">
+                    <div class="item">{{ meal.name }}</div>
+                    <img src="https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/93.svg"
+                         alt="" class="image">
+                </a>
 
-<div class="text">
-    <h1>U het gerecht en wij adviseren de wijn!</h1>
-    <p class="p"></p>
-</div>
-{% for meal in meals %}
-    <section class="grid">
-        {% if meal.parent is null %}
-        <a href="{{ path('meal_categories_for_parent', {parentId: meal.categoryId}) }}" class="meal-name">
-            <div class="item">{{ meal.name }}</div>
-            <img src="https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/93.svg"
-                 alt="" class="image">
-        </a>
-
-{#            <section class="grid2"> #}
-        {% else %}
-            <a href="{{ path('meals_for_category', {categoryId: meal.categoryId}) }}" class="meal-name">
-                <div class="item">{{ meal.name }}</div>
-            </a>
-        {% endif %}
-    </section>
+            {% else %}
+                <a href="{{ path('meals_for_category', {categoryId: meal.categoryId}) }}" class="meal-name">
+                    <div class="item">{{ meal.name }}</div>
+                </a>
+            {% endif %}
+        </section>
     {% endfor %}
 {% endblock %}
-
-
