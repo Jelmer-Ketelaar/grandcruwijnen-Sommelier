@@ -10,7 +10,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 
 class MealController extends AbstractController {
-    
+
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     #[Route('/', name: 'landing_page')]
     public function getIndex(MealMatcherService $mealMatcherService): Response
     {
