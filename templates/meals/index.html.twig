@@ -14,6 +14,8 @@
         <h1>Welkom bij de online sommelier</h1>
         <p>Hier kunt u uw gerecht kiezen en dan worden er bijpassende wijnen gezocht.</p>
     </div>
+      <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i class="fa fa-arrow-left" aria-hidden="true"></i>  Terug</button>
+      </div>
 
        {% for meal in meals %}
             <p>
@@ -24,6 +26,15 @@
             <img src="https://mealmatcher.grandcruwijnen.nl/meals/{{ meal.id }}" alt="{{ meal.name }}">
         {% endfor %}
     
+{% endblock %}
+
+{% block javascripts%}
+<script>
+function goBack(){
+    window.history.back();
+}
+</script>
+
 {% endblock %}
 
 
