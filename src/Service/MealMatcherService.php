@@ -13,9 +13,10 @@ class MealMatcherService {
         $this->client = new Client(['base_uri' => 'https://mealmatcher.grandcruwijnen.nl']);
     }
 
-    /**
+     /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getIndexPage(): string
+    public function getIndexPage()
     {
         return 'landing page/index.html.twig';
     }
@@ -83,13 +84,12 @@ class MealMatcherService {
         return json_decode($response->getBody()->getContents());
     }
 
-
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getWinesForMeal($mealId)
     {
-        $response = $this->client->request('GET', '/api/meal_matches?mealId=' . $mealId . '&limit=50');
+        $response = $this->client->request('GET', '/api/meal_matches?mealId='.$mealId.'&limit=50');
 
         return json_decode($response->getBody()->getContents());
     }
