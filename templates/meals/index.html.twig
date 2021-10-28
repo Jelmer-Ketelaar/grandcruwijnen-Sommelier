@@ -41,15 +41,6 @@
       <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i class="fa fa-arrow-left" aria-hidden="true"></i>  Terug</button>
       </div>
 
-       {% for meal in meals %}
-            <p>
-                <a href="{{ path('wines_for_meals', {mealId: meal.id}) }}">
-                    {{ meal.name }}
-                </a>
-                </p>
-            <img src="https://mealmatcher.grandcruwijnen.nl/meals/{{ meal.id }}" alt="{{ meal.name }}">
-        {% endfor %}
-
     
 {% endblock %}
 
