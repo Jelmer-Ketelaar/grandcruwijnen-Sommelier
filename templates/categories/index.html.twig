@@ -12,6 +12,9 @@
         <h1>U het gerecht en wij adviseren de wijn!</h1>
         <p class="p"></p>
     </div>
+     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i class="fa fa-arrow-left" aria-hidden="true"></i>  Terug</button>
+      </div>
+      <br>
     {% for meal in meals %}
         <section class="grid">
             {% if meal.parent is null %}
@@ -28,4 +31,13 @@
             {% endif %}
         </section>
     {% endfor %}
+{% endblock %}
+
+{% block javascripts%}
+<script>
+function goBack(){
+    window.history.back();
+}
+</script>
+
 {% endblock %}
