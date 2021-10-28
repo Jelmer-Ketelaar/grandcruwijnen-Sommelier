@@ -2,31 +2,47 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('style/style.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
 {% block title %}Hello MealController!{% endblock %}
 
 {% block body %}
+    <div class="content" style="background-color: #e9dcd1; height: 100vh">
+        <div class="container" >
+            <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg' alt='logo' style='padding:40px; margin-left: -20vw;'>
+            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i class="fa fa-arrow-left" aria-hidden="true"></i>  Terug</button>
+            <div class="text">
+                <h1 style='text-align:center;'>U het gerecht en wij adviseren de wijn!</h1>
+                <p class="p"></p>
+            </div>
+        </div>
+        <br>
+        {% for meal in meals %}
+            <section class="grid">
+                {% if meal.parent is null %}
+                    <a href="{{ path('meal_categories_for_parent', {parentId: meal.categoryId}) }}" class="meal-name">
+                        <div class="item">{{ meal.name }}</div>
+                        <img src="https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/93.svg"
+                             alt="" class="image">
+                    </a>
 
-    <div class="text" style="text-align: center">
-        <h1>U het gerecht en wij adviseren de wijn!</h1>
-        <p>Als Grandcruwijnen bieden wij u een Online Sommelier welke dag-en-nacht voor u gereed staat. Deze functie is makkelijk te gebruiken. <br>U kiest uit een zeer uitgebreide lijst aan gerechten en de Online sommelier adviseert u de geschikte wijnen en adviseert bij de wijnen <br> de best bijpassende gerechten. Als u in een creative stemming bent en uw eigen gerecht wilt samenstellen dan kan dit ook!</p>
-        <p class="p"></p>
+                {% else %}
+                    <a href="{{ path('meals_for_category', {categoryId: meal.categoryId}) }}" class="meal-name">
+                        <div class="item">{{ meal.name }}</div>
+                    </a>
+                {% endif %}
+            </section>
+        {% endfor %}
     </div>
-    {% for meal in meals %}
-        <section class="grid">
-            {% if meal.parent is null %}
-                <a href="{{ path('meal_categories_for_parent', {parentId: meal.categoryId}) }}" class="meal-name">
-                    <div class="item">{{ meal.name }}</div>
-                    <img src="https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/93.svg"
-                         alt="" class="image">
-                </a>
+{% endblock %}
 
-            {% else %}
-                <a href="{{ path('meals_for_category', {categoryId: meal.categoryId}) }}" class="meal-name">
-                    <div class="item">{{ meal.name }}</div>
-                </a>
-            {% endif %}
-        </section>
-    {% endfor %}
+{% block javascripts%}
+    <script>
+        function goBack(){
+            window.history.back();
+        }
+    </script>
+
 {% endblock %}
