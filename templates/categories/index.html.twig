@@ -2,35 +2,39 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('style/style.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 {% endblock %}
 
 {% block title %}Hello MealController!{% endblock %}
 
 {% block body %}
+<div class="content" style="background-color: #e9dcd1; height: 100vh">
+    <div class="container">
+        <div class="text">
+            <h1>U het gerecht en wij adviseren de wijn!</h1>
+            <p class="p"></p>
+        </div>
+            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i class="fa fa-arrow-left" aria-hidden="true"></i>Terug</button>
+        </div>
+        <br>
+        {% for meal in meals %}
+            <section class="grid">
+                {% if meal.parent is null %}
+                    <a href="{{ path('meal_categories_for_parent', {parentId: meal.categoryId}) }}" class="meal-name">
+                        <div class="item">{{ meal.name }}</div>
+                        <img src="https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/93.svg"
+                            alt="" class="image">
+                    </a>
 
-    <div class="text">
-        <h1>U het gerecht en wij adviseren de wijn!</h1>
-        <p class="p"></p>
+                {% else %}
+                    <a href="{{ path('meals_for_category', {categoryId: meal.categoryId}) }}" class="meal-name">
+                        <div class="item">{{ meal.name }}</div>
+                    </a>
+                {% endif %}
+            </section>
+        {% endfor %}
     </div>
-     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i class="fa fa-arrow-left" aria-hidden="true"></i>  Terug</button>
-      </div>
-      <br>
-    {% for meal in meals %}
-        <section class="grid">
-            {% if meal.parent is null %}
-                <a href="{{ path('meal_categories_for_parent', {parentId: meal.categoryId}) }}" class="meal-name">
-                    <div class="item">{{ meal.name }}</div>
-                    <img src="https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/93.svg"
-                         alt="" class="image">
-                </a>
-
-            {% else %}
-                <a href="{{ path('meals_for_category', {categoryId: meal.categoryId}) }}" class="meal-name">
-                    <div class="item">{{ meal.name }}</div>
-                </a>
-            {% endif %}
-        </section>
-    {% endfor %}
+</div>
 {% endblock %}
 
 {% block javascripts%}
