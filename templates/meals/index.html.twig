@@ -2,29 +2,43 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('style/style.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
 
 {% block title %}Hello MealController!{% endblock %}
 
 
-{% block body %}
+{% block body %}    
+    <style>
+        body{
+            background-color:#e9dcd1;
+        }
+    </style>
     {# https://mealmatcher.grandcruwijnen.nl/meals/%7B12de8bb3-8ce2-43a9-8b09-d56161365ebc%7D #}
-    <div class="text">
+     <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg' alt='logo' style='padding:40px;'>
+     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i class="fa fa-arrow-left" aria-hidden="true"></i>  Terug</button>
+    <div class="example-wrapper" style='text-align:center;padding-bottom:50px;'>
         <h1>Welkom bij de online sommelier</h1>
         <p>Hier kunt u uw gerecht kiezen en dan worden er bijpassende wijnen gezocht.</p>
     </div>
-      <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i class="fa fa-arrow-left" aria-hidden="true"></i>  Terug</button>
-      </div>
 
-       {% for meal in meals %}
-            <p>
-                <a href="{{ path('wines_for_meals', {mealId: meal.id}) }}">
-                    {{ meal.name }}
-                </a>
-                </p>
-            <img src="https://mealmatcher.grandcruwijnen.nl/meals/{{ meal.id }}" alt="{{ meal.name }}">
-        {% endfor %}
+        <div class="container" style='width:100%;'>
+            <div class="row" style='display: flex; flex-wrap: wrap;justify-content:center;'>
+                {% for meal in meals %}
+                    <div class="col-sm-3" style="text-align: center; padding: 10px 10px 10px 10px; margin:5px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                            <img src="https://mealmatcher.grandcruwijnen.nl/meals/{{ meal.id }}" alt="{{ meal.name }}" style='width:300px;'>
+                            <p style='margin-top:20px;'>{{ meal.name }}</p>
+                            <a href="{{ path('wines_for_meals', {mealId: meal.id}) }}">
+                                <button type="button" class="btn btn-danger btn-sm">Selecteer <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                            </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
     
 {% endblock %}
 
