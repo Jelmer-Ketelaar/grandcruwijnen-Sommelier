@@ -3,15 +3,21 @@
 namespace App\Controller;
 
 
+use App\Repository\ProductsRepository;
 use App\Service\MealMatcherService;
+use Grandcruwijnen\SDK\API;
+use Grandcruwijnen\SDK\Products;
+use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 
-class MealController extends AbstractController {
+class MealController extends AbstractController
+{
+
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     #[Route('/', name: 'landing_page')]
     public function getIndex(MealMatcherService $mealMatcherService): Response
@@ -20,7 +26,7 @@ class MealController extends AbstractController {
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     #[Route('/categories', name: 'meal_categories')]
     public function getMealCategories(MealMatcherService $mealMatcherService): Response
@@ -29,7 +35,7 @@ class MealController extends AbstractController {
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     #[Route('/{parentId}', name: 'meal_categories_for_parent')]
     public function getCategoriesForParent(int $parentId, MealMatcherService $mealMatcherService): Response
@@ -38,7 +44,7 @@ class MealController extends AbstractController {
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     #[Route('/meals/{categoryId}', name: 'meals_for_category')]
     public function getMealsForCategory(int $categoryId, MealMatcherService $mealMatcherService): Response
@@ -47,12 +53,16 @@ class MealController extends AbstractController {
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
+     * @Route("/", name="product_index", methods={"GET"})
      */
     #[Route('/matches/{mealId}', name: 'wines_for_meals')]
-    public function getWinesForMeals($mealId, MealMatcherService $mealMatcherService): Response
+    public function getWinesForMeals($mealId, MealMatcherService $mealMatcherService)
     {
-
-        return $this->render('wines/index.html.twig', ['matches' => $mealMatcherService->getWinesForMeal($mealId)]);
+        $products = new Products(new API("jelmer@grandcruwijnen.nl", "7Wn2okY7!A@mX-DZMmw7tanFaQ*sTGef87o!Gn4_mE6ctiqmLk2hH6LX_deN_K8P7U6LRs7H2BT.cGWvh", "https://beta.grandcruwijnen.dev"));
+        $products = $products->getProducts();
+        return $this->render('wines/index.html.twig', [
+            'products' => $products, 'matches' => $mealMatcherService->getWinesForMeal($mealId)
+        ]);
     }
 }
