@@ -12,12 +12,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
-class MealController extends AbstractController
-{
+  
+class MealController extends AbstractController {
 
     /**
-     * @throws GuzzleException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     #[Route('/', name: 'landing_page')]
     public function getIndex(MealMatcherService $mealMatcherService): Response
@@ -64,5 +63,6 @@ class MealController extends AbstractController
         return $this->render('wines/index.html.twig', [
             'products' => $products, 'matches' => $mealMatcherService->getWinesForMeal($mealId)
         ]);
+
     }
 }
