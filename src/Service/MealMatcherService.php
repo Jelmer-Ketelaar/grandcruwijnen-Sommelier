@@ -86,7 +86,7 @@ class MealMatcherService {
 
         return json_decode($response->getBody()->getContents());
     }
-  
+    /**
      * @throws GuzzleException
      */
     public function getWinesForMeal($mealId)
