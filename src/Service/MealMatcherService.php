@@ -3,7 +3,10 @@
 namespace App\Service;
 
 
+use Grandcruwijnen\SDK\Products;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use App\Controller\MealController;
 
 class MealMatcherService {
     private Client $client;
@@ -13,13 +16,16 @@ class MealMatcherService {
         $this->client = new Client(['base_uri' => 'https://mealmatcher.grandcruwijnen.nl']);
     }
 
-    public function getIndexPage(): string
+     /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getIndexPage()
     {
         return 'landing page/index.html.twig';
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getMealsCategories()
     {
@@ -34,7 +40,7 @@ class MealMatcherService {
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getParentMealCategories(): array
     {
@@ -53,7 +59,7 @@ class MealMatcherService {
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getCategoriesForParent(int $parentId): array
     {
@@ -72,7 +78,7 @@ class MealMatcherService {
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getMealsForCategory(int $categoryId)
     {
@@ -80,14 +86,12 @@ class MealMatcherService {
 
         return json_decode($response->getBody()->getContents());
     }
-
-    /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+  
+     * @throws GuzzleException
      */
     public function getWinesForMeal($mealId)
     {
-        $response = $this->client->request('GET', '/api/meal_matches?mealId=' . $mealId . '&limit=50');
-
+        $response = $this->client->request('GET', '/api/meal_matches?mealId=' . $mealId . '&limit=30', );
         return json_decode($response->getBody()->getContents());
     }
 }

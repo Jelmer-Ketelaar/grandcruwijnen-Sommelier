@@ -24,25 +24,29 @@
             padding: 2px 6px;
         }
     </style>
-
-
-    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()' style='display:block; float:right; margin-top: 58px; margin-right:170px ;'><i class="fa fa-shopping-cart" aria-hidden="true"></i>  Winkelmandje</button>
+    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" style='display:block; float:right; margin-top: 58px; margin-right:170px ;'><i class="fa fa-shopping-cart" aria-hidden="true"></i>Winkelmandje</button>
     <div class="container">
         <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg' alt='logo' style='padding:40px;'>
-        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i class="fa fa-arrow-left" aria-hidden="true"></i>  Terug</button>     </div>
+        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i class="fa fa-arrow-left" aria-hidden="true"></i>  Terug</button>
+    </div>
+
 
     <div class="example-wrapper" style='text-align:center;padding-bottom:50px;'>
         <h1>Welkom bij de online sommelier</h1>
         <p>Hier kunt u kiezen uit de best bijpassende wijnen gezocht bij het geselecteerde gerecht.</p>
     </div>
 
+
     <div class="container" style='width:100%;'>
         <div class="row" style='display: flex; flex-wrap: wrap;justify-content:center;'>
-            {% for match in matches %}
+{#            {% for match in matches %}#}
+            {% for product in products  %}
+
             <div class="col-sm-3" style="text-align: center; padding: 10px 10px 10px 10px; margin:5px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-                <img src='https://www.saq.com/media/catalog/product/1/4/14301402-1_1580352919.png' style='width:200px;' alt="{{ match.wine.sku }}">
-                    <p>{{match.wine.sku}}</p>
-                
+                <img src='https://www.saq.com/media/catalog/product/1/4/14301402-1_1580352919.png' style='width:200px;' alt="">
+                    {# <p>{{ dump(product) }}</p> #}
+                    <p>{{ products.name }}</p>
+
                 <!-- Trigger the modal with a button -->
                 <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-info-circle" aria-hidden="true"></i> Meer informatie</button>
                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-shopping-cart" aria-hidden="true"></i>  Winkelmandje</button>
@@ -55,7 +59,9 @@
                         <div class="modal-content">
                             <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">{{ match.wine.sku }}</h4>
+
+{#                            <h4 class="modal-title">{{ match.wine.sku }}</h4>#}
+
                         </div>
                         <div class="modal-body">
                             <p>Some text in the modal.</p>
