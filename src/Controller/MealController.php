@@ -6,13 +6,14 @@ namespace App\Controller;
 use App\Service\MealMatcherService;
 use Grandcruwijnen\SDK\API;
 use Grandcruwijnen\SDK\Products;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
 use GuzzleHttp\Exception\GuzzleException;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 
-class MealController extends AbstractController {
+class MealController extends AbstractController
+{
 
     #[Route('/', name: 'landing_page')]
     public function getIndex(MealMatcherService $mealMatcherService): Response
@@ -51,15 +52,13 @@ class MealController extends AbstractController {
      * @throws GuzzleException
      */
     #[Route('/matches/{mealId}', name: 'wines_for_meals')]
-    public function getWinesForMeals($mealId, MealMatcherService $mealMatcherService): Response
+    public function getWinesForMeals($mealId, MealMatcherService $mealMatcherService)
     {
+
         $api = new API("jelmer@grandcruwijnen.nl", "7Wn2okY7!A@mX-DZMmw7tanFaQ*sTGef87o!Gn4_mE6ctiqmLk2hH6LX_deN_K8P7U6LRs7H2BT.cGWvh", "https://beta.grandcruwijnen.dev");
         $products = new Products($api);
         $sku = '01001';
         $products = $products->getProduct($sku);
-//        return $this->products->getProductById($mealId);
-
-//        dump($products);
 
         return $this->render('wines/index.html.twig', [
             'products' => $products, 'matches' => $mealMatcherService->getWinesForMeal($mealId)

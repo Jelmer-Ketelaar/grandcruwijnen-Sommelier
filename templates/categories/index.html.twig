@@ -3,12 +3,13 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('style/style.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">s
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
 {% block title %}Hello MealController!{% endblock %}
 
 {% block body %}
+
 <div class="content" style="background-color: #e9dcd1; height: 100vh">
     <div class="container">
 
@@ -26,7 +27,7 @@
                     <a href="{{ path('meal_categories_for_parent', {parentId: meal.categoryId}) }}" class="meal-name">
                         <div class="item">{{ meal.name }}</div>
                         <img src="https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/93.svg"
-                            alt="" class="image">
+                             alt="" class="image">
                     </a>
 
                 {% else %}
@@ -37,14 +38,13 @@
             </section>
         {% endfor %}
     </div>
-</div>
 {% endblock %}
 
 {% block javascripts%}
-<script>
-function goBack(){
-    window.history.back();
-}
-</script>
+    <script>
+        function goBack(){
+            window.history.back();
+        }
+    </script>
 
 {% endblock %}
