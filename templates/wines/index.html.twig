@@ -38,10 +38,12 @@
 
     <div class="container" style='width:100%;'>
         <div class="row" style='display: flex; flex-wrap: wrap;justify-content:center;'>
-            {% for match in matches %}
+{#            {% for product in products %}#}
+    {% for product in products %}
+
             <div class="col-sm-3" style="text-align: center; padding: 10px 10px 10px 10px; margin:5px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-                <img src='https://www.saq.com/media/catalog/product/1/4/14301402-1_1580352919.png' style='width:200px;' alt="{{ match.wine.sku }}">
-                    <p>{{match.wine.sku}}</p>
+                <img src='https://www.saq.com/media/catalog/product/1/4/14301402-1_1580352919.png' style='width:200px;' alt="">
+                    <p>{{products.name}}</p>
                 
                 <!-- Trigger the modal with a button -->
                 <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-info-circle" aria-hidden="true"></i> Meer informatie</button>
@@ -55,10 +57,10 @@
                         <div class="modal-content">
                             <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">{{ match.wine.sku }}</h4>
+                            <h4 class="modal-title">{{products.name}}</h4>
                         </div>
                         <div class="modal-body">
-                            <p>Some text in the modal.</p>
+{#                            <p>{{ product }}</p>#}
                         </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
@@ -67,7 +69,7 @@
                 </div>
             </div>
         </div>
-        {% endfor %}
+{% endfor %}
 {% endblock %}
 
 
