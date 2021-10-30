@@ -15,10 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class MealController extends AbstractController
 {
 
+    /**
+     * @throws GuzzleException
+     */
     #[Route('/', name: 'landing_page')]
     public function getIndex(MealMatcherService $mealMatcherService): Response
     {
-        return $this->render('landing page/index.html.twig', ['choices' => $mealMatcherService->getIndexPage()]);
+        return $this->render('landing/index.html.twig', ['choices' => $mealMatcherService->getIndexPage()]);
     }
 
     /**
@@ -33,7 +36,7 @@ class MealController extends AbstractController
     /**
      * @throws GuzzleException
      */
-    #[Route('/{parentId}', name: 'meal_categories_for_parent')]
+    #[Route('/category/{parentId}', name: 'meal_categories_for_parent')]
     public function getCategoriesForParent(int $parentId, MealMatcherService $mealMatcherService): Response
     {
         return $this->render('categories/index.html.twig', ['meals' => $mealMatcherService->getCategoriesForParent($parentId)]);
@@ -52,7 +55,7 @@ class MealController extends AbstractController
      * @throws GuzzleException
      */
     #[Route('/matches/{mealId}', name: 'wines_for_meals')]
-    public function getWinesForMeals($mealId, MealMatcherService $mealMatcherService)
+    public function getWinesForMeals($mealId, MealMatcherService $mealMatcherService): Response
     {
 
         $api = new API("jelmer@grandcruwijnen.nl", "7Wn2okY7!A@mX-DZMmw7tanFaQ*sTGef87o!Gn4_mE6ctiqmLk2hH6LX_deN_K8P7U6LRs7H2BT.cGWvh", "https://beta.grandcruwijnen.dev");
