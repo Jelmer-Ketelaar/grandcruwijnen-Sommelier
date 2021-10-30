@@ -29,7 +29,7 @@
         <div class="row" style='display: flex; flex-wrap: wrap;justify-content:center;'>
             {% for meal in meals %}
                 <div class="col-sm-3" style="text-align: center; padding: 10px 10px 10px 10px; margin:5px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-                    <img src="https://mealmatcher.grandcruwijnen.nl/meals/{{ meal.id }}" alt="{{ meal.name }}" style='width:300px;'>
+                    <img src="https://mealmatcher.grandcruwijnen.nl/meals/{{ meal.id }}" alt="{{ meal.name }}" style='width:300px; min-height: 15vw'>
                     <p style='margin-top:20px;'>{{ meal.name }}</p>
                     <a href="{{ path('wines_for_meals', {mealId: meal.id}) }}">
                         <button type="button" class="btn btn-danger btn-sm">Selecteer <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
