@@ -1,60 +1,77 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
 
-{% block title %}Hello MealController!{% endblock %}
+{% block title %}
+Hello MealController!
+{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper {
-            margin: 1em auto;
-            max-width: 800px;
-            width: 95%;
-            font: 18px/1.5 sans-serif;
-        }
+<style>
+    body {
+        background-color: #e9dcd1;
+    }
 
-        .example-wrapper code {
-            background: #F5F5F5;
-            padding: 2px 6px;
-        }
-    </style>
+    .example-wrapper {
+        margin: 1em auto;
+        max-width: 800px;
+        width: 95%;
+        font: 18px/1.5 sans-serif;
+    }
 
-    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" style='display:block; float:right; margin-top: 58px; margin-right:170px ;'><i class="fa fa-shopping-cart" aria-hidden="true"></i>Winkelmandje</button>
-    <div class="container">
-        <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg' alt='logo' style='padding:40px;'>
-        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i class="fa fa-arrow-left" aria-hidden="true"></i>  Terug</button>
-    </div>
+    .example-wrapper code {
+        background: #F5F5F5;
+        padding: 2px 6px;
+    }
+</style>
+<button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+    style='display:block; float:right; margin-top: 58px; margin-right:170px ;'><i class="fa fa-shopping-cart"
+        aria-hidden="true"></i>Winkelmandje</button>
+<div class="container">
+    <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg'
+        alt='logo' style='padding:40px;'>
+    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i
+            class="fa fa-arrow-left" aria-hidden="true"></i> Terug</button>
+</div>
 
-    <div class="example-wrapper" style='text-align:center;padding-bottom:50px;'>
-        <h1>Welkom bij de online sommelier</h1>
-        <p>Hier kunt u uw gerecht kiezen en dan worden er bijpassende wijnen gezocht.</p>
-    </div>
-    <div class="container" style='width:100%;'>
-        <div class="row" style='display: flex; flex-wrap: wrap;justify-content:center;'>
-{#            {% for match in matches %}#}
-            {% for product in products  %}
 
-            <div class="col-sm-3" style="text-align: center; padding: 10px 10px 10px 10px; margin:5px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-                <img src='https://www.saq.com/media/catalog/product/1/4/14301402-1_1580352919.png' style='width:200px;' alt="">
-                    {# <p>{{ dump(product) }}</p> #}
-                    <p>{{ products.name }}</p>
+<div class="example-wrapper" style='text-align:center;padding-bottom:50px;'>
+    <h1>Welkom bij de online sommelier</h1>
+    <p>Hier kunt u kiezen uit de best bijpassende wijnen gezocht bij het geselecteerde gerecht.</p>
+</div>
 
-                <!-- Trigger the modal with a button -->
-                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-info-circle" aria-hidden="true"></i> Meer informatie</button>
-                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-shopping-cart" aria-hidden="true"></i>  Winkelmandje</button>
-                
-                <!-- Modal -->
-                <div class="modal fade" id="myModal" role="dialog">
-                    <div class="modal-dialog">
-                    
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
+
+<div class="container" style='width:100%;'>
+    <div class="row" style='display: flex; flex-wrap: wrap;justify-content:center;'>
+        {% for product in products %}
+        <div class="col-sm-3"
+            style="text-align: center; padding: 10px 10px 10px 10px; margin:5px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+            <img src='https://www.saq.com/media/catalog/product/1/4/14301402-1_1580352919.png' style='width:200px;'
+                alt="">
+            <p>{{products.name}}</p>
+            <!-- Trigger the modal with a button -->
+            <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#myModal"><i
+                    class="fa fa-info-circle" aria-hidden="true"></i> Meer informatie</button>
+            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target=""><i
+                    class=" fa fa-shopping-cart" aria-hidden="true"></i> Winkelmandje</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-{#                            <h4 class="modal-title">{{ match.wine.sku }}</h4>#}
+                            <h4 class="modal-title">{{products.name}}</h4>
+                            <h4 class="modal-title">{{ match.wine.sku }}</h4>
                         </div>
                         <div class="modal-body">
-                            <p>Some text in the modal.</p>
+                            {# <p>{{ product }}</p>#}
                         </div>
-                            <div class="modal-footer">
+                        <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
                         </div>
                     </div>
@@ -62,18 +79,17 @@
             </div>
         </div>
         {% endfor %}
-{#        {% endfor %}#}
-{% endblock %}
+        {% endblock %}
 
 
-{% block javascripts%}
-<script>
-function goBack(){
-    window.history.back();
-}
-</script>
+        {% block javascripts%}
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-{% endblock %}
+        {% endblock %}

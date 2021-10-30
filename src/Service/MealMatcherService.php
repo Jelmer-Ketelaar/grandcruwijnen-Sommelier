@@ -86,7 +86,6 @@ class MealMatcherService {
 
         return json_decode($response->getBody()->getContents());
     }
-
     /**
      * @throws GuzzleException
      */

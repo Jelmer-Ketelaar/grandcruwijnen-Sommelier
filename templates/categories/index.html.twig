@@ -9,23 +9,28 @@
 {% block title %}Hello MealController!{% endblock %}
 
 {% block body %}
-    <div class="content" style="background-color: #e9dcd1; height: 100vh">
-        <div class="container" >
-            <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg' alt='logo' style='padding:40px; margin-left: -20vw;'>
-            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i class="fa fa-arrow-left" aria-hidden="true"></i>  Terug</button>
-            <div class="text">
-                <h1 style='text-align:center;'>U het gerecht en wij adviseren de wijn!</h1>
-                <p class="p"></p>
-            </div>
+
+<div class="content" style="background-color: #e9dcd1; height: 100vh">
+    <div class="container">
+
+        <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg' alt='logo' style='padding:40px;'>
+            <button style="" type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i class="fa fa-arrow-left" aria-hidden="true"></i>  Terug</button>
+                    <div class="text">
+            <h1 style='text-align:center;'>U het gerecht en wij adviseren de wijn!</h1>
+            <p class="p"></p>
+        </div>
         </div>
         <br>
+        {% set imageCategory = ['https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/93.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/52.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/78.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/2.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/139.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/24.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/109.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/102.svg'] %}
+        {% set imageCounterArr = -1 %}
         {% for meal in meals %}
+        {% set imageCounterArr = imageCounterArr + 1 %}  
             <section class="grid">
                 {% if meal.parent is null %}
                     <a href="{{ path('meal_categories_for_parent', {parentId: meal.categoryId}) }}" class="meal-name">
                         <div class="item">{{ meal.name }}</div>
-                        <img src="https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/93.svg"
-                             alt="" class="image">
+                        <img src="{{ imageCategory[imageCounterArr] }}"
+                            alt="" class="image">
                     </a>
 
                 {% else %}
@@ -34,6 +39,7 @@
                     </a>
                 {% endif %}
             </section>
+
         {% endfor %}
     </div>
 {% endblock %}
