@@ -6,11 +6,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
-{% block title %}Hello MealController!{% endblock %}
+{% block title %}Online sommelier | Categories!{% endblock %}
 
 {% block body %}
 
-    <div class="content" style="background-color: #e9dcd1; height: 100vh">
+    <div class="content" style="background-color: #e9dcd1; height: 100%">
         <div class="container">
 
             <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg'
@@ -30,7 +30,8 @@
             {% set imageCounterArr = imageCounterArr + 1 %}
             <section class="grid">
                 {% if meal.parent is null %}
-                    <a href="{{ path('meal_categories_for_parent', {parentId: meal.categoryId}) }}" class="meal-name">
+                    <a href="{{ path('meal_categories_for_parent', {parentId: meal.categoryId}) }}"
+                       class="meal-name">
                         <div class="item">{{ meal.name }}</div>
                         <img src="{{ imageCategory[imageCounterArr] }}"
                              alt="" class="image">
@@ -42,16 +43,10 @@
                     </a>
                 {% endif %}
             </section>
-
         {% endfor %}
     </div>
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
-
+    <script src="{{ asset('javascript/script.js') }}"></script>
 {% endblock %}

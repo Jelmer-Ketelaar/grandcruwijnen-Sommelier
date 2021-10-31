@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
+
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  */
-class Product
-{
+class Product {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -23,14 +23,33 @@ class Product
     private $sku;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=ExactGroup::class, inversedBy="products")
      */
-    private $name;
+    private $exactGroup;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="datetime")
      */
-    private $image;
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $valid;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $checkedSinceUpdate;
+
+    /**
+     * Product constructor.
+     */
+    public function __construct()
+    {
+        $this->valid = false;
+        $this->checkedSinceUpdate = false;
+    }
 
     public function getId(): ?int
     {
@@ -49,26 +68,38 @@ class Product
         return $this;
     }
 
-    public function getName(): ?string
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->name;
+        return $this->updatedAt;
     }
 
-    public function setName(string $name): self
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
-        $this->name = $name;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getValid(): ?bool
     {
-        return $this->image;
+        return $this->valid;
     }
 
-    public function setImage(string $image): self
+    public function setValid(bool $valid): self
     {
-        $this->image = $image;
+        $this->valid = $valid;
+
+        return $this;
+    }
+
+    public function getCheckedSinceUpdate(): ?bool
+    {
+        return $this->checkedSinceUpdate;
+    }
+
+    public function setCheckedSinceUpdate(bool $checkedSinceUpdate): self
+    {
+        $this->checkedSinceUpdate = $checkedSinceUpdate;
 
         return $this;
     }

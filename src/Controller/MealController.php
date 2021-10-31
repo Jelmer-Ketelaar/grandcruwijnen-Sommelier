@@ -12,8 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class MealController extends AbstractController
-{
+class MealController extends AbstractController {
 
     /**
      * @throws GuzzleException
@@ -57,10 +56,10 @@ class MealController extends AbstractController
     #[Route('/matches/{mealId}', name: 'wines_for_meals')]
     public function getWinesForMeals($mealId, MealMatcherService $mealMatcherService): Response
     {
-
         $api = new API("jelmer@grandcruwijnen.nl", "7Wn2okY7!A@mX-DZMmw7tanFaQ*sTGef87o!Gn4_mE6ctiqmLk2hH6LX_deN_K8P7U6LRs7H2BT.cGWvh", "https://beta.grandcruwijnen.dev");
         $products = new Products($api);
-        $sku = '01001';
+        $product2 = new Products($api);
+        $sku = '01001-1';
         $products = $products->getProduct($sku);
 
         return $this->render('wines/index.html.twig', [
