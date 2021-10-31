@@ -52,7 +52,7 @@ class MealController extends AbstractController
      * @throws GuzzleException
      */
     #[Route('/matches/{mealId}', name: 'wines_for_meals')]
-    public function getWinesForMeals($mealId, MealMatcherService $mealMatcherService)
+    public function getWinesForMeals($mealId, MealMatcherService $mealMatcherService): Response
     {
 
         $api = new API("jelmer@grandcruwijnen.nl", "7Wn2okY7!A@mX-DZMmw7tanFaQ*sTGef87o!Gn4_mE6ctiqmLk2hH6LX_deN_K8P7U6LRs7H2BT.cGWvh", "https://beta.grandcruwijnen.dev");
