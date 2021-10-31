@@ -15,32 +15,27 @@ class Product {
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $sku;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=ExactGroup::class, inversedBy="products")
-     */
-    private $exactGroup;
+    private ?string $sku;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $updatedAt;
+    private ?\DateTimeInterface $updatedAt;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $valid;
+    private bool $valid;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $checkedSinceUpdate;
+    private bool $checkedSinceUpdate;
 
     /**
      * Product constructor.

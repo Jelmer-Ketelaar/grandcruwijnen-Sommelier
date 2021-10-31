@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 
+use App\Entity\Product;
+use App\Repository\ProductRepository;
 use App\Service\MealMatcherService;
 use Grandcruwijnen\SDK\API;
 use Grandcruwijnen\SDK\Products;
@@ -12,7 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class MealController extends AbstractController {
+class MealController extends AbstractController
+{
 
     /**
      * @throws GuzzleException
@@ -50,20 +53,23 @@ class MealController extends AbstractController {
         return $this->render('meals/index.html.twig', ['meals' => $mealMatcherService->getMealsForCategory($categoryId)]);
     }
 
+    #[Route('/find/{mealId}', name: 'wines_for_meals')]
+    public function findAllProducts(ProductRepository $productRepository): Response
+    {
+        return $this->render('meals/index.html.twig', [
+            'products' => $productRepository->findAll(),
+        ]);
+    }
+
     /**
      * @throws GuzzleException
      */
-    #[Route('/matches/{mealId}', name: 'wines_for_meals')]
-    public function getWinesForMeals($mealId, MealMatcherService $mealMatcherService): Response
+    #[Route('matches/{mealId}', name: 'wines_for_meals')]
+    public function getWinesForMeals(Products $product, $mealId, MealMatcherService $mealMatcherService): Response
     {
         $api = new API("jelmer@grandcruwijnen.nl", "7Wn2okY7!A@mX-DZMmw7tanFaQ*sTGef87o!Gn4_mE6ctiqmLk2hH6LX_deN_K8P7U6LRs7H2BT.cGWvh", "https://beta.grandcruwijnen.dev");
         $products = new Products($api);
-        $product2 = new Products($api);
-        $sku = '01001-1';
-        $products = $products->getProduct($sku);
-
         return $this->render('wines/index.html.twig', [
-            'products' => $products, 'matches' => $mealMatcherService->getWinesForMeal($mealId)
-        ]);
+            'products' => $product, $products, 'matches' => $mealMatcherService->getWinesForMeal($mealId)]);
     }
 }
