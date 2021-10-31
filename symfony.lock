@@ -105,6 +105,9 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "grandcruwijnen/sdk": {
+        "version": "0.1.26"
+    },
     "guzzlehttp/guzzle": {
         "version": "7.4.0"
     },
@@ -211,6 +214,9 @@
     },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
+    },
+    "roave/security-advisories": {
+        "version": "9999999-dev"
     },
     "sebastian/cli-parser": {
         "version": "1.0.1"

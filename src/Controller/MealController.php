@@ -15,10 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class MealController extends AbstractController
 {
 
+    /**
+     * @throws GuzzleException
+     */
     #[Route('/', name: 'landing_page')]
     public function getIndex(MealMatcherService $mealMatcherService): Response
     {
-        return $this->render('landing page/index.html.twig', ['choices' => $mealMatcherService->getIndexPage()]);
+        return $this->render('landing/index.html.twig', ['choices' => $mealMatcherService->getIndexPage()]);
     }
 
     /**
@@ -33,7 +36,7 @@ class MealController extends AbstractController
     /**
      * @throws GuzzleException
      */
-    #[Route('/{parentId}', name: 'meal_categories_for_parent')]
+    #[Route('/category/{parentId}', name: 'meal_categories_for_parent')]
     public function getCategoriesForParent(int $parentId, MealMatcherService $mealMatcherService): Response
     {
         return $this->render('categories/index.html.twig', ['meals' => $mealMatcherService->getCategoriesForParent($parentId)]);
