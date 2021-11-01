@@ -31,11 +31,11 @@ services:
     # please note that last definitions always *replace* previous ones
     Grandcruwijnen\:
         autowire: true
-        resource: '../vendor/grandcruwijnen/sdk/src/Grandcruwijnen/*'
+        resource: '.../vendor/grandcruwijnen/sdk/src/Grandcruwijnen/*'
 
     Grandcruwijnen\SDK\API:
         arguments:
             $username: '%env(MAGENTO2_USERNAME)%'
             $password: '%env(MAGENTO2_PASSWORD)%'
-            $baseUri: 'https://www.grandcruwijnen.nl/'
+            $baseUri: 'https://beta.grandcruwijnen.dev/'
             $userAgent: 'Grandcruwijnen.nl Funnel'

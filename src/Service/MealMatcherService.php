@@ -6,8 +6,7 @@ namespace App\Service;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
-class MealMatcherService
-{
+class MealMatcherService {
     private Client $client;
 
     public function __construct()
@@ -15,9 +14,6 @@ class MealMatcherService
         $this->client = new Client(['base_uri' => 'https://mealmatcher.grandcruwijnen.nl']);
     }
 
-    /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
     public function getIndexPage()
     {
         return 'landing/index.html.twig';
@@ -31,8 +27,10 @@ class MealMatcherService
         $categories = $this->getMealsCategories();
         $parentCategories = [];
 
-        foreach ($categories as $category) {
-            if ($category->parent === null) {
+        foreach ($categories as $category)
+        {
+            if ($category->parent === null)
+            {
                 $parentCategories[] = $category;
             }
         }
@@ -63,8 +61,10 @@ class MealMatcherService
         $categories = $this->getMealsCategories();
         $childCategories = [];
 
-        foreach ($categories as $category) {
-            if ($category->parent !== null && $category->parent->categoryId === $parentId) {
+        foreach ($categories as $category)
+        {
+            if ($category->parent !== null && $category->parent->categoryId === $parentId)
+            {
                 $childCategories[] = $category;
             }
         }
@@ -81,12 +81,14 @@ class MealMatcherService
 
         return json_decode($response->getBody()->getContents());
     }
+
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getSKU($sku)
     {
         $response = $this->client->request('GET', '/api/meal_matches?sku=' . $sku . '&limit=30');
+
         return json_decode($response->getBody()->getContents());
     }
 
@@ -96,6 +98,7 @@ class MealMatcherService
     public function getWinesForMeal($mealId)
     {
         $response = $this->client->request('GET', '/api/meal_matches?mealId=' . $mealId . '&limit=30');
+
         return json_decode($response->getBody()->getContents());
     }
 }
