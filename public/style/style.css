@@ -1,6 +1,5 @@
 body {
     font-family: 'Montserrat', sans-serif;
-    height: 100%;
     width: 100%;
     background-color: #e9dcd1;
 }
@@ -62,5 +61,9 @@ h1 {
 }
 
 .logo {
-    margin: 30px 30px 30px -15vw;
+    margin: 30px 30px 30px -12vw;
+}
+
+.content {
+    height: 100vh !important;
 }
