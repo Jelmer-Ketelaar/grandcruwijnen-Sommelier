@@ -14,7 +14,7 @@ class MealMatcherService {
         $this->client = new Client(['base_uri' => 'https://mealmatcher.grandcruwijnen.nl']);
     }
 
-    public function getIndexPage()
+    public function getIndexPage(): string
     {
         return 'landing/index.html.twig';
     }
@@ -97,7 +97,7 @@ class MealMatcherService {
      */
     public function getWinesForMeal($mealId)
     {
-        $response = $this->client->request('GET', '/api/meal_matches?mealId=' . $mealId . '&limit=30');
+        $response = $this->client->request('GET', '/api/meal_matches?meal=' . $mealId . '&limit=30');
 
         return json_decode($response->getBody()->getContents());
     }

@@ -14,8 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class MealController extends AbstractController
-{
+class MealController extends AbstractController {
 
     /**
      * @throws GuzzleException
@@ -53,23 +52,29 @@ class MealController extends AbstractController
         return $this->render('meals/index.html.twig', ['meals' => $mealMatcherService->getMealsForCategory($categoryId)]);
     }
 
-    #[Route('/find/{mealId}', name: 'wines_for_meals')]
-    public function findAllProducts(ProductRepository $productRepository): Response
-    {
-        return $this->render('meals/index.html.twig', [
-            'products' => $productRepository->findAll(),
-        ]);
-    }
-
     /**
      * @throws GuzzleException
      */
     #[Route('matches/{mealId}', name: 'wines_for_meals')]
-    public function getWinesForMeals(Products $product, $mealId, MealMatcherService $mealMatcherService): Response
+    public function getWinesForMeals(ProductRepository $products, $mealId, MealMatcherService $mealMatcherService): Response
     {
-        $api = new API("jelmer@grandcruwijnen.nl", "7Wn2okY7!A@mX-DZMmw7tanFaQ*sTGef87o!Gn4_mE6ctiqmLk2hH6LX_deN_K8P7U6LRs7H2BT.cGWvh", "https://beta.grandcruwijnen.dev");
-        $products = new Products($api);
+        $matches = [];
+        $score = '';
+//        dd($mealMatcherService->getWinesForMeal($mealId));
+        foreach ($mealMatcherService->getWinesForMeal($mealId) as $wine)
+        {
+            $product = $products->findOneBy(['sku' => $wine->wine->sku]);
+            if ($product !== null)
+            {
+                $matches[] = $product;
+//                $score'' = $product;
+                $score = $wine->score;
+                //TODO: Scores toevoegen aan de wijn
+            }
+        }
+
         return $this->render('wines/index.html.twig', [
-            'products' => $product, $products, 'matches' => $mealMatcherService->getWinesForMeal($mealId)]);
+            'matches' => $matches, $score
+        ]);
     }
 }

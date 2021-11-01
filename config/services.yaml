@@ -20,6 +20,7 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
             - '../src/Tests/'
+            - '../src/Migrations/'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -31,7 +32,7 @@ services:
     # please note that last definitions always *replace* previous ones
     Grandcruwijnen\:
         autowire: true
-        resource: '.../vendor/grandcruwijnen/sdk/src/Grandcruwijnen/*'
+        resource: '../vendor/grandcruwijnen/sdk/src/Grandcruwijnen/*'
 
     Grandcruwijnen\SDK\API:
         arguments:
