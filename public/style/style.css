@@ -44,6 +44,15 @@ h1 {
     font-size: 4rem;
 }
 
-.container  {
-    margin-top: 5000000vh !important;
+
+.logo_landing_page {
+    margin: 30px 30px 30px 5vw;
+}
+
+.logo {
+    margin: 30px 30px 30px -5vw;
+}
+
+.content {
+    height: 100vh !important;
 }
