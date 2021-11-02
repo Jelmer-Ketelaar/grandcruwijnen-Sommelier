@@ -2,6 +2,7 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('style/style.css') }}">
 {% endblock %}
 
 {% block title %}
@@ -99,10 +100,10 @@
                         <h3 class="modal-title" style='text-align:center; margin-top:30px;'>Sommelier Rating</h3>
                         
                             <div class="modal-header">
-                                
+                                <p>Score: {{product.score}}</p>                        
                             </div>
                             <div class="modal-body" style='text-align:left;margin:40px;'>
-                                <p>Als Grandcruwijnen bieden wij u een Online Sommelier welke dag-en-nacht voor u gereed staat. Deze functie is volledig gratis! U kiest uit een zeer uitgebreide lijst aan gerechten en de Online sommelier adviseert u de geschikte wijnen en adviseert bij de wijnen de best bijpassende gerechten. U ziet op het moment de meest bijpassende wijnen voor uw gekozen gerecht . De score van de wijn in relatie tot uw gekozen gerecht wordt getoond in het groene blokje als een rating met  als symbool. Alle wijnen met een score hoger dan 70 wordt door ons systeem herkend als bijpassend. De wijnen worden getoond op basis van score zodat de beste match bovenaan staat!</p>
+                                <p>Als Grandcruwijnen bieden wij u een Online Sommelier welke dag-en-nacht voor u gereed staat. Deze functie is volledig gratis! U kiest uit een zeer uitgebreide lijst aan gerechten en de Online sommelier adviseert u de geschikte wijnen en adviseert bij de wijnen de best bijpassende gerechten. U ziet op het moment de meest bijpassende wijnen voor uw gekozen gerecht . De score van de wijn in relatie tot uw gekozen gerecht wordt getoond in het groene blokje als een rating met <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg"> als symbool. Alle wijnen met een score hoger dan 70 wordt door ons systeem herkend als bijpassend. De wijnen worden getoond op basis van score zodat de beste match bovenaan staat!</p>
                             </div>
                             <br>
                             <div class="modal-footer">

@@ -95,6 +95,10 @@ h1 {
     justify-content: center;
 }
 
+button {
+    outline: none !important;
+}
+
 #column {
     text-align: center;
     border-radius: 20px;
