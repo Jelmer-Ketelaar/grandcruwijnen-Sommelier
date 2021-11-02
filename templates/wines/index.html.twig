@@ -48,7 +48,7 @@
                             class=" fa fa-shopping-cart" aria-hidden="true"></i> Winkelmandje
                 </button>
                  <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#ModalSommelier" style="padding-top: 1px; height: 30px;"><i aria-hidden="true"></i>
-                    <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg"> Score: {{match.score}}
+                    <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg"> Score: {{match.score|number_format(0)}}
                 </button>
 
                 <!-- Modal -->
