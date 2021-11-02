@@ -82,7 +82,7 @@ h1 {
 
 .mealImage {
     /*margin: -10px;*/
-    width: 110%;
+    width: 19.6vw;
     margin-left: -15px;
     border-radius: 20px 20px 0 0;
     min-height: 20vw
@@ -100,6 +100,6 @@ h1 {
     border-radius: 20px;
     margin: 10px;
     width: 20%;
-    height: 47vh;
+    height: 54vh;
     box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
