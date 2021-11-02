@@ -3,10 +3,8 @@
 namespace App\Service;
 
 
-use Grandcruwijnen\SDK\Products;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use App\Controller\MealController;
 
 class MealMatcherService {
     private Client $client;
@@ -16,27 +14,9 @@ class MealMatcherService {
         $this->client = new Client(['base_uri' => 'https://mealmatcher.grandcruwijnen.nl']);
     }
 
-     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getIndexPage()
+    public function getIndexPage(): string
     {
-        return 'landing page/index.html.twig';
-    }
-
-    /**
-     * @throws GuzzleException
-     */
-    public function getMealsCategories()
-    {
-        $response = $this->client->request('GET', '/api/meal_categories');
-
-        $categories = json_decode($response->getBody()->getContents());
-        usort($categories, function ($categoryA, $categoryB) {
-            return strcmp($categoryA->name, $categoryB->name);
-        });
-
-        return $categories;
+        return 'landing/index.html.twig';
     }
 
     /**
@@ -56,6 +36,21 @@ class MealMatcherService {
         }
 
         return $parentCategories;
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function getMealsCategories()
+    {
+        $response = $this->client->request('GET', '/api/meal_categories');
+
+        $categories = json_decode($response->getBody()->getContents());
+        usort($categories, function ($categoryA, $categoryB) {
+            return strcmp($categoryA->name, $categoryB->name);
+        });
+
+        return $categories;
     }
 
     /**
@@ -86,12 +81,24 @@ class MealMatcherService {
 
         return json_decode($response->getBody()->getContents());
     }
-  
+
+    /**
+     * @throws GuzzleException
+     */
+    public function getSKU($sku)
+    {
+        $response = $this->client->request('GET', '/api/meal_matches?sku=' . $sku . '&limit=30');
+
+        return json_decode($response->getBody()->getContents());
+    }
+
+    /**
      * @throws GuzzleException
      */
     public function getWinesForMeal($mealId)
     {
-        $response = $this->client->request('GET', '/api/meal_matches?mealId=' . $mealId . '&limit=30', );
+        $response = $this->client->request('GET', '/api/meal_matches?meal=' . $mealId . '&limit=30');
+
         return json_decode($response->getBody()->getContents());
     }
 }
