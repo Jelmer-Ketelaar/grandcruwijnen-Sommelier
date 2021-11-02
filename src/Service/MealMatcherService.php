@@ -85,19 +85,9 @@ class MealMatcherService {
     /**
      * @throws GuzzleException
      */
-    public function getSKU($sku)
-    {
-        $response = $this->client->request('GET', '/api/meal_matches?sku=' . $sku . '&limit=30');
-
-        return json_decode($response->getBody()->getContents());
-    }
-
-    /**
-     * @throws GuzzleException
-     */
     public function getWinesForMeal($mealId)
     {
-        $response = $this->client->request('GET', '/api/meal_matches?meal=' . $mealId . '&limit=30');
+        $response = $this->client->request('GET', '/api/meal_matches?meal=' . $mealId . '&limit=60');
 
         return json_decode($response->getBody()->getContents());
     }

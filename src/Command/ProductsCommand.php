@@ -69,7 +69,7 @@ class ProductsCommand extends Command {
                     ->setDescription("Test beschrijving")
                     ->setPrice($magentoProduct["price"])
                     ->setStock(1)
-                    ->setScore(1);
+                    ->setImage($magentoProduct['media_gallery_entries'][0]['file']);
             } else if ($updatedAt > $product->getUpdatedAt())
             {
                 $product

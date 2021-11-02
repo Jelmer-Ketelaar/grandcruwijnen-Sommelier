@@ -60,7 +60,7 @@ class Product {
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $score;
+    private $image;
 
     /**
      * Product constructor.
@@ -172,14 +172,14 @@ class Product {
         return $this;
     }
 
-    public function getScore(): ?string
+    public function getImage(): ?string
     {
-        return $this->score;
+        return $this->image;
     }
 
-    public function setScore(string $score): self
+    public function setImage(string $image): self
     {
-        $this->score = $score;
+        $this->image = $image;
 
         return $this;
     }

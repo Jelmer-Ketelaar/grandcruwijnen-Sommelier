@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-
+use App\Dto\ProductMatch;
 use App\Entity\Product;
 use App\Repository\ProductRepository;
 use App\Service\MealMatcherService;
@@ -64,17 +64,29 @@ class MealController extends AbstractController {
         foreach ($mealMatcherService->getWinesForMeal($mealId) as $wine)
         {
             $product = $products->findOneBy(['sku' => $wine->wine->sku]);
+            // $product = $products->findOneBy(['sku' => $wine->wine->sku]);
             if ($product !== null)
             {
-                $matches[] = $product;
-//                $score'' = $product;
                 $score = $wine->score;
+                $productMatch = new ProductMatch($product, $score);
+                $matches[] = $productMatch;
+//                $score'' = $product;
+                
                 //TODO: Scores toevoegen aan de wijn
             }
         }
 
         return $this->render('wines/index.html.twig', [
-            'matches' => $matches, $score
+            'matches' => $matches
         ]);
     }
+
+    //  /**
+    //  * @throws GuzzleException
+    //  */
+    // #[Route('/meals/{categoryId}', name: 'score_for_product')]
+    // public function getScoreForProduct(int $score, Dto $ProductMatch): Response
+    // {
+    //     return $this->render('wines/index.html.twig', ['meals' => $ProductMatch->getScoreForProduct($score)]);
+    // }
 }
