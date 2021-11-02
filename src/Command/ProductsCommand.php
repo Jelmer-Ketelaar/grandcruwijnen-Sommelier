@@ -15,7 +15,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class ProductsCommand extends Command {
+class ProductsCommand extends Command
+{
     protected static $defaultName = 'app:fill:products';
     protected static $defaultDescription = 'Fills products database';
 
@@ -51,16 +52,18 @@ class ProductsCommand extends Command {
     {
         $io = new SymfonyStyle($input, $output);
         $items = $this->products->getProducts()['items'];
-        foreach ($items as $magentoProduct)
-        {
-            if($magentoProduct['status'] !== 1) {
+        foreach ($items as $magentoProduct) {
+//            var_dump($magentoProduct['media_gallery_entries'][0]['file']); die();
+            if ($magentoProduct['status'] !== 1) {
+                continue;
+            }
+            if (isset($magentoProduct['media_gallery_entries'][0])) {
                 continue;
             }
             $product = $this->productRepository->findOneBy(['sku' => $magentoProduct['sku']]);
             $updatedAt = new DateTime($magentoProduct['updated_at']);
 //            $io->comment($magentoProduct['sku']);
-            if ($product === null)
-            {
+            if ($product === null) {
                 $product = new Product();
                 $product
                     ->setSku($magentoProduct['sku'])
@@ -70,8 +73,7 @@ class ProductsCommand extends Command {
                     ->setPrice($magentoProduct["price"])
                     ->setStock(1)
                     ->setImage($magentoProduct['media_gallery_entries'][0]['file']);
-            } else if ($updatedAt > $product->getUpdatedAt())
-            {
+            } else if ($updatedAt > $product->getUpdatedAt()) {
                 $product
                     ->setValid(false)
                     ->setCheckedSinceUpdate(false);

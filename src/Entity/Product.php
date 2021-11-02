@@ -58,7 +58,7 @@ class Product {
     private $stock;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
 
