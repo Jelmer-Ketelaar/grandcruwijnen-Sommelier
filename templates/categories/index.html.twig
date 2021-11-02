@@ -26,30 +26,31 @@
         <br>
         {% set imageCategory = ['https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/93.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/52.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/78.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/2.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/139.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/24.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/109.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/102.svg'] %}
         {% set imageCounterArr = -1 %}
-        <div class='container' style='width:1200px;'>
+        
         {% for meal in meals %}
             {% set imageCounterArr = imageCounterArr + 1 %}
-            <section class="grid" style='height:50px;'>
-                
-                    {% if meal.parent is null %}
-                        <a href="{{ path('meal_categories_for_parent', {parentId: meal.categoryId}) }}"
-                        class="meal-name">
-                            <div class="item">{{ meal.name }}</div>
-                            <img src="{{ imageCategory[imageCounterArr] }}"
-                                alt="" class="image">
-                        </a>
+        
+                {% if meal.parent is null %}
+                <section class="grid">
+                    <a href="{{ path('meal_categories_for_parent', {parentId: meal.categoryId}) }}"
+                    class="meal-name">
+                        <div class="item">{{ meal.name }}</div>
+                        <img src="{{ imageCategory[imageCounterArr] }}"
+                            alt="" class="image">
+                    </a>
+                </section>
 
-                    {% else %}
-                    <div style='padding:10px;'>
-                        <a href="{{ path('meals_for_category', {categoryId: meal.categoryId}) }}" class="meal-name">
-                            <div class="item">{{ meal.name }}</div>
+                {% else %}
+                    <section class="grid-sub">
+                        <a href="{{ path('meals_for_category', {categoryId: meal.categoryId}) }}" class="meal-name" style='heigth:50px;'>
+                            {{ meal.name }}
                         </a>
-                    </div>
-                    {% endif %}
+                    </section>
+                {% endif %}
 
-            </section>
+            
         {% endfor %}
-        </div>
+        
     </div>
 {% endblock %}
 
