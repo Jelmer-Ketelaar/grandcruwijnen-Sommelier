@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
-
 {% block title %}Online sommelier | Meals!{% endblock %}
 
 {% block body %}
@@ -33,7 +32,7 @@
                 <div class="col-sm-3"
                      style="text-align: center; padding: 10px 10px 10px 10px; margin:5px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
                     <img src="https://mealmatcher.grandcruwijnen.nl/meals/{{ meal.id }}" alt="{{ meal.name }}"
-                         style='width:300px; min-height: 16vw'>
+                         style='width:300px; min-height: 18vw'>
                     <p style='margin-top:20px;'>{{ meal.name }}</p>
                     <a href="{{ path('wines_for_meals', {mealId: meal.id}) }}">
                         <button type="button" class="btn btn-danger btn-sm">Selecteer <i class="fa fa-arrow-right"
