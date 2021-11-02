@@ -3,18 +3,16 @@
 namespace App\Controller;
 
 use App\Dto\ProductMatch;
-use App\Entity\Product;
 use App\Repository\ProductRepository;
 use App\Service\MealMatcherService;
-use Grandcruwijnen\SDK\API;
-use Grandcruwijnen\SDK\Products;
 use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class MealController extends AbstractController {
+class MealController extends AbstractController
+{
 
     /**
      * @throws GuzzleException
@@ -59,19 +57,16 @@ class MealController extends AbstractController {
     public function getWinesForMeals(ProductRepository $products, $mealId, MealMatcherService $mealMatcherService): Response
     {
         $matches = [];
-        $score = '';
 //        dd($mealMatcherService->getWinesForMeal($mealId));
-        foreach ($mealMatcherService->getWinesForMeal($mealId) as $wine)
-        {
+        foreach ($mealMatcherService->getWinesForMeal($mealId) as $wine) {
             $product = $products->findOneBy(['sku' => $wine->wine->sku]);
             // $product = $products->findOneBy(['sku' => $wine->wine->sku]);
-            if ($product !== null)
-            {
+            if ($product !== null) {
                 $score = $wine->score;
                 $productMatch = new ProductMatch($product, $score);
                 $matches[] = $productMatch;
 //                $score'' = $product;
-                
+
                 //TODO: Scores toevoegen aan de wijn
             }
         }
@@ -80,13 +75,4 @@ class MealController extends AbstractController {
             'matches' => $matches
         ]);
     }
-
-    //  /**
-    //  * @throws GuzzleException
-    //  */
-    // #[Route('/meals/{categoryId}', name: 'score_for_product')]
-    // public function getScoreForProduct(int $score, Dto $ProductMatch): Response
-    // {
-    //     return $this->render('wines/index.html.twig', ['meals' => $ProductMatch->getScoreForProduct($score)]);
-    // }
 }

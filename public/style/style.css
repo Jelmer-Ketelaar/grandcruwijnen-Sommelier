@@ -33,12 +33,13 @@ body {
 
 .grid-sub {
     display: inline-grid;
+    text-align: center;
     border: #1111 1px solid;
     box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%), 0 0 20px -1px rgb(0 0 0 / 15%);
     margin: 4vw 0 0 4.5vw;
-    height: 50px;
+    height: 60px;
     width: 20vh;
-    border-radius: 10%;
+    border-radius: 10px;
     background-color: #e9dcd1;
 }
 
