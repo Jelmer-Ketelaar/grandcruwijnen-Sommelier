@@ -46,6 +46,9 @@
                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target=""><i
                             class=" fa fa-shopping-cart" aria-hidden="true"></i> Winkelmandje
                 </button>
+                 <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#ModalSommelier" style="padding-top: 1px; height: 30px;"><i aria-hidden="true"></i>
+                    <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg"> Score: {{product.score}}
+                </button>
 
                 <!-- Modal -->
                 <div class="modal fade" id="myModal{{ product.id }}" role="dialog">
@@ -83,6 +86,26 @@
                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target=""><i
                                             class=" fa fa-shopping-cart" aria-hidden="true"></i> Winkelmandje
                                 </button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="ModalSommelier" role="dialog">
+                    <div class="modal-dialog" style='width:900px;'>
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                        <h3 class="modal-title" style='text-align:center; margin-top:30px;'>Sommelier Rating</h3>
+                        
+                            <div class="modal-header">
+                                
+                            </div>
+                            <div class="modal-body" style='text-align:left;margin:40px;'>
+                                <p>Als Grandcruwijnen bieden wij u een Online Sommelier welke dag-en-nacht voor u gereed staat. Deze functie is volledig gratis! U kiest uit een zeer uitgebreide lijst aan gerechten en de Online sommelier adviseert u de geschikte wijnen en adviseert bij de wijnen de best bijpassende gerechten. U ziet op het moment de meest bijpassende wijnen voor uw gekozen gerecht . De score van de wijn in relatie tot uw gekozen gerecht wordt getoond in het groene blokje als een rating met  als symbool. Alle wijnen met een score hoger dan 70 wordt door ons systeem herkend als bijpassend. De wijnen worden getoond op basis van score zodat de beste match bovenaan staat!</p>
+                            </div>
+                            <br>
+                            <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
                             </div>
                         </div>
