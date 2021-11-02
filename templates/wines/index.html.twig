@@ -36,10 +36,10 @@
             {% for match in matches %}
 
                 <div class="col-sm-3"
-                     style="text-align: center; padding: 10px 10px 10px 10px; margin:5px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-                    <img src='https://www.saq.com/media/catalog/product/1/4/14301402-1_1580352919.png'
-                         style='width:200px;'
-                         alt="">
+                     style="text-align: center; padding: 10px 10px 10px 10px; margin:5px; box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;">
+                    <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
+                         class="imageWine"
+                         alt="{{ match.product.sku }}"/>
                     <p>{{ match.product.name }}</p>
                     <!-- Trigger the modal with a button -->
                     <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
@@ -64,8 +64,10 @@
                             <div class="modal-content">
                                 <h3 class="modal-title"
                                     style='text-align:center; margin-top:30px;'>{{ match.product.name }}</h3>
-                                <img src='https://www.saq.com/media/catalog/product/1/4/14301402-1_1580352919.png'
-                                     style='width:200px;margin-top:90px;' alt="">
+
+                                    <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
+                                         class="wineImage"
+                                         alt="{{ match.product.sku }}"/>
                                 <div style='background-color:rgba(145, 145, 145, 0.34); width:350px; height:480px; border-radius:20px; margin:20px; margin-right:40px;margin-top:40px;float:right;'>
                                     <h4 style='margin-left:0px;text-align:left;margin:20px;'>Prijs:
                                         €{{ match.product.price }},-</h4>

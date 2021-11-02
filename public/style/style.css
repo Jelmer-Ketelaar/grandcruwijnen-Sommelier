@@ -108,3 +108,15 @@ button {
     height: 54vh;
     box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
+
+.wineImage {
+    max-width: 60vw;
+    max-height: 60vh;
+    position: relative;
+    padding-top: 5vh
+}
+
+.imageWine {
+    max-width: 200px;
+    max-height: 200px
+}
