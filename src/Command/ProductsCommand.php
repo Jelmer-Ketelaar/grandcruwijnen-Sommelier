@@ -53,7 +53,7 @@ class ProductsCommand extends Command {
         $items = $this->products->getProducts()['items'];
         foreach ($items as $magentoProduct)
         {
-//            var_dump($magentoProduct['custom_attributes']); die();
+            //var_dump($magentoProduct['custom_attributes']); die();
             if ($magentoProduct['status'] !== 1)
             {
                 continue;
@@ -72,7 +72,7 @@ class ProductsCommand extends Command {
                     ->setSku($magentoProduct['sku'])
                     ->setUpdatedAt($updatedAt)
                     ->setName($magentoProduct['name'])
-                    ->setDescription('')
+                    ->setDescription($magentoProduct['custom_attributes'][1]['value'])
                     ->setPrice($magentoProduct["price"])
                     ->setStock($magentoProduct['extension_attributes']['stock_item']['qty'])
                     ->setImage($magentoProduct['media_gallery_entries'][0]['file']);
