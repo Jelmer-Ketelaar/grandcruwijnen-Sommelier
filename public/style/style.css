@@ -111,12 +111,12 @@ button {
 
 .wineImage {
     max-width: 40vw;
-    max-height: 50vh;
+    max-height: 60vh;
     position: relative;
     padding-top: 5vh
 }
 
 .imageWine {
     max-width: 200px;
-    max-height: 200px
+    max-height: 200px;
 }
