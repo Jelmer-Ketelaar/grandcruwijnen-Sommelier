@@ -1,8 +1,19 @@
 body {
     font-family: 'Montserrat', sans-serif;
-    height: 100%;
     width: 100%;
     background-color: #e9dcd1;
+}
+
+.example-wrapper {
+    margin: 1em auto;
+    max-width: 800px;
+    width: 95%;
+    font: 18px/1.5 sans-serif;
+}
+
+.example-wrapper code {
+    background: #F5F5F5;
+    padding: 2px 6px;
 }
 
 .p {
@@ -13,10 +24,22 @@ body {
     display: inline-grid;
     border: #1111 1px solid;
     box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%), 0 0 20px -1px rgb(0 0 0 / 15%);
-    margin: 4vw 0 0 4vw;
+    margin: 4vw 0 0 4.5vw;
     height: 25vh;
     width: 20vh;
     border-radius: 10%;
+    background-color: #e9dcd1;
+}
+
+.grid-sub {
+    display: inline-grid;
+    text-align: center;
+    border: #1111 1px solid;
+    box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%), 0 0 20px -1px rgb(0 0 0 / 15%);
+    margin: 4vw 0 0 4.5vw;
+    height: 60px;
+    width: 20vh;
+    border-radius: 10px;
     background-color: #e9dcd1;
 }
 
@@ -40,10 +63,60 @@ body {
 .text {
     margin-left: 2vw;
 }
+
 h1 {
     font-size: 4rem;
 }
 
-.container  {
-    margin-top: 5000000vh !important;
+.logo_landing_page {
+    margin: 30px 30px 30px 5vw;
+}
+
+.logo {
+    margin: 30px 30px 30px -10vw;
+
+}
+
+.content {
+    height: 100vh !important;
+}
+
+.mealImage {
+    /*margin: -10px;*/
+    width: 19.6vw;
+    margin-left: -15px;
+    border-radius: 20px 20px 0 0;
+    min-height: 20vw
+}
+
+#row {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+button {
+    outline: none !important;
+}
+
+#column {
+    text-align: center;
+    border-radius: 20px;
+    margin: 10px;
+    width: 20%;
+    height: 54vh;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+}
+
+.wineImage {
+    max-width: 40vw;
+    max-height: 60vh;
+    position: relative;
+    padding-top: 5vh
+}
+
+.imageWine {
+    max-width: 200px;
+    max-height: 200px;
 }

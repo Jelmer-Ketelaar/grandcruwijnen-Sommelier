@@ -1,95 +1,150 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('style/style.css') }}">
 {% endblock %}
 
 {% block title %}
-Hello MealController!
+    Online sommelier | Wines
 {% endblock %}
 
 {% block body %}
-<style>
-    body {
-        background-color: #e9dcd1;
-    }
+    <body style="background-color: #e9dcd1;">
+    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" id="shopping-cart_btn"
+            style='display:block; float:right; margin-top: 58px; margin-right:170px ;'>
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        Winkelmandje
+    </button>
+    <div class="container">
+        <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg'
+             alt='logo' style='margin: 30px 30px 30px -7vw;'>
 
-    .example-wrapper {
-        margin: 1em auto;
-        max-width: 800px;
-        width: 95%;
-        font: 18px/1.5 sans-serif;
-    }
-
-    .example-wrapper code {
-        background: #F5F5F5;
-        padding: 2px 6px;
-    }
-</style>
-<button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-    style='display:block; float:right; margin-top: 58px; margin-right:170px ;'><i class="fa fa-shopping-cart"
-        aria-hidden="true"></i>Winkelmandje</button>
-<div class="container">
-    <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg'
-        alt='logo' style='padding:40px;'>
-    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i
-            class="fa fa-arrow-left" aria-hidden="true"></i> Terug</button>
-</div>
+        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i
+                    class="fa fa-arrow-left" aria-hidden="true"></i> Terug
+        </button>
+    </div>
 
 
-<div class="example-wrapper" style='text-align:center;padding-bottom:50px;'>
-    <h1>Welkom bij de online sommelier</h1>
-    <p>Hier kunt u kiezen uit de best bijpassende wijnen gezocht bij het geselecteerde gerecht.</p>
-</div>
+    <div class="example-wrapper" style='text-align:center;padding-bottom:50px;'>
+        <h1>Welkom bij de online sommelier</h1>
+        <p>Hier kunt u kiezen uit de best bijpassende wijnen gezocht bij het geselecteerde gerecht.</p>
+    </div>
 
+    <div class="container" style='width:100%;'>
+        <div class="row" style='display: flex; flex-wrap: wrap;justify-content:center;'>
+            {% for match in matches %}
 
-<div class="container" style='width:100%;'>
-    <div class="row" style='display: flex; flex-wrap: wrap;justify-content:center;'>
-        {% for product in products %}
-        <div class="col-sm-3"
-            style="text-align: center; padding: 10px 10px 10px 10px; margin:5px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-            <img src='https://www.saq.com/media/catalog/product/1/4/14301402-1_1580352919.png' style='width:200px;'
-                alt="">
-            <p>{{products.name}}</p>
-            <!-- Trigger the modal with a button -->
-            <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#myModal"><i
-                    class="fa fa-info-circle" aria-hidden="true"></i> Meer informatie</button>
-            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target=""><i
-                    class=" fa fa-shopping-cart" aria-hidden="true"></i> Winkelmandje</button>
+                <div class="col-sm-3"
+                     style="text-align: center; padding: 10px 10px 10px 10px; margin:5px; box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;">
+                    <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
+                         class="imageWine"
+                         alt="{{ match.product.sku }}"/>
+                    <p>{{ match.product.name }}</p>
+                    <p>Prijs: €{{ match.product.price }},-</p>
+                    <!-- Trigger the modal with a button -->
+                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
+                            data-target="#myModal{{ match.product.id }}"><i
+                                class="fa fa-info-circle" aria-hidden="true"></i> Meer informatie
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm"><i
+                                class=" fa fa-shopping-cart" aria-hidden="true"></i> Winkelmandje
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
+                            data-target="#ModalSommelier" style="padding-top: 1px; height: 30px;"><i
+                                aria-hidden="true"></i>
+                        <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg">
+                        Score: {{ match.score|number_format(0) }}
+                    </button>
 
-            <!-- Modal -->
-            <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog">
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal{{ match.product.id }}" role="dialog">
+                        <div class="modal-dialog" style='width:900px;'>
 
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">{{products.name}}</h4>
-                            <h4 class="modal-title">{{ match.wine.sku }}</h4>
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <h3 class="modal-title"
+                                    style='text-align:center; margin-top:30px;'>{{ match.product.name }}</h3>
+
+                                <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
+                                     class="wineImage"
+                                     alt="{{ match.product.sku }}"/>
+                                <div style='background-color:rgba(145, 145, 145, 0.34); width:350px; height:480px; border-radius:20px; margin:20px; margin-right:40px;margin-top:40px;float:right;'>
+                                    <h4 style='margin-left:0px;text-align:left;margin:20px;'>Prijs:
+                                        €{{ match.product.price }},-</h4>
+                                    <hr>
+                                    <p style='text-align:left;margin: 20px;'>Locatie:</p>
+                                    <hr>
+                                    <p style='margin-left:0px;text-align:left;margin:20px;'>Land:</p>
+                                    <hr>
+                                    <p style='margin-left:0px;text-align:left;margin:20px;'>Druiven:</p>
+                                    <hr>
+                                    <p style='margin-left:0px;text-align:left;margin:20px;'>Streek:</p>
+                                    <hr>
+                                    <p style='margin-left:0px;text-align:left;margin:20px;'>Wijnhuis:</p>
+                                    <hr>
+                                    <p style='margin-left:0px;text-align:left;margin:20px;'>Rating:</p>
+                                    <hr>
+                                    <p style='margin-left:0px;text-align:left;margin:20px;'>
+                                        Stock: {{ match.product.stock }}</p>
+                                </div>
+                                <div class="modal-header">
+
+                                </div>
+                                <div class="modal-body" style='text-align:left;margin:40px;'>
+                                    <h3>Beschrijving</h3>
+                                    <p>{{ match.product.description | raw }}</p>
+                                </div>
+                                <br>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                            data-target=""><i
+                                                class=" fa fa-shopping-cart" aria-hidden="true"></i> Winkelmandje
+                                    </button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            {# <p>{{ product }}</p>#}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
+                    </div>
+                    <div class="modal fade" id="ModalSommelier" role="dialog">
+                        <div class="modal-dialog" style='width:900px;'>
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <h3 class="modal-title" style='text-align:center; margin-top:30px;'>Sommelier
+                                    Rating</h3>
+
+                                <div class="modal-header">
+                                    <p>Score: {{ match.score|number_format(0) }}</p>
+                                </div>
+                                <div class="modal-body" style='text-align:left;margin:40px;'>
+                                    <p>Als Grandcruwijnen bieden wij u een Online Sommelier welke dag-en-nacht voor u
+                                        gereed staat. Deze functie is volledig gratis! U kiest uit een zeer uitgebreide
+                                        lijst aan gerechten en de Online sommelier adviseert u de geschikte wijnen en
+                                        adviseert bij de wijnen de best bijpassende gerechten. U ziet op het moment de
+                                        meest bijpassende wijnen voor uw gekozen gerecht . De score van de wijn in
+                                        relatie tot uw gekozen gerecht wordt getoond in het groene blokje als een rating
+                                        met <img
+                                                src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg">als symbool. Alle wijnen met een score hoger dan 70 wordt door ons systeem
+                                        herkend als bijpassend. De wijnen worden getoond op basis van score zodat de
+                                        beste match bovenaan staat!</p>
+                                </div>
+                                <br>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-        {% endblock %}
+    </div>
 
-
-        {% block javascripts%}
-        <script>
-            function goBack() {
-                window.history.back();
-            }
-        </script>
-
+    </body>
+{% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('javascript/script.js') }}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-        {% endblock %}
+    {% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('style/style.css') }}">
+{% endblock %}
+
+{% block title %}Landing Page!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg'
+             alt='logo' class="logo_landing_page">
+    </div>
+    <div class="example-wrapper" style="text-align: center;">
+        <h1>Grandcruwijnen biedt u de volgende opties:</h1>
+    </div>
+    <div class="images" style="text-align: center; margin-top: 75px; display:flex; width:600px; margin:auto;">
+        <div style='width:200px;text-align:center;'>
+            <img
+                src="../image/wijnoverzicht.png"
+                alt="" class="image" style='margin-bottom:10px;padding-top:10px;'>
+            <br>
+            <a href="https://winefinder.grandcruwijnen.nl" style="text-decoration: none; text-align:center; color:#b5191f;">Wijn
+                overzicht</a>
+        </div>
+        <div style='width:200px;text-align:center;'>
+            <img
+             src="../image/sommelierIcon.png"
+             alt="" class="image" style='margin-bottom:20px;'>
+             <br>
+             <a href="{{ path('meal_categories') }}" style="text-decoration: none; text-align:center; color:#b5191f;">Online Sommelier</a>
+        </div>
+        <div style='width:200px;text-align:center;'>
+            <img src="https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/pasta.svg"
+             alt="" class="image" style='margin-bottom:20px;'>
+             <br>
+             <a href="#" style="text-decoration: none; color:#b5191f;">Uw eigen gerecht</a>
+        </div>
+    </div>
+
+
+{% endblock %}

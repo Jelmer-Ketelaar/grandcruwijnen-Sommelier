@@ -6,51 +6,54 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
-{% block title %}Hello MealController!{% endblock %}
+{% block title %}Online sommelier | Categories!{% endblock %}
 
 {% block body %}
 
-<div class="content" style="background-color: #e9dcd1; height: 100vh">
-    <div class="container">
+    <div class="content" style="background-color: #e9dcd1; height: 100%">
+        <div class="container">
 
-        <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg' alt='logo' style='padding:40px;'>
-            <button style="" type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i class="fa fa-arrow-left" aria-hidden="true"></i>  Terug</button>
-                    <div class="text">
-            <h1 style='text-align:center;'>U het gerecht en wij adviseren de wijn!</h1>
-            <p class="p"></p>
-        </div>
+            <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg'
+                 alt='logo' class="logo">
+            <button style="" type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i
+                        class="fa fa-arrow-left" aria-hidden="true"></i> Terug
+            </button>
+            <div class="text">
+                <h1 style='text-align:center;'>U het gerecht en wij adviseren de wijn!</h1>
+                <p class="p"></p>
+            </div>
         </div>
         <br>
         {% set imageCategory = ['https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/93.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/52.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/78.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/2.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/139.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/24.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/109.svg','https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/102.svg'] %}
         {% set imageCounterArr = -1 %}
-        <div style='width:900px; margin-left:250px; text-align:center;'>
+        
         {% for meal in meals %}
-        {% set imageCounterArr = imageCounterArr + 1 %}  
-            <section class="grid" style='height: 7vh;padding-left:auto;'>
+            {% set imageCounterArr = imageCounterArr + 1 %}
+        
                 {% if meal.parent is null %}
-                    <a href="{{ path('meal_categories_for_parent', {parentId: meal.categoryId}) }}" class="meal-name">
+                <section class="grid">
+                    <a href="{{ path('meal_categories_for_parent', {parentId: meal.categoryId}) }}"
+                    class="meal-name">
                         <div class="item">{{ meal.name }}</div>
                         <img src="{{ imageCategory[imageCounterArr] }}"
                             alt="" class="image">
                     </a>
+                </section>
 
                 {% else %}
-                    <a href="{{ path('meals_for_category', {categoryId: meal.categoryId}) }}" class="meal-name">
-                        <div class="item">{{ meal.name }}</div>
-                    </a>
+                    <section class="grid-sub">
+                        <a href="{{ path('meals_for_category', {categoryId: meal.categoryId}) }}" class="meal-name" style='heigth:50px;'>
+                            {{ meal.name }}
+                        </a>
+                    </section>
                 {% endif %}
-            </section>
 
+            
         {% endfor %}
-        </div>
+        
     </div>
 {% endblock %}
 
-{% block javascripts%}
-    <script>
-        function goBack(){
-            window.history.back();
-        }
-    </script>
-
+{% block javascripts %}
+    <script src="{{ asset('javascript/script.js') }}"></script>
 {% endblock %}

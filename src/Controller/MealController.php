@@ -2,10 +2,9 @@
 
 namespace App\Controller;
 
-
+use App\Dto\ProductMatch;
+use App\Repository\ProductRepository;
 use App\Service\MealMatcherService;
-use Grandcruwijnen\SDK\API;
-use Grandcruwijnen\SDK\Products;
 use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +14,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class MealController extends AbstractController
 {
 
+    /**
+     * @throws GuzzleException
+     */
     #[Route('/', name: 'landing_page')]
     public function getIndex(MealMatcherService $mealMatcherService): Response
     {
-        return $this->render('landing page/index.html.twig', ['choices' => $mealMatcherService->getIndexPage()]);
+        return $this->render('landing/index.html.twig', ['choices' => $mealMatcherService->getIndexPage()]);
     }
 
     /**
@@ -33,7 +35,7 @@ class MealController extends AbstractController
     /**
      * @throws GuzzleException
      */
-    #[Route('/{parentId}', name: 'meal_categories_for_parent')]
+    #[Route('/category/{parentId}', name: 'meal_categories_for_parent')]
     public function getCategoriesForParent(int $parentId, MealMatcherService $mealMatcherService): Response
     {
         return $this->render('categories/index.html.twig', ['meals' => $mealMatcherService->getCategoriesForParent($parentId)]);
@@ -51,17 +53,26 @@ class MealController extends AbstractController
     /**
      * @throws GuzzleException
      */
-    #[Route('/matches/{mealId}', name: 'wines_for_meals')]
-    public function getWinesForMeals($mealId, MealMatcherService $mealMatcherService)
+    #[Route('matches/{mealId}', name: 'wines_for_meals')]
+    public function getWinesForMeals(ProductRepository $products, $mealId, MealMatcherService $mealMatcherService): Response
     {
+        $matches = [];
+//        dd($mealMatcherService->getWinesForMeal($mealId));
+        foreach ($mealMatcherService->getWinesForMeal($mealId) as $wine) {
+            $product = $products->findOneBy(['sku' => $wine->wine->sku]);
+            // $product = $products->findOneBy(['sku' => $wine->wine->sku]);
+            if ($product !== null) {
+                $score = $wine->score;
+                $productMatch = new ProductMatch($product, $score);
+                $matches[] = $productMatch;
+//                $score'' = $product;
 
-        $api = new API("jelmer@grandcruwijnen.nl", "7Wn2okY7!A@mX-DZMmw7tanFaQ*sTGef87o!Gn4_mE6ctiqmLk2hH6LX_deN_K8P7U6LRs7H2BT.cGWvh", "https://beta.grandcruwijnen.dev");
-        $products = new Products($api);
-        $sku = '01001';
-        $products = $products->getProduct($sku);
+                //TODO: Scores toevoegen aan de wijn
+            }
+        }
 
         return $this->render('wines/index.html.twig', [
-            'products' => $products, 'matches' => $mealMatcherService->getWinesForMeal($mealId)
+            'matches' => $matches
         ]);
     }
 }
