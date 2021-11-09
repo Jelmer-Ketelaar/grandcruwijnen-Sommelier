@@ -41,6 +41,10 @@
                 </section>
 
                 {% else %}
+                    <script>
+                        localStorage.removeItem('categoryId');
+                        localStorage.setItem('categoryId',window.location.href);
+                    </script>
                     <section class="grid-sub">
                         <a href="{{ path('meals_for_category', {categoryId: meal.categoryId}) }}" class="meal-name" style='heigth:50px;'>
                             {{ meal.name }}

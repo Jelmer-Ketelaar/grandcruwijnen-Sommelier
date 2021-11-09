@@ -18,7 +18,7 @@
     {# https://mealmatcher.grandcruwijnen.nl/meals/%7B12de8bb3-8ce2-43a9-8b09-d56161365ebc%7D #}
     <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg'
          alt='logo' class="logo_landing_page">
-    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i
+    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack(window.location.href)'><i
                 class="fa fa-arrow-left" aria-hidden="true"></i> Terug
     </button>
     <div class="example-wrapper" style='text-align:center; padding-bottom:50px;'>
@@ -29,6 +29,10 @@
     <div class="container" style='width:100%;'>
         <div class="row" id="row">
             {% for meal in meals %}
+                <script>
+                    localStorage.removeItem('mealId');
+                    localStorage.setItem('mealId',window.location.href);
+                </script>
                 <div class="col-sm-3" id="column">
                     <img src="https://mealmatcher.grandcruwijnen.nl/meals/{{ meal.id }}" alt="{{ meal.name }}"
                         class="mealImage">

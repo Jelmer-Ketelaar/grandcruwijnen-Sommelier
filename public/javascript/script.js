@@ -7,11 +7,14 @@ function goBack(currentUrl) {
     }
 
     if(currentUrl.includes("/category/")){
-        window.location.replace(baseUrl);
+        window.location.replace(baseUrl+"categories");
     }
     
+    if(currentUrl.includes("/meals/")){
+        window.location.replace(localStorage.getItem('categoryId'));
+    }
 
-
-
-    //document.cookie = "username=John Doe";
+    if(currentUrl.includes("/matches/")){
+        window.location.replace(localStorage.getItem('mealId'));
+    }
 }
