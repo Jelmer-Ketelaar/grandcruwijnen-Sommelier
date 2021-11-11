@@ -16,8 +16,9 @@ class MealController extends AbstractController
 
     /**
      * @throws GuzzleException
+     *
+     * @Route("/", name="landing_page")
      */
-    #[Route('/', name: 'landing_page')]
     public function getIndex(MealMatcherService $mealMatcherService): Response
     {
         return $this->render('landing/index.html.twig', ['choices' => $mealMatcherService->getIndexPage()]);
@@ -25,8 +26,9 @@ class MealController extends AbstractController
 
     /**
      * @throws GuzzleException
+     *
+     * @Route("/categories", name="meal_categories")
      */
-    #[Route('/categories', name: 'meal_categories')]
     public function getMealCategories(MealMatcherService $mealMatcherService): Response
     {
         return $this->render('categories/index.html.twig', ['meals' => $mealMatcherService->getParentMealCategories()]);
@@ -34,8 +36,9 @@ class MealController extends AbstractController
 
     /**
      * @throws GuzzleException
+     *
+     * @Route("/category/{parentId}", name="meal_categories_for_parent")
      */
-    #[Route('/category/{parentId}', name: 'meal_categories_for_parent')]
     public function getCategoriesForParent(int $parentId, MealMatcherService $mealMatcherService): Response
     {
         return $this->render('categories/index.html.twig', ['meals' => $mealMatcherService->getCategoriesForParent($parentId)]);
@@ -43,8 +46,9 @@ class MealController extends AbstractController
 
     /**
      * @throws GuzzleException
+     *
+     * @Route("/meals/{categoryId}", name="meals_for_category")
      */
-    #[Route('/meals/{categoryId}', name: 'meals_for_category')]
     public function getMealsForCategory(int $categoryId, MealMatcherService $mealMatcherService): Response
     {
         return $this->render('meals/index.html.twig', ['meals' => $mealMatcherService->getMealsForCategory($categoryId)]);
@@ -52,8 +56,9 @@ class MealController extends AbstractController
 
     /**
      * @throws GuzzleException
+     *
+     * @Route("/matches/{mealId}", name="wines_for_meals")
      */
-    #[Route('matches/{mealId}', name: 'wines_for_meals')]
     public function getWinesForMeals(ProductRepository $products, $mealId, MealMatcherService $mealMatcherService): Response
     {
         $matches = [];
