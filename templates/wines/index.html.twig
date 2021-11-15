@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('style/style.css') }}">
@@ -20,46 +21,70 @@
         <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg'
              alt='logo' style='margin: 30px 30px 30px -7vw;'>
 
-        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i
+        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack(window.location.href)'>
+            <i
                     class="fa fa-arrow-left" aria-hidden="true"></i> Terug
         </button>
     </div>
 
-
     <div class="example-wrapper" style='text-align:center;padding-bottom:50px;'>
         <h1>Welkom bij de online sommelier</h1>
         <p>Hier kunt u kiezen uit de best bijpassende wijnen gezocht bij het geselecteerde gerecht.</p>
+
+        {% set mealId = app.session.get('mealId') %}
     </div>
+    <div class="row"
+         style='display: flex; flex-wrap: wrap;justify-content:right; margin-right: 1%; background-color: #e9dcd1;'>
+        <div id="slider-container" data-role="page" style="background-color: #e9dcd1; width: 22%; top: 34%;">
+            <div data-role="main" class="ui-content">
+                <form method="GET" action="" data-ajax="false">
+                    <div data-role="rangeslider">
+                        <label for="price-min">Prijs:</label>
+                        <input class="price-label" style="background-color: #b5191f; color: #fff; font-weight: 100;"
+                               type="range" name="price-min" id="price-min" value="{{ min_price }}" min="0" max="5000"
+                               step="1">
+                        <label for="price-max"></label>
+                        <input class="price-label" style="background-color: #b5191f; color: #fff; font-weight: 100"
+                               type="range" name="price-max" id="price-max" value="{{ max_price }}" min="0" max="5000"
+                               step="1">
+                    </div>
+                    <button type="submit" class="btn btn-danger btn-sm">Submit</button>
+                </form>
+            </div>
+        </div>
 
-    <div class="container" style='width:100%;'>
-        <div class="row" style='display: flex; flex-wrap: wrap;justify-content:center;'>
-            {% for match in matches %}
+        {% for match in matches %}
+            {% if (match.product.price < max_price and match.product.price > min_price) or min_price == null %}
 
-                <div class="col-sm-3"
+
+                <div class="col-sm-3" id="producten"
                      style="text-align: center; padding: 10px 10px 10px 10px; margin:5px; box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;">
                     <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
-                         class="imageWine"
-                         alt="{{ match.product.sku }}"/>
+                         class="imageWine" alt="{{ match.product.sku }}"/>
                     <p>{{ match.product.name }}</p>
                     <p>Prijs: €{{ match.product.price }},-</p>
                     <!-- Trigger the modal with a button -->
                     <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
-                            data-target="#myModal{{ match.product.id }}"><i
-                                class="fa fa-info-circle" aria-hidden="true"></i> Meer informatie
+                            data-target="#myModal{{ match.product.id }}">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        Meer informatie
                     </button>
-                    <button type="button" class="btn btn-danger btn-sm"><i
-                                class=" fa fa-shopping-cart" aria-hidden="true"></i> Winkelmandje
+                    <button type="button" class="btn btn-danger btn-sm">
+                        <i class=" fa fa-shopping-cart" aria-hidden="true"></i>
+                        Winkelmandje
                     </button>
                     <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
-                            data-target="#ModalSommelier" style="padding-top: 1px; height: 30px;"><i
-                                aria-hidden="true"></i>
+                            data-target="#ModalSommelier" style="padding-top: 1px; height: 30px;">
+                        <i aria-hidden="true"></i>
                         <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg">
-                        Score: {{ match.score|number_format(0) }}
+                        Score:
+                        {{ match.score|number_format(0) }}
                     </button>
 
                     <!-- Modal -->
                     <div class="modal fade" id="myModal{{ match.product.id }}" role="dialog">
-                        <div class="modal-dialog" style='width:900px;'>
+                        <div
+                                class="modal-dialog" style='width:900px;'>
 
                             <!-- Modal content-->
                             <div class="modal-content">
@@ -67,8 +92,7 @@
                                     style='text-align:center; margin-top:30px;'>{{ match.product.name }}</h3>
 
                                 <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
-                                     class="wineImage"
-                                     alt="{{ match.product.sku }}"/>
+                                     class="wineImage" alt="{{ match.product.sku }}"/>
                                 <div style='background-color:rgba(145, 145, 145, 0.34); width:350px; height:480px; border-radius:20px; margin:20px; margin-right:40px;margin-top:40px;float:right;'>
                                     <h4 style='margin-left:0px;text-align:left;margin:20px;'>Prijs:
                                         €{{ match.product.price }},-</h4>
@@ -86,11 +110,10 @@
                                     <p style='margin-left:0px;text-align:left;margin:20px;'>Rating:</p>
                                     <hr>
                                     <p style='margin-left:0px;text-align:left;margin:20px;'>
-                                        Stock: {{ match.product.stock }}</p>
+                                        Stock:
+                                        {{ match.product.stock }}</p>
                                 </div>
-                                <div class="modal-header">
-
-                                </div>
+                                <div class="modal-header"></div>
                                 <div class="modal-body" style='text-align:left;margin:40px;'>
                                     <h3>Beschrijving</h3>
                                     <p>{{ match.product.description | raw }}</p>
@@ -98,8 +121,9 @@
                                 <br>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                            data-target=""><i
-                                                class=" fa fa-shopping-cart" aria-hidden="true"></i> Winkelmandje
+                                            data-target="">
+                                        <i class=" fa fa-shopping-cart" aria-hidden="true"></i>
+                                        Winkelmandje
                                     </button>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
                                 </div>
@@ -107,7 +131,8 @@
                         </div>
                     </div>
                     <div class="modal fade" id="ModalSommelier" role="dialog">
-                        <div class="modal-dialog" style='width:900px;'>
+                        <div
+                                class="modal-dialog" style='width:900px;'>
 
                             <!-- Modal content-->
                             <div class="modal-content">
@@ -115,7 +140,8 @@
                                     Rating</h3>
 
                                 <div class="modal-header">
-                                    <p>Score: {{ match.score|number_format(0) }}</p>
+                                    <p>Score:
+                                        {{ match.score|number_format(0) }}</p>
                                 </div>
                                 <div class="modal-body" style='text-align:left;margin:40px;'>
                                     <p>Als Grandcruwijnen bieden wij u een Online Sommelier welke dag-en-nacht voor u
@@ -124,8 +150,9 @@
                                         adviseert bij de wijnen de best bijpassende gerechten. U ziet op het moment de
                                         meest bijpassende wijnen voor uw gekozen gerecht . De score van de wijn in
                                         relatie tot uw gekozen gerecht wordt getoond in het groene blokje als een rating
-                                        met <img
-                                                src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg">als symbool. Alle wijnen met een score hoger dan 70 wordt door ons systeem
+                                        met
+                                        <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg">
+                                        als symbool. Alle wijnen met een score hoger dan 70 wordt door ons systeem
                                         herkend als bijpassend. De wijnen worden getoond op basis van score zodat de
                                         beste match bovenaan staat!</p>
                                 </div>
@@ -137,14 +164,17 @@
                         </div>
                     </div>
                 </div>
-            {% endfor %}
-        </div>
+            {% endif %}
+        {% endfor %}
+    </div>
     </div>
 
     </body>
 {% endblock %}
-    {% block javascripts %}
-        <script src="{{ asset('javascript/script.js') }}"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    {% endblock %}
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="{{ asset('javascript/script.js') }}"></script>
+{% endblock %}

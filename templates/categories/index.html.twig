@@ -15,7 +15,7 @@
 
             <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg'
                  alt='logo' class="logo">
-            <button style="" type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack()'><i
+            <button style="" type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack(window.location.href)'><i
                         class="fa fa-arrow-left" aria-hidden="true"></i> Terug
             </button>
             <div class="text">
@@ -41,6 +41,10 @@
                 </section>
 
                 {% else %}
+                    <script>
+                        localStorage.removeItem('categoryId');
+                        localStorage.setItem('categoryId',window.location.href);
+                    </script>
                     <section class="grid-sub">
                         <a href="{{ path('meals_for_category', {categoryId: meal.categoryId}) }}" class="meal-name" style='heigth:50px;'>
                             {{ meal.name }}
