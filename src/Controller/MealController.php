@@ -9,8 +9,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
-
+use Symfony\Component\HttpFoundation\Request;
 class MealController extends AbstractController
 {
 
@@ -54,17 +53,32 @@ class MealController extends AbstractController
      * @throws GuzzleException
      */
     #[Route('matches/{mealId}', name: 'wines_for_meals')]
-    public function getWinesForMeals(ProductRepository $products, $mealId, MealMatcherService $mealMatcherService): Response
+    public function getWinesForMeals(Request $request, ProductRepository $products, $mealId,  MealMatcherService $mealMatcherService): Response
     {
         $matches = [];
 //        dd($mealMatcherService->getWinesForMeal($mealId));
+        $price_min = 10000;
+        $price_max = 5;
         foreach ($mealMatcherService->getWinesForMeal($mealId) as $wine) {
             $product = $products->findOneBy(['sku' => $wine->wine->sku]);
             // $product = $products->findOneBy(['sku' => $wine->wine->sku]);
             if ($product !== null) {
                 $score = $wine->score;
                 $productMatch = new ProductMatch($product, $score);
-                $matches[] = $productMatch;
+                if ($request->get('price-min') != null) {
+                    if ($wine->price <= $price_min) {
+                        $price_min = $wine->price;
+                    }
+                    if ($wine->price >= $price_max) {
+                        $price_max = $wine->price;
+                    }
+                    if ($wine->price <= $price_min && $wine->price >= $price_max) {
+                        $matches[] = $productMatch;
+
+                    }
+                } else {
+                    $matches[] = $productMatch;
+                }
 //                $score'' = $product;
 
                 //TODO: Scores toevoegen aan de wijn
@@ -72,7 +86,9 @@ class MealController extends AbstractController
         }
 
         return $this->render('wines/index.html.twig', [
-            'matches' => $matches
+            'matches' => $matches,
+            'min_price' => $price_min,
+            'max_price' => $price_max
         ]);
     }
 }
