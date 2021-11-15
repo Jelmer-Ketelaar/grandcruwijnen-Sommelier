@@ -19,6 +19,14 @@ function goBack(currentUrl) {
     }
 }
 
+function submitWineFilter(){
+    var delayInMilliseconds = 1000; //1 second
+
+setTimeout(function() {
+    window.location.reload()
+}, delayInMilliseconds);
+    
+}
 // ----------------------- price filter -------------------
 
 $(function () {

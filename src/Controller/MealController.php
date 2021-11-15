@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 class MealController extends AbstractController
 {
 
@@ -49,6 +50,13 @@ class MealController extends AbstractController
         return $this->render('meals/index.html.twig', ['meals' => $mealMatcherService->getMealsForCategory($categoryId)]);
     }
 
+    private $requestStack;
+
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
+
     /**
      * @throws GuzzleException
      */
@@ -59,26 +67,22 @@ class MealController extends AbstractController
 //        dd($mealMatcherService->getWinesForMeal($mealId));
         $price_min = 10000;
         $price_max = 5;
+
+        $session = $this->requestStack->getSession();
+        $session->set('mealId', array('mealId' => $mealId));
+
+        $formMinPrice = $request->query->get('price-min');
+        $formMaxPrice = $request->query->get('price-max');
+
+
         foreach ($mealMatcherService->getWinesForMeal($mealId) as $wine) {
             $product = $products->findOneBy(['sku' => $wine->wine->sku]);
-            // $product = $products->findOneBy(['sku' => $wine->wine->sku]);
             if ($product !== null) {
                 $score = $wine->score;
                 $productMatch = new ProductMatch($product, $score);
-                if ($request->get('price-min') != null) {
-                    if ($wine->price <= $price_min) {
-                        $price_min = $wine->price;
-                    }
-                    if ($wine->price >= $price_max) {
-                        $price_max = $wine->price;
-                    }
-                    if ($wine->price <= $price_min && $wine->price >= $price_max) {
-                        $matches[] = $productMatch;
 
-                    }
-                } else {
-                    $matches[] = $productMatch;
-                }
+                $matches[] = $productMatch;
+
 //                $score'' = $product;
 
                 //TODO: Scores toevoegen aan de wijn
@@ -87,8 +91,9 @@ class MealController extends AbstractController
 
         return $this->render('wines/index.html.twig', [
             'matches' => $matches,
-            'min_price' => $price_min,
-            'max_price' => $price_max
+            'min_price' => $formMinPrice,
+            'max_price' => $formMaxPrice
         ]);
+
     }
 }

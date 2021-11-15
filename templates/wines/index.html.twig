@@ -24,27 +24,30 @@
         </button>
     </div>
 
-
 		<div class="example-wrapper" style='text-align:center;padding-bottom:50px;'>
 			<h1>Welkom bij de online sommelier</h1>
 			<p>Hier kunt u kiezen uit de best bijpassende wijnen gezocht bij het geselecteerde gerecht.</p>
+
+			{% set mealId = app.session.get('mealId') %}
 		</div>
 			<div class="row" style='display: flex; flex-wrap: wrap;justify-content:right; margin-right: 1%; background-color: #e9dcd1;'>
                 <div id="slider-container" data-role="page" style="background-color: #e9dcd1; width: 22%; top: 34%;">
                     <div data-role="main" class="ui-content">
-                        <form method="post" action="">
-						<p>{{dump(app.request.cookies)}}</p>
+                        <form method="GET" action="">
                         <div data-role="rangeslider">
                             <label for="price-min">Prijs:</label>
-                            <input class="price-label" id="amount" style="background-color: #b5191f; color: #fff; font-weight: 100;" type="range" name="price-min" id="price-min" value="{{ min_price }}" min="0" max="5000">
+                            <input class="price-label" id="amount" style="background-color: #b5191f; color: #fff; font-weight: 100;" type="range" name="price-min" id="price-min" value="1" min="0" max="5000">
                             <label for="price-max">Prijs:</label>
                             <input class="price-label" id="amount" style="background-color: #b5191f; color: #fff; font-weight: 100" type="range" name="price-max" id="price-max" value="5000" min="0" max="5000">
                         </div>
-                            <button action="show()" type="submit" class="btn btn-danger btn-sm">Submit</button>
+                            <button action="show()" type="submit" class="btn btn-danger btn-sm" onclick='submitWineFilter()'>Submit</button>
                         </form>
                     </div>
                 </div> 
+				
 				{% for match in matches %}
+					{% if (match.product.price < max_price and match.product.price > min_price) or min_price == null %}
+
 
 					<div class="col-sm-3" id="producten" style="text-align: center; padding: 10px 10px 10px 10px; margin:5px; box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;">
 						<img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}" class="imageWine" alt="{{ match.product.sku }}"/>
@@ -144,6 +147,7 @@
 							</div>
 						</div>
 					</div>
+					{% endif %}
 				{% endfor %}
 			</div>
 		</div>
