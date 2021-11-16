@@ -11,7 +11,6 @@
 {% endblock %}
 
 {% block body %}
-    <body style="background-color: #e9dcd1;">
     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" id="shopping-cart_btn"
             style='display:block; float:right; margin-top: 58px; margin-right:170px ;'>
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -21,7 +20,8 @@
         <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg'
              alt='logo' style='margin: 30px 30px 30px -7vw;'>
 
-        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack(window.location.href)'>
+        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                onclick='goBack(window.location.href)'>
             <i
                     class="fa fa-arrow-left" aria-hidden="true"></i> Terug
         </button>
@@ -39,13 +39,15 @@
             <div data-role="main" class="ui-content">
                 <form method="GET" action="" data-ajax="false">
                     <div data-role="rangeslider">
-                        <label for="price-min">Prijs:</label>
+                        <label for="price-min">Prijs:</label>¬
                         <input class="price-label" style="background-color: #b5191f; color: #fff; font-weight: 100;"
-                               type="range" name="price-min" id="price-min" value="{{ min_price }}" min="0" max="5000"
+                               type="range" name="price-min" id="price-min" value="{{ min_price }}" min="0"
+                               max="5000"
                                step="1">
                         <label for="price-max"></label>
                         <input class="price-label" style="background-color: #b5191f; color: #fff; font-weight: 100"
-                               type="range" name="price-max" id="price-max" value="{{ max_price }}" min="0" max="5000"
+                               type="range" name="price-max" id="price-max" value="{{ max_price }}" min="0"
+                               max="5000"
                                step="1">
                     </div>
                     <button type="submit" class="btn btn-danger btn-sm">Submit</button>
@@ -125,7 +127,8 @@
                                         <i class=" fa fa-shopping-cart" aria-hidden="true"></i>
                                         Winkelmandje
                                     </button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -144,12 +147,17 @@
                                         {{ match.score|number_format(0) }}</p>
                                 </div>
                                 <div class="modal-body" style='text-align:left;margin:40px;'>
-                                    <p>Als Grandcruwijnen bieden wij u een Online Sommelier welke dag-en-nacht voor u
-                                        gereed staat. Deze functie is volledig gratis! U kiest uit een zeer uitgebreide
-                                        lijst aan gerechten en de Online sommelier adviseert u de geschikte wijnen en
-                                        adviseert bij de wijnen de best bijpassende gerechten. U ziet op het moment de
+                                    <p>Als Grandcruwijnen bieden wij u een Online Sommelier welke dag-en-nacht voor
+                                        u
+                                        gereed staat. Deze functie is volledig gratis! U kiest uit een zeer
+                                        uitgebreide
+                                        lijst aan gerechten en de Online sommelier adviseert u de geschikte wijnen
+                                        en
+                                        adviseert bij de wijnen de best bijpassende gerechten. U ziet op het moment
+                                        de
                                         meest bijpassende wijnen voor uw gekozen gerecht . De score van de wijn in
-                                        relatie tot uw gekozen gerecht wordt getoond in het groene blokje als een rating
+                                        relatie tot uw gekozen gerecht wordt getoond in het groene blokje als een
+                                        rating
                                         met
                                         <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg">
                                         als symbool. Alle wijnen met een score hoger dan 70 wordt door ons systeem
@@ -158,7 +166,8 @@
                                 </div>
                                 <br>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -167,9 +176,6 @@
             {% endif %}
         {% endfor %}
     </div>
-    </div>
-
-    </body>
 {% endblock %}
 {% block javascripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

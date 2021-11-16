@@ -1,7 +1,8 @@
+
 body {
     font-family: 'Montserrat', sans-serif;
     width: 100%;
-    background-color: #e9dcd1;
+    background-color: #F5F4ED;
 }
 
 .example-wrapper {
@@ -111,7 +112,7 @@ button {
 
 .wineImage {
     max-width: 40vw;
-    max-height: 60vh;
+    max-height: 50vh;
     position: relative;
     padding-top: 5vh
 }
@@ -124,19 +125,15 @@ button {
 /* ---------------------- price slider ----------------------------------*/
 
 .ui-page-theme-a .ui-btn {
-    background-color: #d9534f!important;
-    color: #fff!important;
+    background-color: #d9534f !important;
+    color: #fff !important;
 }
 
 .ui-page-theme-a .ui-slider-track .ui-btn-active {
-    background-color: #b5191f!important;
-    border-color: #b5191f!important;
+    background-color: #b5191f !important;
+    border-color: #b5191f !important;
     color: #fff;
-    text-shadow: 0 1px 0 #b5191f!important;
-}
-
-.ui-page-theme-a .ui-body-inherit::before {
-    content: "€"!important;
+    text-shadow: 0 1px 0 #b5191f !important;
 }
 
 /* ---------------- end price slider ---------------------------------------- */
