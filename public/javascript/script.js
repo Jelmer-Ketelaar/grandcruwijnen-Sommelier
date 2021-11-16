@@ -1,4 +1,4 @@
-var baseUrl = 'https://sommelier.apps.grandcruwijnen.dev';
+var baseUrl = 'https://sommelier.apps.grandcruwijnen.dev/';
 
 function goBack(currentUrl) {
 
