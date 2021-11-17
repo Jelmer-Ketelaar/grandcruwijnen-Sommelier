@@ -124,19 +124,61 @@ button {
 /* ---------------------- price slider ----------------------------------*/
 
 .ui-page-theme-a .ui-btn {
-    background-color: #d9534f!important;
-    color: #fff!important;
+    background-color: #d9534f !important;
+    color: #fff !important;
 }
 
 .ui-page-theme-a .ui-slider-track .ui-btn-active {
-    background-color: #b5191f!important;
-    border-color: #b5191f!important;
+    background-color: #b5191f !important;
+    border-color: #b5191f !important;
     color: #fff;
-    text-shadow: 0 1px 0 #b5191f!important;
+    text-shadow: 0 1px 0 #b5191f !important;
 }
 
 .ui-page-theme-a .ui-body-inherit::before {
-    content: "€"!important;
+    content: "€" !important;
 }
 
 /* ---------------- end price slider ---------------------------------------- */
+
+
+#pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-bottom: 10px;
+}
+
+#pagination ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+#pagination ul li {
+    color: #fff;
+    display: flex;
+}
+
+#pagination ul li a {
+    background-color: #dfd9ba;
+    color: #111111;
+    padding: 20px 35px;
+    border: 2px solid rgb(0, 0, 0);
+    border-right: 0;
+}
+
+#pagination ul li.active a {
+    background-color: #dc1e27;
+}
+
+#pagination ul li:first-child a {
+    border-radius: 7px 0 0 7px;
+}
+
+#pagination ul li:last-child a {
+    border-radius: 0 7px 7px 0;
+    border-right: 2px solid rgba(0, 0, 0, 1);
+}
