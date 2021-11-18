@@ -181,10 +181,8 @@
         {% endfor %}
         <h1>{{ maxPrice }}</h1>
     </div>
-
-    {% include "wines/pagination.html.twig" %}
-
     </body>
+    {% include "wines/pagination.html.twig" %}
 {% endblock %}
 {% block javascripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

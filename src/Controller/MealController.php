@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Dto\ProductMatch;
+use App\Entity\Product;
 use App\Repository\ProductRepository;
 use App\Service\MealMatcherService;
 use GuzzleHttp\Exception\GuzzleException;
@@ -96,6 +97,31 @@ class MealController extends AbstractController {
             'matches' => $matches,
             'min_price' => $formMinPrice,
             'max_price' => $formMaxPrice
+        ]);
+    }
+
+    /**
+     * @Route("/", name="product_list")
+     */
+    public function list(Request $request): Response
+    {
+        $productsPerPage = 25;
+        if (($page = $request->get('page')) === null)
+        {
+            $page = 1;
+        } else
+        {
+            $products = $this->getDoctrine()->getRepository(Product::class)->findPage($page, $productsPerPage);
+        }
+
+        $totalProductCount = count($this->getDoctrine()->getRepository(Product::class)->findAll());
+
+        $totalPages = ceil($totalProductCount / $productsPerPage);
+
+        return $this->render('wines/index.html.twig', [
+            'products' => $products,
+            'total_pages' => $totalPages,
+            'current_page' => $page
         ]);
     }
 }
