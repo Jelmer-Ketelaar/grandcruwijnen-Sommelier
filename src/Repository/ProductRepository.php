@@ -19,6 +19,11 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    public function findPage(int $page = 1, int $limit = 25): array
+    {
+        return $this->findBy([], [], $limit, $limit * ($page - 1));
+    }
+
     public function findBySkuAndPrice(string $sku, float $minPrice, float $maxPrice)
     {
         $products = $this->createQueryBuilder('p')
