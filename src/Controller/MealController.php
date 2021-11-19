@@ -105,6 +105,9 @@ class MealController extends AbstractController {
 
         $totalPages = ceil($totalProductCount / $productsPerPage);
 
+        $mealArr = [urldecode($mealId)];
+
+
         return $this->render('wines/index.html.twig', [
             'matches' => $matches,
             'min_price' => $formMinPrice,
@@ -112,7 +115,7 @@ class MealController extends AbstractController {
             'products' => $product,
             'total_pages' => $totalPages,
             'current_page' => $page,
-            'meals' => $mealMatcherService->getWinesForMeal($mealId)
+            'meal_id' => $mealArr
         ]);
     }
 }
