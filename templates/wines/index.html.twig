@@ -41,15 +41,11 @@
                     <div data-role="rangeslider">
                         <label for="price-min">Prijs:</label>
                         <input class="price-label" style="background-color: #b5191f; color: #fff; font-weight: 100;"
-                               type="range" name="price-min" id="price-min" value="{{ min_price }}"
-                               min="{{ min_price }}"
-                               max="{{ max_price }}"
+                               type="range" name="price-min" id="price-min" value="{{ min_price }}" min="0" max="5000"
                                step="1">
                         <label for="price-max"></label>
                         <input class="price-label" style="background-color: #b5191f; color: #fff; font-weight: 100"
-                               type="range" name="price-max" id="price-max" value="{{ max_price }}"
-                               min="{{ min_price }}"
-                               max="{{ max_price }}"
+                               type="range" name="price-max" id="price-max" value="{{ max_price }}" min="0" max="5000"
                                step="1">
                     </div>
                     <button type="submit" class="btn btn-danger btn-sm">Submit</button>
@@ -77,13 +73,6 @@
         {% for match in matches %}
             {% if (match.product.price < max_price and match.product.price > min_price) or min_price == null %}
 
-                {% if (match.product.price < minPrice) %}
-                    {{ minPrice == match.product.price }}
-                {% endif %}
-
-                {% if (match.product.price > maxPrice) %}
-                    {{ maxPrice == match.product.price }}
-                {% endif %}
 
                 <div class="col-sm-3" id="producten"
                      style="text-align: center; padding: 10px 10px 10px 10px; margin:5px; box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;">
@@ -194,10 +183,10 @@
                 </div>
             {% endif %}
         {% endfor %}
-        <h1>{{ maxPrice }}</h1>
+        {% include "wines/pagination.html.twig" %}
     </div>
+
     </body>
-    {% include "wines/pagination.html.twig" %}
 {% endblock %}
 {% block javascripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
