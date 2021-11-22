@@ -98,11 +98,32 @@ class MealController extends AbstractController {
             }
         }
 
+        $productsPerPage = 18;
+        $page = (int) $request->query->get('page');
+        if ($page === null)
+        {
+            $page = 1;
+        } else
+        {
+            $matches = $this->getDoctrine()->getRepository(Product::class)->findPage($page, $productsPerPage);
+        }
+//        dd($product);
+
+        $totalProductCount = count($this->getDoctrine()->getRepository(Product::class)->findAll());
+
+        $totalPages = ceil($totalProductCount / $productsPerPage);
+        $mealArr = [urldecode($mealId)];
+
+//        dd($matches);
+//        $matches = $product;
+
         return $this->render('wines/index.html.twig', [
             'matches' => $matches,
             'min_price' => $formMinPrice,
-            'max_price' => $formMaxPrice
+            'max_price' => $formMaxPrice,
+            'total_pages' => $totalPages,
+            'current_page' => $page,
+            'meal_id' => $mealArr
         ]);
-
     }
 }

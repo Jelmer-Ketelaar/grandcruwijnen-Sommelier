@@ -11,8 +11,9 @@
 {% endblock %}
 
 {% block body %}
+    <body style="background-color: #e9dcd1;">
     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" id="shopping-cart_btn"
-            style='display:block; float:right; margin-top: 58px; margin-right:170px ;'>
+        style='display:block; float:right; margin-top: 58px; margin-right:170px ;'>
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
         Winkelmandje
     </button>
@@ -54,20 +55,38 @@
                 </form>
             </div>
         </div>
+        <div class="row"
+             style='display: flex; flex-wrap: wrap;justify-content:right; margin-right: 1%; background-color: #e9dcd1;'>
+            {# <div id="wijnsoort-filter">
+                <input type="text" id="myInput" placeholder="Search for names.." title="Type in a name">
+                <ul id="myUL">
+                    <li><a href="#">Madeira</a></li>
+                    <li><a href="#">Port</a></li>
+                    <li><a href="#">Rood</a></li>
+                    <li><a href="#">Rose</a></li>
+                    <li><a href="#">Sherry</a></li>
+                    <li><a href="#">Vermout</a></li>
+                    <li><a href="#">Wit</a></li>
+                </ul>
+            </div> #}
+        </div>
+        {% set minPrice = 1000 %}
+        {% set maxPrice = 1 %}
+        >>>>>>> Stashed changes
 
         {% for match in matches %}
-            {% if (match.product.price < max_price and match.product.price > min_price) or min_price == null %}
+            {% if (match.price < max_price and match.price > min_price) or min_price == null %}
 
 
                 <div class="col-sm-3" id="producten"
                      style="text-align: center; padding: 10px 10px 10px 10px; margin:5px; box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;">
-                    <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
-                         class="imageWine" alt="{{ match.product.sku }}"/>
-                    <p>{{ match.product.name }}</p>
-                    <p>Prijs: €{{ match.product.price }},-</p>
+                    <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.image }}"
+                         class="imageWine" alt="{{ match.sku }}"/>
+                    <p>{{ match.name }}</p>
+                    <p>Prijs: €{{ match.price }},-</p>
                     <!-- Trigger the modal with a button -->
                     <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
-                            data-target="#myModal{{ match.product.id }}">
+                            data-target="#myModal{{ match.id }}">
                         <i class="fa fa-info-circle" aria-hidden="true"></i>
                         Meer informatie
                     </button>
@@ -79,26 +98,24 @@
                             data-target="#ModalSommelier" style="padding-top: 1px; height: 30px;">
                         <i aria-hidden="true"></i>
                         <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg">
-                        Score:
-                        {{ match.score|number_format(0) }}
+                        {#                        Score: {{ match.score|number_format(0) }} #}
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="myModal{{ match.product.id }}" role="dialog">
+                    <div class="modal fade" id="myModal{{ match.id }}" role="dialog">
                         <div
                                 class="modal-dialog" style='width:900px;'>
 
                             <!-- Modal content-->
                             <div class="modal-content">
                                 <h3 class="modal-title"
-                                    style='text-align:center; margin-top:30px;'>{{ match.product.name }}</h3>
-
-                                <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
-                                     loading="lazy"
-                                     class="wineImage" alt="{{ match.product.sku }}"/>
+                                    style='text-align:center; margin-top:30px;'>{{ match.name }}</h3>
+                                <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.image }}"
+                                     class="wineImage" alt="{{ match.sku }}"/>
+                                s
                                 <div style='background-color:rgba(145, 145, 145, 0.34); width:350px; height:480px; border-radius:20px; margin:20px; margin-right:40px;margin-top:40px;float:right;'>
-                                    <h4 style='margin-left:0px;text-align:left;margin:20px;'>Prijs:
-                                        €{{ match.product.price }},-</h4>
+                                    <h4 style='margin-left:0px;text-align:left; margin:20px;'>Prijs:
+                                        {#                                        €{{ match.product.price }}, -#}</h4>
                                     <hr>
                                     <p style='text-align:left;margin: 20px;'>Locatie:</p>
                                     <hr>
@@ -114,12 +131,12 @@
                                     <hr>
                                     <p style='margin-left:0px;text-align:left;margin:20px;'>
                                         Stock:
-                                        {{ match.product.stock }}</p>
+                                        {#                                        {{ match.product.stock }}</p> #}
                                 </div>
                                 <div class="modal-header"></div>
                                 <div class="modal-body" style='text-align:left;margin:40px;'>
                                     <h3>Beschrijving</h3>
-                                    <p>{{ match.product.description | raw }}</p>
+                                    {#                                    <p>{{ match.product.description | raw }}</p> #}
                                 </div>
                                 <br>
                                 <div class="modal-footer">
@@ -145,7 +162,7 @@
 
                                 <div class="modal-header">
                                     <p>Score:
-                                        {{ match.score|number_format(0) }}</p>
+                                        {# {{ match.score|number_format(0) }}</p> #}
                                 </div>
                                 <div class="modal-body" style='text-align:left;margin:40px;'>
                                     <p>Als Grandcruwijnen bieden wij u een Online Sommelier welke dag-en-nacht voor
@@ -177,6 +194,12 @@
             {% endif %}
         {% endfor %}
     </div>
+
+    <br>
+    {% include "wines/pagination.html.twig" %}
+    <br>
+
+    </body>
 {% endblock %}
 {% block javascripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
