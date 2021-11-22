@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Dto\ProductMatch;
+use App\Entity\Product;
 use App\Repository\ProductRepository;
 use App\Service\MealMatcherService;
 use GuzzleHttp\Exception\GuzzleException;
