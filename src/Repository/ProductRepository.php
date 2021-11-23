@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -24,6 +25,23 @@ class ProductRepository extends ServiceEntityRepository
         return $this->findBy([], [], $limit, $limit * ($page - 1));
     }
 
+    public function findWinesBySkus(array $skus, float $minPrice, float $maxPrice, int $page = 1, int $limit = 18)
+    {
+        $products = $this->createQueryBuilder('p')
+            ->andWhere('p.sku IN (:skus)')
+            ->andWhere('p.price >= :minPrice')
+            ->andWhere('p.price <= :maxPrice')
+            ->setParameter('skus', $skus)
+            ->setParameter('minPrice', $minPrice)
+            ->setParameter('maxPrice', $maxPrice)
+//            ->orderBy('p.id', 'ASC')
+//            ->setMaxResults($limit)
+//            ->setFirstResult(($page - 1) * $limit)
+            ->getQuery()
+            ->getResult();
+        return $products;
+    }
+
     public function findBySkuAndPrice(string $sku, float $minPrice, float $maxPrice)
     {
         $products = $this->createQueryBuilder('p')
@@ -34,12 +52,13 @@ class ProductRepository extends ServiceEntityRepository
             ->setParameter('minPrice', $minPrice)
             ->setParameter('maxPrice', $maxPrice)
 //            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(18)
+//            ->setMaxResults(10)
             ->getQuery()
             ->getResult();
         if (count($products) > 0) {
             return $products[0];
         }
+
         return null;
     }
 

@@ -13,7 +13,7 @@
 {% block body %}
     <body style="background-color: #e9dcd1;">
     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" id="shopping-cart_btn"
-        style='display:block; float:right; margin-top: 58px; margin-right:170px ;'>
+            style='display:block; float:right; margin-top: 58px; margin-right:170px ;'>
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
         Winkelmandje
     </button>
@@ -21,8 +21,7 @@
         <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg'
              alt='logo' style='margin: 30px 30px 30px -7vw;'>
 
-        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                onclick='goBack(window.location.href)'>
+        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack(window.location.href)'>
             <i
                     class="fa fa-arrow-left" aria-hidden="true"></i> Terug
         </button>
@@ -42,13 +41,11 @@
                     <div data-role="rangeslider">
                         <label for="price-min">Prijs:</label>
                         <input class="price-label" style="background-color: #b5191f; color: #fff; font-weight: 100;"
-                               type="range" name="price-min" id="price-min" value="{{ min_price }}" min="0"
-                               max="5000"
+                               type="range" name="price-min" id="price-min" value="{{ min_price }}" min="0" max="5000"
                                step="1">
                         <label for="price-max"></label>
                         <input class="price-label" style="background-color: #b5191f; color: #fff; font-weight: 100"
-                               type="range" name="price-max" id="price-max" value="{{ max_price }}" min="0"
-                               max="5000"
+                               type="range" name="price-max" id="price-max" value="{{ max_price }}" min="0" max="5000"
                                step="1">
                     </div>
                     <button type="submit" class="btn btn-danger btn-sm">Submit</button>
@@ -57,7 +54,7 @@
         </div>
         <div class="row"
              style='display: flex; flex-wrap: wrap;justify-content:right; margin-right: 1%; background-color: #e9dcd1;'>
-            {# <div id="wijnsoort-filter">
+            <div id="wijnsoort-filter">
                 <input type="text" id="myInput" placeholder="Search for names.." title="Type in a name">
                 <ul id="myUL">
                     <li><a href="#">Madeira</a></li>
@@ -68,25 +65,24 @@
                     <li><a href="#">Vermout</a></li>
                     <li><a href="#">Wit</a></li>
                 </ul>
-            </div> #}
+            </div>
         </div>
         {% set minPrice = 1000 %}
         {% set maxPrice = 1 %}
-        >>>>>>> Stashed changes
 
         {% for match in matches %}
-            {% if (match.price < max_price and match.price > min_price) or min_price == null %}
+            {% if (match.product.price < max_price and match.product.price > min_price) or min_price == null %}
 
 
                 <div class="col-sm-3" id="producten"
                      style="text-align: center; padding: 10px 10px 10px 10px; margin:5px; box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;">
-                    <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.image }}"
-                         class="imageWine" alt="{{ match.sku }}"/>
-                    <p>{{ match.name }}</p>
-                    <p>Prijs: €{{ match.price }},-</p>
+                    <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
+                         class="imageWine" alt="{{ match.product.sku }}"/>
+                    <p>{{ match.product.name }} - {{ match.product.sku }}</p>
+                    <p>Prijs: €{{ match.product.price }},-</p>
                     <!-- Trigger the modal with a button -->
                     <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
-                            data-target="#myModal{{ match.id }}">
+                            data-target="#myModal{{ match.product.id }}">
                         <i class="fa fa-info-circle" aria-hidden="true"></i>
                         Meer informatie
                     </button>
@@ -98,24 +94,25 @@
                             data-target="#ModalSommelier" style="padding-top: 1px; height: 30px;">
                         <i aria-hidden="true"></i>
                         <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg">
-                        {#                        Score: {{ match.score|number_format(0) }} #}
+                        Score:
+                        {{ match.score|number_format(0) }}
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="myModal{{ match.id }}" role="dialog">
+                    <div class="modal fade" id="myModal{{ match.product.id }}" role="dialog">
                         <div
                                 class="modal-dialog" style='width:900px;'>
 
                             <!-- Modal content-->
                             <div class="modal-content">
                                 <h3 class="modal-title"
-                                    style='text-align:center; margin-top:30px;'>{{ match.name }}</h3>
-                                <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.image }}"
-                                     class="wineImage" alt="{{ match.sku }}"/>
-                                s
+                                    style='text-align:center; margin-top:30px;'>{{ match.product.name }}</h3>
+
+                                <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
+                                     class="wineImage" alt="{{ match.product.sku }}"/>
                                 <div style='background-color:rgba(145, 145, 145, 0.34); width:350px; height:480px; border-radius:20px; margin:20px; margin-right:40px;margin-top:40px;float:right;'>
-                                    <h4 style='margin-left:0px;text-align:left; margin:20px;'>Prijs:
-                                        {#                                        €{{ match.product.price }}, -#}</h4>
+                                    <h4 style='margin-left:0px;text-align:left;margin:20px;'>Prijs:
+                                        €{{ match.product.price }},-</h4>
                                     <hr>
                                     <p style='text-align:left;margin: 20px;'>Locatie:</p>
                                     <hr>
@@ -131,12 +128,12 @@
                                     <hr>
                                     <p style='margin-left:0px;text-align:left;margin:20px;'>
                                         Stock:
-                                        {#                                        {{ match.product.stock }}</p> #}
+                                        {{ match.product.stock }}</p>
                                 </div>
                                 <div class="modal-header"></div>
                                 <div class="modal-body" style='text-align:left;margin:40px;'>
                                     <h3>Beschrijving</h3>
-                                    {#                                    <p>{{ match.product.description | raw }}</p> #}
+                                    <p>{{ match.product.description | raw }}</p>
                                 </div>
                                 <br>
                                 <div class="modal-footer">
@@ -145,8 +142,7 @@
                                         <i class=" fa fa-shopping-cart" aria-hidden="true"></i>
                                         Winkelmandje
                                     </button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten
-                                    </button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
                                 </div>
                             </div>
                         </div>
@@ -162,20 +158,15 @@
 
                                 <div class="modal-header">
                                     <p>Score:
-                                        {# {{ match.score|number_format(0) }}</p> #}
+                                        {{ match.score|number_format(0) }}</p>
                                 </div>
                                 <div class="modal-body" style='text-align:left;margin:40px;'>
-                                    <p>Als Grandcruwijnen bieden wij u een Online Sommelier welke dag-en-nacht voor
-                                        u
-                                        gereed staat. Deze functie is volledig gratis! U kiest uit een zeer
-                                        uitgebreide
-                                        lijst aan gerechten en de Online sommelier adviseert u de geschikte wijnen
-                                        en
-                                        adviseert bij de wijnen de best bijpassende gerechten. U ziet op het moment
-                                        de
+                                    <p>Als Grandcruwijnen bieden wij u een Online Sommelier welke dag-en-nacht voor u
+                                        gereed staat. Deze functie is volledig gratis! U kiest uit een zeer uitgebreide
+                                        lijst aan gerechten en de Online sommelier adviseert u de geschikte wijnen en
+                                        adviseert bij de wijnen de best bijpassende gerechten. U ziet op het moment de
                                         meest bijpassende wijnen voor uw gekozen gerecht . De score van de wijn in
-                                        relatie tot uw gekozen gerecht wordt getoond in het groene blokje als een
-                                        rating
+                                        relatie tot uw gekozen gerecht wordt getoond in het groene blokje als een rating
                                         met
                                         <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg">
                                         als symbool. Alle wijnen met een score hoger dan 70 wordt door ons systeem
@@ -184,8 +175,7 @@
                                 </div>
                                 <br>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten
-                                    </button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
                                 </div>
                             </div>
                         </div>
@@ -193,8 +183,8 @@
                 </div>
             {% endif %}
         {% endfor %}
-    </div>
 
+    </div>
     <br>
     {% include "wines/pagination.html.twig" %}
     <br>
