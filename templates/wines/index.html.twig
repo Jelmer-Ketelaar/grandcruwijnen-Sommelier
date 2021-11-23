@@ -76,7 +76,7 @@
                      style="text-align: center; padding: 10px 10px 10px 10px; margin:5px; box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;">
                     <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
                          class="imageWine" alt="{{ match.product.sku }}"/>
-                    <p>{{ match.product.name }}</p>
+                    <p>{{ match.product.name }} - {{ match.product.sku }}</p>
                     <p>Prijs: €{{ match.product.price }},-</p>
                     <!-- Trigger the modal with a button -->
                     <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
@@ -181,7 +181,7 @@
                 </div>
             {% endif %}
         {% endfor %}
-        
+
     </div>
     <br>
     {% include "wines/pagination.html.twig" %}

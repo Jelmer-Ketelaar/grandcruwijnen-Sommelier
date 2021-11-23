@@ -5,7 +5,6 @@ namespace App\Controller;
 
 use App\Dto\ProductMatch;
 use App\Entity\Product;
-use App\Repository\ProductRepository;
 use App\Service\MealMatcherService;
 use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -62,7 +61,7 @@ class MealController extends AbstractController {
      * @throws GuzzleException
      * @Route("/matches/{mealId}", name="wines_for_meals")
      */
-    public function getWinesForMeals(Request $request, ProductRepository $products, $mealId, MealMatcherService $mealMatcherService): Response
+    public function getWinesForMeals(Request $request, $mealId, MealMatcherService $mealMatcherService): Response
     {
         $matches = [];
 //        dd($mealMatcherService->getWinesForMeal($mealId));
@@ -81,41 +80,47 @@ class MealController extends AbstractController {
         }
 
 
-        foreach ($mealMatcherService->getWinesForMeal($mealId) as $wine)
-        {
-            $product = $products->findBySkuAndPrice($wine->wine->sku, $formMinPrice, $formMaxPrice);
-            if ($product !== null)
-            {
-                $score = $wine->score;
-                $productMatch = new ProductMatch($product, $score);
-                $matches[] = $productMatch;
-            }
-        }
-        $productRepository = $this->getDoctrine()->getRepository(Product::class);
-        $productsPerPage = 25;
-        if (($page = $request->get('page')) === null)
+        $page = (int) $request->query->get('page');
+        $productsPerPage = 18;
+        if ($page === 0)
         {
             $page = 1;
-        } else
+        }
+        $skuScores = [];
+        $skus = [];
+        foreach ($mealMatcherService->getWinesForMeal($mealId) as $wine)
         {
-            $product = $productRepository->findPage($page, $productsPerPage);
+            $skus[] = $wine->wine->sku;
+            $skuScores[$wine->wine->sku] = $wine->score;
         }
 
-        $totalProductCount = count($productRepository->findAll());
+        /** @var Product[] $products */
+        $products = $this->getDoctrine()->getRepository(Product::class)->findWinesBySkus($skus, $formMinPrice, $formMaxPrice, $page, $productsPerPage);
+        foreach ($products as $product)
+        {
+            $productMatch = new ProductMatch($product, $skuScores[$product->getSku()]);
+            $matches[] = $productMatch;
+        }
+
+        usort($matches, static function ($matchA, $matchB) {
+            return $matchA->getScore() === $matchB->getScore() ? 0 : ($matchA->getScore() < $matchB->getScore() ? 1 : - 1);
+        });
+
+        $matchesForPage = array_slice($matches, ($page - 1) * $productsPerPage, $productsPerPage);
+        $totalProductCount = count($matches);
 
         $totalPages = ceil($totalProductCount / $productsPerPage);
-
         $mealArr = [urldecode($mealId)];
 
-
         return $this->render('wines/index.html.twig', [
-            'matches' => $matches,
+            'matches' => $matchesForPage,
             'min_price' => $formMinPrice,
             'max_price' => $formMaxPrice,
-            'products' => $product,
             'total_pages' => $totalPages,
             'current_page' => $page,
             'meal_id' => $mealArr
         ]);
+
+
     }
 }
