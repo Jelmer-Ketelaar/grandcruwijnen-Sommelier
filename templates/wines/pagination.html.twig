@@ -46,17 +46,6 @@
                 <a>...</a>
             </li>
         {% endif %}
-        {# <li {% if current_page == total_pages - 1 %}class="active"{% endif %}>
-            <a href="{{ path('wines_for_meals', {mealId}) }}/?page={{ total_pages - 1 }}">
-                {{ total_pages - 1 }}
-            </a>
-        </li> #}
-
-        <li {% if current_page == total_pages %}class="active"{% endif %}>
-            <a href="{{ path('wines_for_meals', {mealId, 'page': total_pages,'min_price': min_price, 'max_price': max_price}) }}"
-               data-ajax="false">
-                {{ total_pages }}
-            </a>
-        </li>
+        
     </ul>
 </div>
