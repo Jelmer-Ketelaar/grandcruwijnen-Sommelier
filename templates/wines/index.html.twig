@@ -41,11 +41,11 @@
                     <div data-role="rangeslider">
                         <label for="price-min">Prijs:</label>
                         <input class="price-label" style="background-color: #b5191f; color: #fff; font-weight: 100;"
-                               type="range" name="price-min" id="price-min" value="{{ minWinePrice }}" min="{{ minWinePrice }}" max="{{ minWinePrice }}"
+                               type="range" name="price-min" id="price-min" value="{{ minWinePrice }}" min="{{ minWinePrice }}" max="{{ maxWinePrice }}"
                                step="1">
                         <label for="price-max"></label>
                         <input class="price-label" style="background-color: #b5191f; color: #fff; font-weight: 100"
-                               type="range" name="price-max" id="price-max" value="{{ maxWinePrice }}" min="{{ maxWinePrice }}" max="{{ maxWinePrice }}"
+                               type="range" name="price-max" id="price-max" value="{{ maxWinePrice }}" min="{{ minWinePrice }}" max="{{ maxWinePrice }}"
                                step="1">
                     </div>
                     <button type="submit" class="btn btn-danger btn-sm">Submit</button>
