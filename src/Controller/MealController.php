@@ -118,6 +118,8 @@ class MealController extends AbstractController {
             return $matchA->getScore() === $matchB->getScore() ? 0 : ($matchA->getScore() < $matchB->getScore() ? 1 : - 1);
         });
 
+        
+
         $matchesForPage = array_slice($matches, ($page - 1) * $productsPerPage, $productsPerPage);
         $totalProductCount = count($matches);
 
