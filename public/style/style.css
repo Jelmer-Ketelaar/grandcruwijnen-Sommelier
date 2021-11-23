@@ -1,3 +1,4 @@
+
 body {
     font-family: 'Montserrat', sans-serif;
     width: 100%;
@@ -111,7 +112,7 @@ button {
 
 .wineImage {
     max-width: 40vw;
-    max-height: 60vh;
+    max-height: 50vh;
     position: relative;
     padding-top: 5vh
 }
