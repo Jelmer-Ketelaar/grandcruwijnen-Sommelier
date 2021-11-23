@@ -94,11 +94,23 @@ class MealController extends AbstractController {
             $skuScores[$wine->wine->sku] = $wine->score;
         }
 
+        $minWinePrice = 10000;
+        $maxWinePrice = 0;
+
         /** @var Product[] $products */
         $products = $this->getDoctrine()->getRepository(Product::class)->findWinesBySkus($skus, $formMinPrice, $formMaxPrice, $page, $productsPerPage);
         foreach ($products as $product)
         {
             $productMatch = new ProductMatch($product, $skuScores[$product->getSku()]);
+            $winePrice = $productMatch->product->getprice();
+
+            if($minWinePrice > $winePrice){
+                $minWinePrice = $winePrice;
+            }
+            if($maxWinePrice < $winePrice){
+                $maxWinePrice = $winePrice;
+            }
+            
             $matches[] = $productMatch;
         }
 
@@ -112,10 +124,13 @@ class MealController extends AbstractController {
         $totalPages = ceil($totalProductCount / $productsPerPage);
         $mealArr = [urldecode($mealId)];
 
+
         return $this->render('wines/index.html.twig', [
             'matches' => $matchesForPage,
             'min_price' => $formMinPrice,
             'max_price' => $formMaxPrice,
+            'minWinePrice' => $minWinePrice,
+            'maxWinePrice' => $maxWinePrice,
             'total_pages' => $totalPages,
             'current_page' => $page,
             'meal_id' => $mealArr
