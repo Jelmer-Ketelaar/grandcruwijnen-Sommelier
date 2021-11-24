@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
+
 
 class MealController extends AbstractController {
 
@@ -63,6 +65,10 @@ class MealController extends AbstractController {
      */
     public function getWinesForMeals(Request $request, $mealId, MealMatcherService $mealMatcherService): Response
     {
+        $session = new Session();
+        $session->start();
+
+
         $matches = [];
 //        dd($mealMatcherService->getWinesForMeal($mealId));
         $session = $this->requestStack->getSession();
@@ -78,7 +84,6 @@ class MealController extends AbstractController {
         {
             $formMaxPrice = 5000;
         }
-
 
         $page = (int) $request->query->get('page');
         $productsPerPage = 18;
@@ -118,14 +123,22 @@ class MealController extends AbstractController {
             return $matchA->getScore() === $matchB->getScore() ? 0 : ($matchA->getScore() < $matchB->getScore() ? 1 : - 1);
         });
 
-        
-
-        $matchesForPage = array_slice($matches, ($page - 1) * $productsPerPage, $productsPerPage);
+        $matchesForPage = array_slice($matches, ($page - 1) * $productsPerPage);
         $totalProductCount = count($matches);
+
+        //dd($matchesForPage);
 
         $totalPages = ceil($totalProductCount / $productsPerPage);
         $mealArr = [urldecode($mealId)];
 
+        if($session->get('max_price') === null){
+            $session->set('max_price', $maxWinePrice);
+            $session->set('min_price', $minWinePrice);
+        } else {
+            $maxWinePrice = $session->get('max_price');
+            $minWinePrice = $session->get('min_price');
+        }
+        
 
         return $this->render('wines/index.html.twig', [
             'matches' => $matchesForPage,
