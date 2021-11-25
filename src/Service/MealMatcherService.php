@@ -6,12 +6,14 @@ namespace App\Service;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
-class MealMatcherService {
+class MealMatcherService
+{
     private Client $client;
 
     public function __construct()
     {
-        $this->client = new Client(['base_uri' => 'https://mealmatcher.grandcruwijnen.nl']);
+        //Set the base URL of the api website
+        $this->client = new Client(['base_uri' => $_SERVER['BASE_URL']]);
     }
 
     public function getIndexPage(): string
@@ -27,10 +29,10 @@ class MealMatcherService {
         $categories = $this->getMealsCategories();
         $parentCategories = [];
 
-        foreach ($categories as $category)
-        {
-            if ($category->parent === null)
-            {
+        foreach ($categories as $category) {
+            //if the parent of the category is equal to null
+            //put $category in $parentCategories
+            if ($category->parent === null) {
                 $parentCategories[] = $category;
             }
         }
@@ -45,8 +47,16 @@ class MealMatcherService {
     {
         $response = $this->client->request('GET', '/api/meal_categories');
 
+        //The json string being decoded
         $categories = json_decode($response->getBody()->getContents());
-        usort($categories, function ($categoryA, $categoryB) {
+        //Sort the names
+        usort($categories, static function ($categoryA, $categoryB) {
+            /*
+             * This function is used to find whether two strings are same or not.
+             * It returns 0 if $categoryA and $categoryB are same
+             * less than zero if $categoryA is smaller than $categoryB
+             * greater than zero if $categoryA is greater than $categoryB
+             * */
             return strcmp($categoryA->name, $categoryB->name);
         });
 
@@ -61,14 +71,13 @@ class MealMatcherService {
         $categories = $this->getMealsCategories();
         $childCategories = [];
 
-        foreach ($categories as $category)
-        {
-            if ($category->parent !== null && $category->parent->categoryId === $parentId)
-            {
+        foreach ($categories as $category) {
+            //If the parent of the category is not null and the categoryId is equal to $parentId
+            if ($category->parent !== null && $category->parent->categoryId === $parentId) {
+                //put $category in $childCategories[]
                 $childCategories[] = $category;
             }
         }
-
         return $childCategories;
     }
 

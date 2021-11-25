@@ -53,7 +53,7 @@ class ProductsCommand extends Command {
         $items = $this->products->getProducts()['items'];
         foreach ($items as $magentoProduct)
         {
-            var_dump($magentoProduct['custom_attributes']); die();
+//            var_dump($magentoProduct['custom_attributes']); die();
             if ($magentoProduct['status'] !== 1)
             {
                 continue;
