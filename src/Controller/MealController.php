@@ -103,19 +103,21 @@ class MealController extends AbstractController {
         $maxWinePrice = 0;
 
         /** @var Product[] $products */
-        $products = $this->getDoctrine()->getRepository(Product::class)->findWinesBySkus($skus, $formMinPrice, $formMaxPrice, $page, $productsPerPage);
+        $products = $this->getDoctrine()->getRepository(Product::class)->findWinesBySkus($skus, $formMinPrice, $formMaxPrice);
         foreach ($products as $product)
         {
             $productMatch = new ProductMatch($product, $skuScores[$product->getSku()]);
             $winePrice = $productMatch->product->getprice();
 
-            if($minWinePrice > $winePrice){
+            if ($minWinePrice > $winePrice)
+            {
                 $minWinePrice = $winePrice;
             }
-            if($maxWinePrice < $winePrice){
+            if ($maxWinePrice < $winePrice)
+            {
                 $maxWinePrice = $winePrice;
             }
-            
+
             $matches[] = $productMatch;
         }
 
@@ -123,22 +125,23 @@ class MealController extends AbstractController {
             return $matchA->getScore() === $matchB->getScore() ? 0 : ($matchA->getScore() < $matchB->getScore() ? 1 : - 1);
         });
 
-        $matchesForPage = array_slice($matches, ($page - 1) * $productsPerPage);
+
+        $matchesForPage = array_slice($matches, ($page) * $productsPerPage, $productsPerPage);
         $totalProductCount = count($matches);
-
-        //dd($matchesForPage);
-
+//        dd($matchesForPage);
         $totalPages = ceil($totalProductCount / $productsPerPage);
         $mealArr = [urldecode($mealId)];
 
-        if($session->get('max_price') === null){
+        if ($session->get('max_price') === null)
+        {
             $session->set('max_price', $maxWinePrice);
             $session->set('min_price', $minWinePrice);
-        } else {
+        } else
+        {
             $maxWinePrice = $session->get('max_price');
             $minWinePrice = $session->get('min_price');
         }
-        
+
 
         return $this->render('wines/index.html.twig', [
             'matches' => $matchesForPage,
