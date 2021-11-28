@@ -10,7 +10,7 @@
                data-ajax="false">2</a>
         </li>
 
-        {% if current_page >= 1 %}
+        {% if current_page > 3 %}
             <li>
                 <a>...</a>
             </li>
@@ -20,7 +20,6 @@
             <li>
                 <a href="{{ path('wines_for_meals', {mealId, 'page': current_page - 1,'min_price': min_price, 'max_price': max_price}) }}"
                    data-ajax="false">
-                    {{ current_page -  1 }}
                 </a>
             </li>
         {% endif %}
@@ -29,19 +28,9 @@
             <li class="active">
                 <a href="{{ path('wines_for_meals', {mealId, 'page': current_page,'min_price': min_price, 'max_price': max_price}) }}"
                    data-ajax="false">
-                    {{ current_page }}
                 </a>
             </li>
         {% endif %}
-
-     {#   {% if current_page == 3 %}
-            <li class="ac">
-                <a href="{{ path('wines_for_meals', {mealId, 'page': 3,'min_price': min_price, 'max_price': max_price}) }}"
-                   data-ajax="false">
-                    3
-                </a>
-            </li>
-        {% endif %}#}
 
         {% if current_page > 1 and current_page < total_pages - 2 %}
             <li>
@@ -52,9 +41,11 @@
             </li>
         {% endif %}
 
-        <li {% if current_page == total_pages - 1 %}class="active"{% endif %}>
-            <a href="{{ path('wines_for_meals', {mealId, 'page': total_pages - 1,'min_price': min_price, 'max_price': max_price}) }}"
-               data-ajax="false">{{ total_pages - 1 }}</a>
-        </li>
+        {% if current_page < total_pages - 3 %}
+            <li>
+                <a>...</a>
+            </li>
+        {% endif %}
+
     </ul>
 </div>
