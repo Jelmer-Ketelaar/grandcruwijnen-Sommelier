@@ -76,8 +76,8 @@ class ProductsCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $items = $this->products->getProducts()['items'];
         foreach ($items as $magentoProduct) {
-            /*var_dump($magentoProduct['custom_attributes'][8]['value']);
-            die();*/
+            // var_dump($magentoProduct['custom_attributes'][0]['value']);
+            // die();
             if ($magentoProduct['status'] !== 1) {
                 continue;
             }
@@ -97,7 +97,8 @@ class ProductsCommand extends Command
                     ->setPrice($magentoProduct["price"])
                     ->setStock($magentoProduct['extension_attributes']['stock_item']['qty'])
                     ->setImage($magentoProduct['media_gallery_entries'][0]['file'])
-                    ->setLand($magentoProduct['custom_attributes'][8]['value']);
+                    ->setLand($magentoProduct['custom_attributes'][0]['value']);
+                    //->setWijnsoort($magentoProduct['custom_attributes'][0]['value']);
             } else if ($updatedAt > $product->getUpdatedAt()) {
                 $product
                     ->setValid(false)
