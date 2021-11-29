@@ -9,7 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  */
-class Product {
+class Product
+{
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -61,6 +62,16 @@ class Product {
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $land;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $wineHouse;
 
     /**
      * Product constructor.
@@ -180,6 +191,30 @@ class Product {
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getLand(): ?int
+    {
+        return $this->land;
+    }
+
+    public function setLand(string $land): self
+    {
+        $this->land = $land;
+
+        return $this;
+    }
+
+    public function getWineHouse(): ?string
+    {
+        return $this->wineHouse;
+    }
+
+    public function setWineHouse(string $wineHouse): self
+    {
+        $this->wineHouse = $wineHouse;
 
         return $this;
     }
