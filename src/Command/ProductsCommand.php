@@ -8,6 +8,7 @@ use App\Repository\ProductRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Grandcruwijnen\SDK\Attributes;
 use Grandcruwijnen\SDK\Products;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -26,6 +27,7 @@ class ProductsCommand extends Command
     private Products $products;
     private EntityManagerInterface $manager;
     private ProductRepository $productRepository;
+    private Attributes $attributes;
 
     /**
      * ProductsCommand constructor.
@@ -34,13 +36,14 @@ class ProductsCommand extends Command
      * @param ProductRepository $productRepository
      */
 
-    public function __construct(Products $products, EntityManagerInterface $manager, ProductRepository $productRepository)
+    public function __construct(Products $products, EntityManagerInterface $manager, ProductRepository $productRepository, Attributes $attributes)
     {
         parent::__construct();
 
         $this->products = $products;
         $this->manager = $manager;
         $this->productRepository = $productRepository;
+        $this->attributes = $attributes;
     }
 
     public function getAuthToken(): bool|string
@@ -75,19 +78,27 @@ class ProductsCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $items = $this->products->getProducts()['items'];
+        $countryAttributes = $this->attributes->getProductAttributeOptions('land');
+        $wineHouseAttributes = $this->attributes->getProductAttributeOptions('wijnhuis');
+
         foreach ($items as $magentoProduct) {
-            /*var_dump($magentoProduct['custom_attributes'][8]['value']);
-            die();*/
             if ($magentoProduct['status'] !== 1) {
                 continue;
             }
             if (!isset($magentoProduct['media_gallery_entries'][0])) {
                 continue;
             }
+            if ($this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'land') === null) {
+                continue;
+            }
+            if ($this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'wijnhuis') === null) {
+                continue;
+            }
             $product = $this->productRepository->findOneBy(['sku' => $magentoProduct['sku']]);
             $updatedAt = new DateTime($magentoProduct['updated_at']);
 //            $io->comment($magentoProduct['custom_attributes'][8]['value']);
             if ($product === null) {
+                var_dump($magentoProduct['sku']);
                 $product = new Product();
                 $product
                     ->setSku($magentoProduct['sku'])
@@ -97,7 +108,8 @@ class ProductsCommand extends Command
                     ->setPrice($magentoProduct["price"])
                     ->setStock($magentoProduct['extension_attributes']['stock_item']['qty'])
                     ->setImage($magentoProduct['media_gallery_entries'][0]['file'])
-                    ->setLand($magentoProduct['custom_attributes'][8]['value']);
+                    ->setLand($this->findCountryForId($countryAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'land')))
+                    ->setWineHouse($this->findCountryForId($wineHouseAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'wijnhuis')));
             } else if ($updatedAt > $product->getUpdatedAt()) {
                 $product
                     ->setValid(false)
@@ -111,5 +123,26 @@ class ProductsCommand extends Command
         $io->success('Product database updated');
 
         return Command::SUCCESS;
+    }
+
+    private function findAttributeValueForCode(array $attributes, string $code)
+    {
+        foreach ($attributes as $attribute) {
+            if ($attribute['attribute_code'] === $code) {
+                return $attribute['value'];
+            }
+        }
+        return null;
+    }
+
+    private function findCountryForId(array $countryAttributes, string $id)
+    {
+        var_dump($id);
+        foreach ($countryAttributes as $attribute) {
+            if ($attribute['value'] === $id) {
+                return $attribute['label'];
+            }
+        }
+        return null;
     }
 }
