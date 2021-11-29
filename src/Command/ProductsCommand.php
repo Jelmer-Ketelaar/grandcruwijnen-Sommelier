@@ -17,10 +17,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-//Authorization: Bearer <token>
 
-
-class ProductsCommand extends Command {
+class ProductsCommand extends Command
+{
     protected static $defaultName = 'app:fill:products';
     protected static $defaultDescription = 'Fills products database';
 
@@ -28,6 +27,21 @@ class ProductsCommand extends Command {
     private EntityManagerInterface $manager;
     private ProductRepository $productRepository;
 
+    /**
+     * ProductsCommand constructor.
+     * @param Products $products
+     * @param EntityManagerInterface $manager
+     * @param ProductRepository $productRepository
+     */
+
+    public function __construct(Products $products, EntityManagerInterface $manager, ProductRepository $productRepository)
+    {
+        parent::__construct();
+
+        $this->products = $products;
+        $this->manager = $manager;
+        $this->productRepository = $productRepository;
+    }
 
     public function getAuthToken(): bool|string
     {
@@ -48,22 +62,6 @@ class ProductsCommand extends Command {
         return ($response->getBody()->getContents());
     }
 
-    /**
-     * ProductsCommand constructor.
-     * @param Products $products
-     * @param EntityManagerInterface $manager
-     * @param ProductRepository $productRepository
-     */
-
-    public function __construct(Products $products, EntityManagerInterface $manager, ProductRepository $productRepository)
-    {
-        parent::__construct();
-
-        $this->products = $products;
-        $this->manager = $manager;
-        $this->productRepository = $productRepository;
-    }
-
     protected function configure(): void
     {
         $this->setDescription(self::$defaultDescription);
@@ -77,23 +75,19 @@ class ProductsCommand extends Command {
     {
         $io = new SymfonyStyle($input, $output);
         $items = $this->products->getProducts()['items'];
-        foreach ($items as $magentoProduct)
-        {
+        foreach ($items as $magentoProduct) {
             /*var_dump($magentoProduct['custom_attributes'][8]['value']);
             die();*/
-            if ($magentoProduct['status'] !== 1)
-            {
+            if ($magentoProduct['status'] !== 1) {
                 continue;
             }
-            if ( ! isset($magentoProduct['media_gallery_entries'][0]))
-            {
+            if (!isset($magentoProduct['media_gallery_entries'][0])) {
                 continue;
             }
             $product = $this->productRepository->findOneBy(['sku' => $magentoProduct['sku']]);
             $updatedAt = new DateTime($magentoProduct['updated_at']);
 //            $io->comment($magentoProduct['custom_attributes'][8]['value']);
-            if ($product === null)
-            {
+            if ($product === null) {
                 $product = new Product();
                 $product
                     ->setSku($magentoProduct['sku'])
@@ -104,8 +98,7 @@ class ProductsCommand extends Command {
                     ->setStock($magentoProduct['extension_attributes']['stock_item']['qty'])
                     ->setImage($magentoProduct['media_gallery_entries'][0]['file'])
                     ->setLand($magentoProduct['custom_attributes'][8]['value']);
-            } else if ($updatedAt > $product->getUpdatedAt())
-            {
+            } else if ($updatedAt > $product->getUpdatedAt()) {
                 $product
                     ->setValid(false)
                     ->setCheckedSinceUpdate(false);
