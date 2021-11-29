@@ -82,6 +82,8 @@ class ProductsCommand extends Command
         $wineHouseAttributes = $this->attributes->getProductAttributeOptions('wijnhuis');
 
         foreach ($items as $magentoProduct) {
+            // var_dump($magentoProduct['custom_attributes'][0]['value']);
+            // die();
             if ($magentoProduct['status'] !== 1) {
                 continue;
             }
@@ -110,6 +112,7 @@ class ProductsCommand extends Command
                     ->setImage($magentoProduct['media_gallery_entries'][0]['file'])
                     ->setLand($this->findCountryForId($countryAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'land')))
                     ->setWineHouse($this->findCountryForId($wineHouseAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'wijnhuis')));
+                    //->setWijnsoort($magentoProduct['custom_attributes'][0]['value']);
             } else if ($updatedAt > $product->getUpdatedAt()) {
                 $product
                     ->setValid(false)
