@@ -24,7 +24,7 @@ class ProductRepository extends ServiceEntityRepository {
         return $this->findBy([], [], $limit, $limit * ($page - 1));
     }
 
-    public function findWinesBySkus(array $skus, float $minPrice, float $maxPrice)
+    public function findWinesBySkus(array $skus, float $minPrice, float $maxPrice   )
     {
         $products = $this->createQueryBuilder('p')
             ->andWhere('p.sku IN (:skus)')
