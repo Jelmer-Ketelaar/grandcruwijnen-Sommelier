@@ -195,7 +195,7 @@ class Product
         return $this;
     }
 
-    public function getLand(): ?int
+    public function getLand(): ?string
     {
         return $this->land;
     }
