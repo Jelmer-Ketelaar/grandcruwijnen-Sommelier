@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Dto\ProductMatch;
 use App\Entity\Product;
 use App\Service\MealMatcherService;
@@ -66,12 +65,13 @@ class MealController extends AbstractController {
      */
     public function getWinesForMeals(Request $request, $mealId, MealMatcherService $mealMatcherService): Response
     {
-        $session = new Session();
-        $session->start();
+
 
         $matches = [];
 //        dd($mealMatcherService->getWinesForMeal($mealId));
         $session = $this->requestStack->getSession();
+        
+        $mealIdAgo = $session->get('mealId');
         $session->set('mealId', array('mealId' => $mealId));
 
         $formMinPrice = $request->query->get('price-min');
@@ -104,6 +104,7 @@ class MealController extends AbstractController {
 
         /** @var Product[] $products */
         $products = $this->getDoctrine()->getRepository(Product::class)->findWinesBySkus($skus, $formMinPrice, $formMaxPrice);
+
         foreach ($products as $product)
         {
             $productMatch = new ProductMatch($product, $skuScores[$product->getSku()]);
@@ -113,13 +114,45 @@ class MealController extends AbstractController {
             {
                 $minWinePrice = $winePrice;
             }
-            if ($maxWinePrice < $winePrice)
+
+            if($maxWinePrice < $winePrice) 
             {
                 $maxWinePrice = $winePrice;
             }
 
             $matches[] = $productMatch;
         }
+
+        
+        $getMealId = $session->get('mealId');
+
+        //dd($session->get('max_price'));
+        // mealId is altijs hetzelfde als getMealid
+
+
+
+        if($mealIdAgo != $getMealId['mealId']){
+
+            $mealIdAgo = $getMealId['mealId'];
+            $session->set('min_price', $minWinePrice);
+            $session->set('max_price', $maxWinePrice);
+            $session->set('mealId', $mealId);
+            $minWinePrice = $session->get('min_price');
+            $maxWinePrice = $session->get('max_price');
+            
+        }
+        #dd($session->get('min_price'));
+        #dd($session->get('max_price'));
+
+        $maxWinePrice = $session->get('max_price');
+        $minWinePrice = $session->get('min_price');
+
+        // dd($session->get('max_price'));
+
+
+ 
+
+        
 
         usort($matches, static function ($matchA, $matchB) {
             return $matchA->getScore() === $matchB->getScore() ? 0 : ($matchA->getScore() < $matchB->getScore() ? 1 : - 1);
@@ -145,8 +178,8 @@ class MealController extends AbstractController {
             'matches' => $matchesForPage,
             'min_price' => $formMinPrice,
             'max_price' => $formMaxPrice,
-            'minWinePrice' => $minWinePrice,
             'maxWinePrice' => $maxWinePrice,
+            'minWinePrice' => $minWinePrice,
             'total_pages' => $totalPages,
             'current_page' => $page,
             'meal_id' => $mealArr
