@@ -63,6 +63,11 @@ class Product {
     private $image;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $land;
+
+    /**
      * Product constructor.
      */
     public function __construct()
@@ -180,6 +185,18 @@ class Product {
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getLand(): ?string
+    {
+        return $this->land;
+    }
+
+    public function setLand(string $land): self
+    {
+        $this->land = $land;
 
         return $this;
     }
