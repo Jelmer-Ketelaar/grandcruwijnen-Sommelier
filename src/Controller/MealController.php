@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Dto\ProductMatch;
 use App\Entity\Product;
 use App\Service\MealMatcherService;
@@ -11,7 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 class MealController extends AbstractController {
 
@@ -31,6 +32,7 @@ class MealController extends AbstractController {
     }
 
     /**
+     * This returns the categories page as meals with the getParentMealCategories function from the mealMatcherService
      * @throws GuzzleException
      * @Route("/categories", name="meal_categories")
      */
@@ -63,9 +65,13 @@ class MealController extends AbstractController {
      */
     public function getWinesForMeals(Request $request, $mealId, MealMatcherService $mealMatcherService): Response
     {
+
+
         $matches = [];
 //        dd($mealMatcherService->getWinesForMeal($mealId));
         $session = $this->requestStack->getSession();
+        
+        $mealIdAgo = $session->get('mealId');
         $session->set('mealId', array('mealId' => $mealId));
 
         $formMinPrice = $request->query->get('price-min');
@@ -78,7 +84,6 @@ class MealController extends AbstractController {
         {
             $formMaxPrice = 5000;
         }
-
 
         $page = (int) $request->query->get('page');
         $productsPerPage = 18;
@@ -94,33 +99,90 @@ class MealController extends AbstractController {
             $skuScores[$wine->wine->sku] = $wine->score;
         }
 
+        $minWinePrice = 10000;
+        $maxWinePrice = 0;
+
         /** @var Product[] $products */
-        $products = $this->getDoctrine()->getRepository(Product::class)->findWinesBySkus($skus, $formMinPrice, $formMaxPrice, $page, $productsPerPage);
+        $products = $this->getDoctrine()->getRepository(Product::class)->findWinesBySkus($skus, $formMinPrice, $formMaxPrice);
+
         foreach ($products as $product)
         {
             $productMatch = new ProductMatch($product, $skuScores[$product->getSku()]);
+            $winePrice = $productMatch->product->getprice();
+
+            if ($minWinePrice > $winePrice)
+            {
+                $minWinePrice = $winePrice;
+            }
+
+            if($maxWinePrice < $winePrice) 
+            {
+                $maxWinePrice = $winePrice;
+            }
+
             $matches[] = $productMatch;
         }
+
+        
+        $getMealId = $session->get('mealId');
+
+        //dd($session->get('max_price'));
+        // mealId is altijs hetzelfde als getMealid
+
+
+
+        if($mealIdAgo != $getMealId['mealId']){
+
+            $mealIdAgo = $getMealId['mealId'];
+            $session->set('min_price', $minWinePrice);
+            $session->set('max_price', $maxWinePrice);
+            $session->set('mealId', $mealId);
+            $minWinePrice = $session->get('min_price');
+            $maxWinePrice = $session->get('max_price');
+            
+        }
+        #dd($session->get('min_price'));
+        #dd($session->get('max_price'));
+
+        $maxWinePrice = $session->get('max_price');
+        $minWinePrice = $session->get('min_price');
+
+        // dd($session->get('max_price'));
+
+
+ 
+
+        
 
         usort($matches, static function ($matchA, $matchB) {
             return $matchA->getScore() === $matchB->getScore() ? 0 : ($matchA->getScore() < $matchB->getScore() ? 1 : - 1);
         });
 
-        $matchesForPage = array_slice($matches, ($page - 1) * $productsPerPage, $productsPerPage);
+        $matchesForPage = array_slice($matches, ($page) * $productsPerPage, $productsPerPage);
         $totalProductCount = count($matches);
-
         $totalPages = ceil($totalProductCount / $productsPerPage);
+//        dd($totalPages);
         $mealArr = [urldecode($mealId)];
+
+        if ($session->get('max_price') === null)
+        {
+            $session->set('max_price', $maxWinePrice);
+            $session->set('min_price', $minWinePrice);
+        } else
+        {
+            $maxWinePrice = $session->get('max_price');
+            $minWinePrice = $session->get('min_price');
+        }
 
         return $this->render('wines/index.html.twig', [
             'matches' => $matchesForPage,
             'min_price' => $formMinPrice,
             'max_price' => $formMaxPrice,
+            'maxWinePrice' => $maxWinePrice,
+            'minWinePrice' => $minWinePrice,
             'total_pages' => $totalPages,
             'current_page' => $page,
             'meal_id' => $mealArr
         ]);
-
-
     }
 }

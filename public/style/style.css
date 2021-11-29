@@ -1,4 +1,3 @@
-
 body {
     font-family: 'Montserrat', sans-serif;
     width: 100%;
@@ -182,4 +181,12 @@ button {
 #pagination ul li:last-child a {
     border-radius: 0 7px 7px 0;
     border-right: 2px solid rgba(0, 0, 0, 1);
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: right;
+    margin-right: 1%;
+    background-color: #e9dcd1;
 }

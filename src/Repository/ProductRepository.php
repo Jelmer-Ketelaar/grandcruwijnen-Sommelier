@@ -13,8 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Product[]    findAll()
  * @method Product[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ProductRepository extends ServiceEntityRepository
-{
+class ProductRepository extends ServiceEntityRepository {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Product::class);
@@ -25,7 +24,7 @@ class ProductRepository extends ServiceEntityRepository
         return $this->findBy([], [], $limit, $limit * ($page - 1));
     }
 
-    public function findWinesBySkus(array $skus, float $minPrice, float $maxPrice, int $page = 1, int $limit = 18)
+    public function findWinesBySkus(array $skus, float $minPrice, float $maxPrice   )
     {
         $products = $this->createQueryBuilder('p')
             ->andWhere('p.sku IN (:skus)')
@@ -39,6 +38,7 @@ class ProductRepository extends ServiceEntityRepository
 //            ->setFirstResult(($page - 1) * $limit)
             ->getQuery()
             ->getResult();
+
         return $products;
     }
 
@@ -55,7 +55,8 @@ class ProductRepository extends ServiceEntityRepository
 //            ->setMaxResults(10)
             ->getQuery()
             ->getResult();
-        if (count($products) > 0) {
+        if (count($products) > 0)
+        {
             return $products[0];
         }
 
