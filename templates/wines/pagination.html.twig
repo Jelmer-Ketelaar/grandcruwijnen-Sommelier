@@ -10,7 +10,7 @@
                data-ajax="false">2</a>
         </li>
 
-        {% if current_page > 3 and current_page < total_pages %}
+        {% if current_page > 3 and current_page < total_pages - 3 %}
             <li>
                 <a href="{{ path('wines_for_meals', {mealId, 'page': current_page - 1,'min_price': min_price, 'max_price': max_price}) }}"
                    data-ajax="false">
@@ -18,12 +18,12 @@
                 </a>
             </li>
         {% endif %}
+
         {% if current_page > 3 %}
             <li>
                 <a>...</a>
             </li>
         {% endif %}
-
 
         {% if current_page > 2 and current_page < total_pages - 1 %}
             <li class="active">
@@ -34,7 +34,6 @@
             </li>
         {% endif %}
 
-
         {% if current_page > 1 and current_page < total_pages - 2 %}
             <li>
                 <a href="{{ path('wines_for_meals', {mealId, 'page': current_page + 1,'min_price': min_price, 'max_price': max_price}) }}"
@@ -44,7 +43,16 @@
             </li>
         {% endif %}
 
-        {% if current_page < total_pages - 2 %}
+        {% if current_page == 6 %}
+            <li>
+                <a href="{{ path('wines_for_meals', {mealId, 'page': current_page - 1,'min_price': min_price, 'max_price': max_price}) }}"
+                   data-ajax="false">
+                    {{ current_page - 1 }}
+                </a>
+            </li>
+        {% endif %}
+
+        {% if current_page < total_pages - 3 %}
             <li>
                 <a>...</a>
             </li>
@@ -56,7 +64,7 @@
                data-ajax="false">{{ total_pages - 1 }}</a>
         </li>
         <li {% if current_page == total_pages %}class="active"{% endif %}>
-            <a href="{{ path('wines_for_meals', {mealId, 'page': total_pages - 1,'min_price': min_price, 'max_price': max_price}) }}"
+            <a href="{{ path('wines_for_meals', {mealId, 'page': total_pages,'min_price': min_price, 'max_price': max_price}) }}"
                data-ajax="false">{{ total_pages }}</a>
         </li>
 
