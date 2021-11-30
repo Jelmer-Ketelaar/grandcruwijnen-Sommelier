@@ -63,10 +63,10 @@ class Product
      */
     private $image;
 
-    // /**
-    //  * @ORM\Column(type="string", length=255)
-    //  */
-    // private $country;
+     /**
+      * @ORM\Column(type="string", length=255)
+      */
+     private $country;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -77,6 +77,26 @@ class Product
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $wineHouse;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $grapes;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $wineSort;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $location;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $region;
 
     /**
      * Product constructor.
@@ -200,14 +220,14 @@ class Product
         return $this;
     }
 
-    public function getLand(): ?string
+    public function getCountry(): ?string
     {
-        return $this->land;
+        return $this->country;
     }
 
-    public function setLand(string $land): self
+    public function setCountry(string $country): self
     {
-        $this->land = $land;
+        $this->country = $country;
 
         return $this;
     }
@@ -220,6 +240,54 @@ class Product
     public function setWineHouse(string $wineHouse): self
     {
         $this->wineHouse = $wineHouse;
+
+        return $this;
+    }
+
+    public function getGrapes(): ?string
+    {
+        return $this->grapes;
+    }
+
+    public function setGrapes(?string $grapes): self
+    {
+        $this->grapes = $grapes;
+
+        return $this;
+    }
+
+    public function getWineSort(): ?string
+    {
+        return $this->wineSort;
+    }
+
+    public function setWineSort(?string $wineSort): self
+    {
+        $this->wineSort = $wineSort;
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(string $location): self
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?string $region): self
+    {
+        $this->region = $region;
 
         return $this;
     }
