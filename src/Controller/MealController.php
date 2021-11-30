@@ -112,22 +112,37 @@ class MealController extends AbstractController {
         $minWinePrice = 10000;
         $maxWinePrice = 0;
 
+        if($firstTime == true){
+            $session->set('price-max', null);
+            $session->set('price-min', null);
+        }
+        
+        $formMinPrice = $request->query->get('price-min');
+        $formMaxPrice = $request->query->get('price-max');
 
+        // als hij gezet is
+        if($formMinPrice !== null){
+            $session->set('price-min', $formMinPrice);
+            $formMinPrice = $session->get('price-min');
+        }
+        if($formMaxPrice !== null){
+            $session->set('price-max', $formMaxPrice);
+            $formMaxPrice = $session->get('price-max');
+        }
 
         if($session->get('price-min') !== null){
             $formMinPrice = $session->get('price-min');
-        } else {
-            $formMinPrice = $request->query->get('price-min');
-            $session->set('price-min', $formMinPrice);
         }
         if($session->get('price-max') !== null){
             $formMaxPrice = $session->get('price-max');
-        } else {
-            $formMaxPrice = $request->query->get('price-max');
-            $session->set('price-max', $formMaxPrice);
         }
 
-        
+
+
+
+
+
+
 
         if($formMinPrice === null){
             $formMinPrice = 1;
