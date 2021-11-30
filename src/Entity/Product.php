@@ -63,6 +63,11 @@ class Product
      */
     private $image;
 
+    // /**
+    //  * @ORM\Column(type="string", length=255)
+    //  */
+    // private $country;
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */

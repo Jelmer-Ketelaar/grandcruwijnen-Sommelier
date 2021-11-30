@@ -18,9 +18,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-
-class ProductsCommand extends Command
-{
+class ProductsCommand extends Command {
     protected static $defaultName = 'app:fill:products';
     protected static $defaultDescription = 'Fills products database';
 
