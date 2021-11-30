@@ -112,9 +112,22 @@ class MealController extends AbstractController {
         $minWinePrice = 10000;
         $maxWinePrice = 0;
 
-        // Get filter submitted values
-        $formMinPrice = $request->query->get('price-min');
-        $formMaxPrice = $request->query->get('price-max');
+
+
+        if($session->get('price-min') !== null){
+            $formMinPrice = $session->get('price-min');
+        } else {
+            $formMinPrice = $request->query->get('price-min');
+            $session->set('price-min', $formMinPrice);
+        }
+        if($session->get('price-max') !== null){
+            $formMaxPrice = $session->get('price-max');
+        } else {
+            $formMaxPrice = $request->query->get('price-max');
+            $session->set('price-max', $formMaxPrice);
+        }
+
+        
 
         if($formMinPrice === null){
             $formMinPrice = 1;
@@ -122,7 +135,8 @@ class MealController extends AbstractController {
         if($formMaxPrice === null){
             $formMaxPrice = 100000;
         }
-
+        
+        
         /** @var Product[] $products */
         $products = $this->getDoctrine()->getRepository(Product::class)->findWinesBySkus($skus, $formMinPrice, $formMaxPrice);
 
@@ -157,14 +171,6 @@ class MealController extends AbstractController {
 
         $maxWinePrice = $session->get('max_price');
         $minWinePrice = $session->get('min_price');
-
-        // If form filter not submitted: set vars to max/min from WinePrice
-        if($formMinPrice === null){
-            $formMinPrice = $minWinePrice;
-        }
-        if($formMaxPrice === null){
-            $formMaxPrice = $maxWinePrice;
-        }
 
 
         usort($matches, static function ($matchA, $matchB) {
