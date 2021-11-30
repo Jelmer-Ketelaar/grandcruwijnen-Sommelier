@@ -71,19 +71,29 @@ class MealController extends AbstractController {
 //        dd($mealMatcherService->getWinesForMeal($mealId));
         $session = $this->requestStack->getSession();
         
-        $mealIdAgo = $session->get('mealId');
-        $session->set('mealId', array('mealId' => $mealId));
+        $mealIdlimited = $session->get('mealId');
 
-        $formMinPrice = $request->query->get('price-min');
-        if ($formMinPrice === null)
-        {
-            $formMinPrice = 0;
+        //dd($mealId);
+
+        
+        try {
+            if($mealIdlimited['mealId'] != $mealId){
+                $session->set('mealIdAgo', $mealIdlimited);
+                $firstTime = true;
+            } else {
+                $firstTime = false;
+            }
+        } catch (\Throwable $th) {
+            if($mealIdlimited != $mealId){
+                $session->set('mealIdAgo', $mealIdlimited);
+                $firstTime = true;
+            } else {
+                $firstTime = false;
+            }
         }
-        $formMaxPrice = $request->query->get('price-max');
-        if ($formMaxPrice === null)
-        {
-            $formMaxPrice = 5000;
-        }
+
+
+        $session->set('mealId', array('mealId' => $mealId));
 
         $page = (int) $request->query->get('page');
         $productsPerPage = 18;
@@ -101,6 +111,17 @@ class MealController extends AbstractController {
 
         $minWinePrice = 10000;
         $maxWinePrice = 0;
+
+        // Get filter submitted values
+        $formMinPrice = $request->query->get('price-min');
+        $formMaxPrice = $request->query->get('price-max');
+
+        if($formMinPrice === null){
+            $formMinPrice = 1;
+        }
+        if($formMaxPrice === null){
+            $formMaxPrice = 100000;
+        }
 
         /** @var Product[] $products */
         $products = $this->getDoctrine()->getRepository(Product::class)->findWinesBySkus($skus, $formMinPrice, $formMaxPrice);
@@ -126,33 +147,25 @@ class MealController extends AbstractController {
         
         $getMealId = $session->get('mealId');
 
-        //dd($session->get('max_price'));
-        // mealId is altijs hetzelfde als getMealid
-
-
-
-        if($mealIdAgo != $getMealId['mealId']){
-
+        // If first time this page loaded: Set min and max price in session for filter
+        if($firstTime == true){
             $mealIdAgo = $getMealId['mealId'];
             $session->set('min_price', $minWinePrice);
             $session->set('max_price', $maxWinePrice);
             $session->set('mealId', $mealId);
-            $minWinePrice = $session->get('min_price');
-            $maxWinePrice = $session->get('max_price');
-            
         }
-        #dd($session->get('min_price'));
-        #dd($session->get('max_price'));
 
         $maxWinePrice = $session->get('max_price');
         $minWinePrice = $session->get('min_price');
 
-        // dd($session->get('max_price'));
+        // If form filter not submitted: set vars to max/min from WinePrice
+        if($formMinPrice === null){
+            $formMinPrice = $minWinePrice;
+        }
+        if($formMaxPrice === null){
+            $formMaxPrice = $maxWinePrice;
+        }
 
-
- 
-
-        
 
         usort($matches, static function ($matchA, $matchB) {
             return $matchA->getScore() === $matchB->getScore() ? 0 : ($matchA->getScore() < $matchB->getScore() ? 1 : - 1);
@@ -161,18 +174,7 @@ class MealController extends AbstractController {
         $matchesForPage = array_slice($matches, ($page) * $productsPerPage, $productsPerPage);
         $totalProductCount = count($matches);
         $totalPages = ceil($totalProductCount / $productsPerPage);
-//        dd($totalPages);
         $mealArr = [urldecode($mealId)];
-
-        if ($session->get('max_price') === null)
-        {
-            $session->set('max_price', $maxWinePrice);
-            $session->set('min_price', $minWinePrice);
-        } else
-        {
-            $maxWinePrice = $session->get('max_price');
-            $minWinePrice = $session->get('min_price');
-        }
 
         return $this->render('wines/index.html.twig', [
             'matches' => $matchesForPage,
