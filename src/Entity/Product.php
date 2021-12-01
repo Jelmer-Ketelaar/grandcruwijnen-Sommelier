@@ -9,8 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  */
-class Product
-{
+class Product {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -22,21 +21,6 @@ class Product
      * @ORM\Column(type="string", length=255)
      */
     private ?string $sku;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private ?\DateTimeInterface $updatedAt;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private bool $valid;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private bool $checkedSinceUpdate;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -63,10 +47,10 @@ class Product
      */
     private $image;
 
-     /**
-      * @ORM\Column(type="string", length=255)
-      */
-     private $country;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $country;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -92,16 +76,6 @@ class Product
      * @ORM\Column(type="string", length=255)
      */
     private $region;
-
-    //todo: valid and checksinceupdate delete
-    /**
-     * Product constructor.
-     */
-    public function __construct()
-    {
-        $this->valid = false;
-        $this->checkedSinceUpdate = false;
-    }
 
     public function getId(): ?int
     {
