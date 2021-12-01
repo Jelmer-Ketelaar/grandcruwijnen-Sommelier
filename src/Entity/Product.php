@@ -23,6 +23,11 @@ class Product {
     private ?string $sku;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private ?\DateTimeInterface $updatedAt;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -90,6 +95,18 @@ class Product {
     public function setSku(string $sku): self
     {
         $this->sku = $sku;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
