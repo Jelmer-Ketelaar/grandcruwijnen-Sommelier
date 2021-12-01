@@ -136,29 +136,22 @@ class MealController extends AbstractController {
         if($session->get('price-max') !== null){
             $formMaxPrice = $session->get('price-max');
         }
-
-
-
-
-
-
-
-
         if($formMinPrice === null){
             $formMinPrice = 1;
         }
         if($formMaxPrice === null){
             $formMaxPrice = 100000;
         }
-        
-        
+
         /** @var Product[] $products */
         $products = $this->getDoctrine()->getRepository(Product::class)->findWinesBySkus($skus, $formMinPrice, $formMaxPrice);
+
 
         foreach ($products as $product)
         {
             $productMatch = new ProductMatch($product, $skuScores[$product->getSku()]);
             $winePrice = $productMatch->product->getprice();
+
 
             if ($minWinePrice > $winePrice)
             {
@@ -172,6 +165,7 @@ class MealController extends AbstractController {
 
             $matches[] = $productMatch;
         }
+
 
         
         $getMealId = $session->get('mealId');
@@ -187,14 +181,17 @@ class MealController extends AbstractController {
         $maxWinePrice = $session->get('max_price');
         $minWinePrice = $session->get('min_price');
 
-
         usort($matches, static function ($matchA, $matchB) {
             return $matchA->getScore() === $matchB->getScore() ? 0 : ($matchA->getScore() < $matchB->getScore() ? 1 : - 1);
         });
 
-        $matchesForPage = array_slice($matches, ($page) * $productsPerPage, $productsPerPage);
+        $matchesForPage = array_slice($matches, 0);
+
         $totalProductCount = count($matches);
-        $totalPages = ceil($totalProductCount / $productsPerPage);
+        $totalPages = ceil($totalProductCount / $productsPerPage) - 1;
+
+        //
+
         $mealArr = [urldecode($mealId)];
 
         return $this->render('wines/index.html.twig', [
