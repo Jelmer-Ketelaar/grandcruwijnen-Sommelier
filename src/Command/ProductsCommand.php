@@ -174,6 +174,7 @@ class ProductsCommand extends Command {
     {
         $product
             ->setSku($magentoProduct['sku'])
+            ->setUpdatedAt($updatedAt)
             ->setName($magentoProduct['name'])
             ->setDescription($magentoProduct['custom_attributes'][1]['value'])
             ->setPrice($magentoProduct["price"])
