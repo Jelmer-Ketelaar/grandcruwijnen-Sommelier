@@ -56,3 +56,6 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
 // ---------------------- einde meer informatie tabs -----------------------------
+
+
+document.getElementById('categoryName').value = window.location.href;
