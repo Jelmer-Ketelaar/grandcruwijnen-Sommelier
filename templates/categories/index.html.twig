@@ -9,7 +9,7 @@
 {% block title %}Online sommelier | Categories!{% endblock %}
 
 {% block body %}
-{% set categoryName =  app.request.query.get('categoryName') %} 
+    {% set categoryName =  app.request.query.get('categoryName') %}
     <div class="content" style="background-color: #F5F4ED; height: 100%">
         <div class="container">
 
@@ -19,10 +19,19 @@
                     onclick='goBack(window.location.href)'><i
                         class="fa fa-arrow-left" aria-hidden="true"></i> Terug
             </button>
-            <div id="text"> 
+            <div id="text">
                 <h1 style='text-align:center;'>U het gerecht en wij adviseren de wijn!</h1>
-                <p id="page-description">Als Grandcruwijnen bieden wij u een Online Sommelier welke dag-en-nacht voor u gereed staat. Deze functie is makkelijk te gebruiken. U kiest uit een zeer uitgebreide lijst aan gerechten en de Online sommelier adviseert u de geschikte wijnen en adviseert bij de wijnen de best bijpassende gerechten. Als u in een creative stemming bent en uw eigen gerecht wilt samenstellen dan kan dit ook!</p>
+                <p id="page-description">Als Grandcruwijnen bieden wij u een Online Sommelier welke dag-en-nacht voor u
+                    gereed staat. Deze functie is makkelijk te gebruiken. U kiest uit een zeer uitgebreide lijst aan
+                    gerechten en de Online sommelier adviseert u de geschikte wijnen en adviseert bij de wijnen de best
+                    bijpassende gerechten. Als u in een creative stemming bent en uw eigen gerecht wilt samenstellen dan
+                    kan dit ook!</p>
             </div>
+
+            {% if meals[0].parent != null %}
+            <h2 style="font-weight: 350; text-align: center">Uw keuze: <span
+                        style="font-weight: bold">{{ meals[0].parent.name }}</span></h2>
+            {% endif     %}
         </div>
         <br>
         {% set imageCategory = [
@@ -38,17 +47,17 @@
         {% set imageCounterArr = 0 %}
 
         {% for meal in meals %}
-           
+
             {% if meal.parent is null %}
                 <section class="grid">
-                    <a onclick="choiceMade({{ path('meal_categories_for_parent', {parentId: meal.categoryId, categoryName: meal.name}) }}, {{ meal.name }})"
+                    <a href="{{ path('meal_categories_for_parent', {parentId: meal.categoryId}) }}"
                        class="meal-name">
                         <div class="item">{{ meal.name }}</div>
                         <img src="{{ imageCategory[imageCounterArr] }}"
                              alt="" class="image">
                     </a>
                 </section>
-                 {% set imageCounterArr = imageCounterArr + 1 %}
+                {% set imageCounterArr = imageCounterArr + 1 %}
 
 
             {% else %}
@@ -57,7 +66,7 @@
                     localStorage.setItem('categoryId', window.location.href);
                 </script>
                 <section class="grid-sub">
-                    <a href="{{ path('meals_for_category', {categoryId: meal.categoryId})}}" class="meal-name"
+                    <a href="{{ path('meals_for_category', {categoryId: meal.categoryId}) }}" class="meal-name"
                        style='heigth:50px;'>
                         {{ meal.name }}
                     </a>
