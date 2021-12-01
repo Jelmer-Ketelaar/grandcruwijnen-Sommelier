@@ -67,30 +67,10 @@ class MealController extends AbstractController {
      */
     public function getWinesForMeals(Request $request, $mealId, MealMatcherService $mealMatcherService): Response
     {
-
-
         $matches = [];
-//        dd($mealMatcherService->getWinesForMeal($mealId));
-        $session = $this->requestStack->getSession();
-
-        $previousMealIdlimited = $session->get('mealId');
-//        dd($mealIdlimited);
-
-        //dd($mealId);
-
-
-        if ($previousMealIdlimited !== $mealId)
-        {
-            $session->set('previousMealId', $previousMealIdlimited);
-            $firstTime = true;
-        } else
-        {
-            $firstTime = false;
-        }
-
-        $session->set('mealId', array('mealId' => $mealId));
 
         $page = (int) $request->query->get('page');
+
         $productsPerPage = 18;
         if ($page === 0)
         {
@@ -107,35 +87,9 @@ class MealController extends AbstractController {
         $minWinePrice = 10000;
         $maxWinePrice = 0;
 
-        if ($firstTime === true)
-        {
-            $session->set('price-max', null);
-            $session->set('price-min', null);
-        }
-
         $formMinPrice = $request->query->get('price-min');
         $formMaxPrice = $request->query->get('price-max');
 
-        // If is set
-        if ($formMinPrice !== null)
-        {
-            $session->set('price-min', $formMinPrice);
-            $formMinPrice = $session->get('price-min');
-        }
-        if ($formMaxPrice !== null)
-        {
-            $session->set('price-max', $formMaxPrice);
-            $formMaxPrice = $session->get('price-max');
-        }
-//        dd($formMaxPrice);
-        if ($session->get('price-min') !== null)
-        {
-            $formMinPrice = $session->get('price-min');
-        }
-        if ($session->get('price-max') !== null)
-        {
-            $formMaxPrice = $session->get('price-max');
-        }
         if ($formMinPrice === null)
         {
             $formMinPrice = 1;
@@ -165,34 +119,20 @@ class MealController extends AbstractController {
                 $maxWinePrice = $winePrice;
             }
 
-            $matches[] = $productMatch;
+            if ($winePrice >= $formMinPrice && $winePrice <= $formMaxPrice)
+            {
+                $matches[] = $productMatch;
+            }
         }
-
-
-//        dd($firstTime);
-        $getMealId = $session->get('mealId');
-
-        // If first time this page loaded: Set min and max price in session for filter
-        if ($firstTime === true)
-        {
-            $session->set('min_price', $minWinePrice);
-            $session->set('max_price', $maxWinePrice);
-            $session->set('mealId', $mealId);
-        }
-
-        $maxWinePrice = $session->get('max_price');
-        $minWinePrice = $session->get('min_price');
 
         usort($matches, static function ($matchA, $matchB) {
             return $matchA->getScore() === $matchB->getScore() ? 0 : ($matchA->getScore() < $matchB->getScore() ? 1 : - 1);
         });
 
-        $matchesForPage = array_slice($matches, 0);
+        $matchesForPage = array_slice($matches, $productsPerPage * ($page - 1), $productsPerPage);
 
         $totalProductCount = count($matches);
-        $totalPages = ceil($totalProductCount / $productsPerPage);
-
-        //
+        $totalPages = (int) ceil($totalProductCount / $productsPerPage);
 
         $mealArr = [urldecode($mealId)];
 
