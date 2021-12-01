@@ -42,7 +42,7 @@
 
             {% if meal.parent is null %}
                 <section class="grid">
-                    <a href="{{ path('meal_categories_for_parent', {parentId: meal.categoryId}) }}"
+                    <a href="{{ path('meal_categories_for_parent', {parentId: meal.categoryId, categoryName: meal.name}) }}"
                        class="meal-name">
                         <div class="item">{{ meal.name }}</div>
                         <img src="{{ imageCategory[imageCounterArr] }}"
