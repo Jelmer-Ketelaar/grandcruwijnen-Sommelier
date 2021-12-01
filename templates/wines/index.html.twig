@@ -43,11 +43,11 @@
                         <label for="price-min">Prijs:</label>
                         <input class="price-s" style="background-color: #b5191f; color: #fff; font-weight: 100;"
                                type="range" name="price-min" id="price-min" value="{{ min_price }}" min="{{ minWinePrice }}" max="{{ maxWinePrice|round }}"
-                               step="1">
+                               step="0.05">
                         <label for="price-max"></label>
                         <input class="price-label" style="background-color: #b5191f; color: #fff; font-weight: 100"
                                type="range" name="price-max" id="price-max" value="{{ max_price }}" min="{{ minWinePrice }}" max="{{ maxWinePrice|round }}"
-                               step="1">
+                               step="0.05">
                     </div>
                     <button type="submit" class="btn btn-danger btn-sm">Submit</button>
                 </form>
