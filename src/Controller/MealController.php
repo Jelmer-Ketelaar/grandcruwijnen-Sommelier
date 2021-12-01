@@ -188,7 +188,7 @@ class MealController extends AbstractController {
         $matchesForPage = array_slice($matches, 0);
 
         $totalProductCount = count($matches);
-        $totalPages = ceil($totalProductCount / $productsPerPage) - 1;
+        $totalPages = ceil($totalProductCount / $productsPerPage);
 
         //
 

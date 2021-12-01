@@ -49,7 +49,6 @@
             </li>
         {% endif %}
 
-
         <li {% if current_page == total_pages - 1 %}class="active"{% endif %}>
             <a href="{{ path('wines_for_meals', {mealId, 'page': total_pages - 1,'min_price': min_price, 'max_price': max_price}) }}"
                data-ajax="false">{{ total_pages - 1 }}</a>
