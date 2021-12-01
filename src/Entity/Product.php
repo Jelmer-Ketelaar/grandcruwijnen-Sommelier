@@ -94,42 +94,6 @@ class Product {
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getValid(): ?bool
-    {
-        return $this->valid;
-    }
-
-    public function setValid(bool $valid): self
-    {
-        $this->valid = $valid;
-
-        return $this;
-    }
-
-    public function getCheckedSinceUpdate(): ?bool
-    {
-        return $this->checkedSinceUpdate;
-    }
-
-    public function setCheckedSinceUpdate(bool $checkedSinceUpdate): self
-    {
-        $this->checkedSinceUpdate = $checkedSinceUpdate;
-
-        return $this;
-    }
-
     public function getName(): ?string
     {
         return $this->name;
