@@ -58,4 +58,8 @@ window.addEventListener("DOMContentLoaded", () => {
 // ---------------------- einde meer informatie tabs -----------------------------
 
 
-document.getElementById('categoryName').value = window.location.href;
+function choiceMade(actionLink, choice) {
+  alert(actionLink);
+  document.getElementById("page-description").innerHTML = choice;
+
+}

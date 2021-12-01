@@ -1,7 +1,7 @@
 body {
     font-family: 'Montserrat', sans-serif;
     width: 100%;
-    background-color: #e9dcd1;
+    background-color: #F5F4ED;
 }
 
 .example-wrapper {
@@ -24,11 +24,11 @@ body {
     display: inline-grid;
     border: #1111 1px solid;
     box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%), 0 0 20px -1px rgb(0 0 0 / 15%);
-    margin: 4vw 0 0 4.5vw;
+    margin: 3vw 0 0 9vw;
     height: 25vh;
-    width: 20vh;
+    width: 25vh;
     border-radius: 10%;
-    background-color: #e9dcd1;
+    background-color: #E9DCD1;
 }
 
 .grid-sub {
@@ -40,7 +40,7 @@ body {
     height: 60px;
     width: 20vh;
     border-radius: 10px;
-    background-color: #e9dcd1;
+    background-color: #E9DCD1;
 }
 
 .grid:active {
@@ -57,10 +57,10 @@ body {
 
 .image {
     margin-top: 5vh;
-    height: 10vh;
+    height: 12vh;
 }
 
-.text {
+#text {
     margin-left: 2vw;
 }
 
