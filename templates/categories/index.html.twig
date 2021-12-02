@@ -21,17 +21,22 @@
             </button>
             <div id="text">
                 <h1 style='text-align:center;'>U het gerecht en wij adviseren de wijn!</h1>
-                <p id="page-description">Als Grandcruwijnen bieden wij u een Online Sommelier welke dag-en-nacht voor u
-                    gereed staat. Deze functie is makkelijk te gebruiken. U kiest uit een zeer uitgebreide lijst aan
-                    gerechten en de Online sommelier adviseert u de geschikte wijnen en adviseert bij de wijnen de best
-                    bijpassende gerechten. Als u in een creative stemming bent en uw eigen gerecht wilt samenstellen dan
-                    kan dit ook!</p>
+                {% if meals[0].parent == null %}
+                    <p id="page-description"
+                       style="width: 40vw; text-align: center; margin-left: auto; margin-right: auto; font-size:17px">
+                        Als Grandcruwijnen bieden wij u een Online Sommelier welke dag-en-nacht voor u
+                        gereed staat. Deze functie is makkelijk te gebruiken. U kiest uit een zeer uitgebreide lijst aan
+                        gerechten en de Online sommelier adviseert u de geschikte wijnen en adviseert bij de wijnen de
+                        best
+                        bijpassende gerechten. Als u in een creative stemming bent en uw eigen gerecht wilt samenstellen
+                        dan
+                        kan dit ook!</p>
+                {% endif %}
             </div>
-
             {% if meals[0].parent != null %}
-            <h2 style="font-weight: 350; text-align: center">Uw keuze: <span
-                        style="font-weight: bold">{{ meals[0].parent.name }}</span></h2>
-            {% endif     %}
+                <h2 style="font-weight: 350; text-align: center">Uw keuze: <span
+                            style="font-weight: bold">{{ meals[0].parent.name }}</span></h2>
+            {% endif %}
         </div>
         <br>
         {% set imageCategory = [

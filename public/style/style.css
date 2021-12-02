@@ -61,6 +61,7 @@ body {
 }
 
 #text {
+    margin-top: -4vh;
     margin-left: 2vw;
 }
 
@@ -189,4 +190,12 @@ button {
     justify-content: right;
     margin-right: 1%;
     background-color: #e9dcd1;
+}
+
+#page-description {
+    width: 40vw;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 17px
 }
