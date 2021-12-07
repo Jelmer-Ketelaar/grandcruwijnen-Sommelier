@@ -1,6 +1,6 @@
 <div id="pagination">
     <ul>
-{#        {% set mealId = meal_id[0] %}#}
+       {% set mealId = meal_id[0] %}
         <li {% if current_page == 1 %}class="active"{% endif %}>
             <a href="{{ path('wines_for_meals', {mealId, 'page':1,'price-min': min_price, 'price-max': max_price}) }}"
                data-ajax="false">1</a>

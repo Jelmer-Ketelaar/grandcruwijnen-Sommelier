@@ -12,7 +12,7 @@
 
     <style>
         body {
-            background-color: #e9dcd1;
+            background-color: #F5F4ED;
         }
     </style>
     {# https://mealmatcher.grandcruwijnen.nl/meals/%7B12de8bb3-8ce2-43a9-8b09-d56161365ebc%7D #}
@@ -33,7 +33,7 @@
                     localStorage.removeItem('mealId');
                     localStorage.setItem('mealId',window.location.href);
                 </script>
-                <div class="col-sm-3" id="column">
+                <div class="col-sm-3" id="column" style="background-color: #e9dcd1;">
                     <img src="https://mealmatcher.grandcruwijnen.nl/meals/{{ meal.id }}" alt="{{ meal.name }}"
                         class="mealImage">
                     <p style='margin-top:20px;'>{{ meal.name }}</p>
