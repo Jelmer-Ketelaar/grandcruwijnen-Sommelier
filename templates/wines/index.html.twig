@@ -36,7 +36,7 @@
     </div>
     <div class="row"
          style='display: flex; flex-wrap: wrap;justify-content:right; margin-right: 1%; background-color: #e9dcd1;'>
-        <div id="slider-container" data-role="page" style="background-color: #e9dcd1; width: 22%; top: 34%;">
+        <div id="slider-container" data-role="page">
             <div data-role="main" class="ui-content">
                 <form method="GET" action="" data-ajax="false">
                     <div data-role="rangeslider">
@@ -56,8 +56,8 @@
             </div>
         </div>
 
-
-        <div class="filter">
+        <div class="filter" style="margin-top: 8vh; margin-right: 10px">
+            <input id="wit" type="checkbox"/>
             <input id="rood" type="checkbox"/>
             <input id="rose" type="checkbox"/>
             <input id="port" type="checkbox"/>
@@ -65,7 +65,8 @@
             <input id="madeira" type="checkbox"/>
             <input id="vermout" type="checkbox"/>
 
-            <div class="filter__control" style="margin-top: 15vh">
+            <div class="filter__control">
+                <label class="filter__button" for="wit">Wit</label>
                 <label class="filter__button" for="rood">Rood</label>
                 <label class="filter__button" for="rose">Rosé</label>
                 <label class="filter__button" for="port">Port</label>
@@ -76,8 +77,7 @@
         </div>
 
         {% for match in matches %}
-            <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}"
-                 style="text-align: center; padding: 10px 10px 10px 10px; margin:5px; box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;">
+            <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
                 <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
                      class="imageWine" alt="{{ match.product.sku }}"/>
                 <p>{{ match.product.name }} - {{ match.product.sku }}</p>
