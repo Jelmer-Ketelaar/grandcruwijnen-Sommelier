@@ -15,12 +15,12 @@
 
             <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg'
                  alt='logo' class="logo">
-            <button style="" type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+            <div id="text">
+            <button style="position: relative; left: 100px; top: 5px;" type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                     onclick='goBack(window.location.href)'><i
                         class="fa fa-arrow-left" aria-hidden="true"></i> Terug
             </button>
-            <div id="text">
-                <h1 style='text-align:center;'>U het gerecht en wij adviseren de wijn!</h1>
+                <h1 style='text-align: center; width: 70%; margin: auto; margin-right: 15%; float: right;'>U het gerecht en wij adviseren de wijn!</h1>
                 {% if meals[0].parent == null %}
                     <p id="page-description"
                        style="width: 40vw; text-align: center; margin-left: auto; margin-right: auto; font-size:17px">
