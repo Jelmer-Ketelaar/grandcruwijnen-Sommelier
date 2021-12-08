@@ -20,16 +20,14 @@
     <div class="container">
         <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg'
              alt='logo' style='margin: 30px 30px 30px -7vw;'>
-
-        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack(window.location.href)'>
-            <i
-                    class="fa fa-arrow-left" aria-hidden="true"></i> Terug
-        </button>
     </div>
 
     <div class="example-wrapper" style='text-align:center;padding-bottom:50px;'>
-        <h1>Welkom bij de online sommelier</h1>
-        <p>Hier kunt u kiezen uit de best bijpassende wijnen gezocht bij het geselecteerde gerecht.</p>
+        <button style="position: relative; top: 5px;" type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack(window.location.href)'>
+            <i class="fa fa-arrow-left" aria-hidden="true"></i> Terug
+        </button>
+        <h1 style='text-align: center; margin: auto; margin-right: 15%; float: right;'>Welkom bij de online sommelier</h1>
+        <p style="margin: 20px;">Hier kunt u kiezen uit de best bijpassende wijnen gezocht bij het geselecteerde gerecht.</p>
 
         {% set mealId = app.session.get('mealId') %}
 

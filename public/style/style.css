@@ -79,7 +79,7 @@ h1 {
 }
 
 .content {
-    height: 100vh !important;
+    height: 110vh !important;
 }
 
 .mealImage {
@@ -318,4 +318,8 @@ input[type="checkbox"]#vermout:checked ~ .filter__control .filter__button[for="v
     padding: 10px 10px 10px 10px;
     margin: 5px;
     box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+}
+
+.mealsDescription {
+    margin: 10px!important;
 }
