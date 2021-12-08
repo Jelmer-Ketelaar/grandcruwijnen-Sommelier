@@ -100,6 +100,9 @@ class MealController extends AbstractController {
         }
 
         /** @var Product[] $products */
+        //wijnsoort, meenemen
+        $wineSorts = $request->query->get('wineSorts');
+        // dd($wineSorts);
         $products = $this->getDoctrine()->getRepository(Product::class)->findWinesBySkus($skus, $formMinPrice, $formMaxPrice);
 
 
@@ -136,6 +139,44 @@ class MealController extends AbstractController {
 
         $mealArr = [urldecode($mealId)];
 
+        $countWit = 0;
+        $countRood = 0;
+        $countRosé = 0;
+        $countPort = 0;
+        $countSherry = 0;
+        $countMadeira = 0;
+        $countVermout = 0;
+
+
+        foreach ($matchesForPage as $amountWine) {
+            if($amountWine->product->getWineSort() == 'Wit'){
+                $countWit++;
+            }
+            if($amountWine->product->getWineSort() == 'Rood'){
+                $countRood++;
+            }
+            if($amountWine->product->getWineSort() == 'Rosé'){
+                $countRosé++;
+            }
+            if($amountWine->product->getWineSort() == 'Port'){
+                $countPort++;
+            }
+            if($amountWine->product->getWineSort() == 'Sherry'){
+                $countSherry++;
+            }
+            if($amountWine->product->getWineSort() == 'Madeira'){
+                $countMadeira++;
+            }
+            if($amountWine->product->getWineSort() == 'Vermout'){
+                $countVermout++;
+            }
+        }
+
+        $countWines = ['countWit'=>$countWit, 'countRood'=>$countRood, 'countRosé'=>$countRosé, 'countPort'=>$countPort, 'countSherry'=>$countSherry, 'countMadeira'=>$countMadeira, 'countVermout'=>$countVermout];
+
+
+        //dd($wineSorts);
+
         return $this->render('wines/index.html.twig', [
             'matches' => $matchesForPage,
             'min_price' => $formMinPrice,
@@ -144,7 +185,9 @@ class MealController extends AbstractController {
             'minWinePrice' => $minWinePrice,
             'total_pages' => $totalPages,
             'current_page' => $page,
-            'meal_id' => $mealArr
+            'meal_id' => $mealArr,
+            'wineSorts' => $wineSorts,
+            'countWines' => $countWines
         ]);
     }
 }

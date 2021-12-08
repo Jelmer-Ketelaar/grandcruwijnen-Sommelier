@@ -55,28 +55,32 @@
                 </form>
             </div>
         </div>
+        <form method="GET" action="" data-ajax="false">
+            <div class="filter" id="wineSorts" style="margin-top: 8vh; margin-right: 10px">
 
-        <div class="filter" style="margin-top: 8vh; margin-right: 10px">
-            <input id="wit" type="checkbox"/>
-            <input id="rood" type="checkbox"/>
-            <input id="rose" type="checkbox"/>
-            <input id="port" type="checkbox"/>
-            <input id="sherry" type="checkbox"/>
-            <input id="madeira" type="checkbox"/>
-            <input id="vermout" type="checkbox"/>
+                <input id="wit" name="wineSorts[]" value="Wit" type="checkbox"/>
+                <input id="rood" name="wineSorts[]" value="Rood" type="checkbox"/>
+                <input id="rose" name="wineSorts[]" value="Rosé" type="checkbox"/>
+                <input id="port" name="wineSorts[]" value="Port" type="checkbox"/>
+                <input id="sherry" name="wineSorts[]" value="Sherry" type="checkbox"/>
+                <input id="madeira" name="wineSorts[]" value="Madeira" type="checkbox"/>
+                <input id="vermout" name="wineSorts[]" value="Vermout" type="checkbox"/>
 
-            <div class="filter__control">
-                <label class="filter__button" for="wit">Wit</label>
-                <label class="filter__button" for="rood">Rood</label>
-                <label class="filter__button" for="rose">Rosé</label>
-                <label class="filter__button" for="port">Port</label>
-                <label class="filter__button" for="sherry">Sherry</label>
-                <label class="filter__button" for="madeira">Madeira</label>
-                <label class="filter__button" for="vermout">Vermout</label>
+                <div class="filter__control">
+                    <label class="filter__button" for="wit">Wit ({{ countWines['countWit'] }})</label>
+                    <label class="filter__button" for="rood">Rood ({{ countWines['countRood'] }})</label>
+                    <label class="filter__button" for="rose">Rosé ({{ countWines['countRosé'] }})</label>
+                    <label class="filter__button" for="port">Port ({{ countWines['countPort'] }})</label>
+                    <label class="filter__button" for="sherry">Sherry ({{ countWines['countSherry'] }})</label>
+                    <label class="filter__button" for="madeira">Madeira ({{ countWines['countMadeira'] }})</label>
+                    <label class="filter__button" for="vermout">Vermout ({{ countWines['countVermout'] }})</label>
+                    <button id="wineSortsSubmit" type='submit' class="btn btn-danger btn-sm">Submit</button>
+                </div>
             </div>
-        </div>
+        </form>
 
         {% for match in matches %}
+        {% if match.product.wineSort in wineSorts and wineSorts != null %}
             <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
                 <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
                      class="imageWine" alt="{{ match.product.sku }}"/>
@@ -102,6 +106,34 @@
 
                 {% include "wines/modal.html.twig" %}
             </div>
+            {% endif %}
+                    {% if wineSorts == null %}
+            <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
+                <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
+                     class="imageWine" alt="{{ match.product.sku }}"/>
+                <p>{{ match.product.name }} - {{ match.product.sku }}</p>
+                <p>Prijs: €{{ match.product.price }}</p>
+                <!-- Trigger the modal with a button -->
+                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
+                        data-target="#myModal{{ match.product.id }}">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    Meer informatie
+                </button>
+                <button type="button" class="btn btn-danger btn-sm">
+                    <i class=" fa fa-shopping-cart" aria-hidden="true"></i>
+                    Winkelmandje
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
+                        data-target="#ModalSommelier" style="padding-top: 1px; height: 30px;">
+                    <i aria-hidden="true"></i>
+                    <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg" alt="corkscrew">
+                    Score:
+                    {{ match.score|number_format(0) }}
+                </button>
+
+                {% include "wines/modal.html.twig" %}
+            </div>
+            {% endif %}
         {% endfor %}
     </div>
     <br>
