@@ -1,7 +1,7 @@
 <!-- Modal -->
 <div class="modal fade" id="myModal{{ match.product.id }}" role="dialog">
     <div
-            class="modal-dialog" style='width:900px;'>
+        class="modal-dialog" style='width:900px;'>
         <!-- Modal content-->
         <div class="modal-content">
             <h3 class="modal-title" style='text-align:center; margin-top:30px;'>{{ match.product.name }}</h3>
@@ -13,10 +13,6 @@
                             tabindex="0">
                         Informatie
                     </button>
-                    <button class="btn btn-danger" role="tab" aria-selected="false" aria-controls="panel-2" id="tab-2"
-                            tabindex="-1">
-                        Wijnhuis
-                    </button>
                     <button class="btn btn-danger" role="tab" aria-selected="false" aria-controls="panel-3" id="tab-3"
                             tabindex="-1">
                         Kenmerken
@@ -26,9 +22,6 @@
                     <div class="modal-body" style='text-align:left;margin:40px;'>
                         <p>{{ match.product.description | raw }}</p>
                     </div>
-                </div>
-                <div id="panel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2" hidden>
-                    <p>Content for the second panel</p>
                 </div>
                 <div id="panel-3" role="tabpanel" tabindex="0" aria-labelledby="tab-3" hidden>
                     <table style="margin: auto; line-height: 4; font-weight: 400; font-size: 1.6rem">
