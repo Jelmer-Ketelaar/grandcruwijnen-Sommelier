@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Dto\ProductMatch;
 use App\Entity\Product;
 use App\Service\MealMatcherService;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
+use Throwable;
 
 
 class MealController extends AbstractController {
@@ -65,27 +67,10 @@ class MealController extends AbstractController {
      */
     public function getWinesForMeals(Request $request, $mealId, MealMatcherService $mealMatcherService): Response
     {
-
-
         $matches = [];
-//        dd($mealMatcherService->getWinesForMeal($mealId));
-        $session = $this->requestStack->getSession();
-        
-        $mealIdAgo = $session->get('mealId');
-        $session->set('mealId', array('mealId' => $mealId));
-
-        $formMinPrice = $request->query->get('price-min');
-        if ($formMinPrice === null)
-        {
-            $formMinPrice = 0;
-        }
-        $formMaxPrice = $request->query->get('price-max');
-        if ($formMaxPrice === null)
-        {
-            $formMaxPrice = 5000;
-        }
 
         $page = (int) $request->query->get('page');
+
         $productsPerPage = 18;
         if ($page === 0)
         {
@@ -102,77 +87,95 @@ class MealController extends AbstractController {
         $minWinePrice = 10000;
         $maxWinePrice = 0;
 
+        $formMinPrice = $request->query->get('price-min');
+        $formMaxPrice = $request->query->get('price-max');
+
+        if ($formMinPrice === null)
+        {
+            $formMinPrice = 1;
+        }
+        if ($formMaxPrice === null)
+        {
+            $formMaxPrice = 100000;
+        }
+
         /** @var Product[] $products */
+        //wijnsoort, meenemen
+        $wineSorts = $request->query->get('wineSorts');
+        // dd($wineSorts);
         $products = $this->getDoctrine()->getRepository(Product::class)->findWinesBySkus($skus, $formMinPrice, $formMaxPrice);
+
 
         foreach ($products as $product)
         {
             $productMatch = new ProductMatch($product, $skuScores[$product->getSku()]);
             $winePrice = $productMatch->product->getprice();
 
+
             if ($minWinePrice > $winePrice)
             {
                 $minWinePrice = $winePrice;
             }
 
-            if($maxWinePrice < $winePrice) 
+            if ($maxWinePrice < $winePrice)
             {
                 $maxWinePrice = $winePrice;
             }
 
-            $matches[] = $productMatch;
+            if ($winePrice >= $formMinPrice && $winePrice <= $formMaxPrice)
+            {
+                $matches[] = $productMatch;
+            }
         }
-
-        
-        $getMealId = $session->get('mealId');
-
-        //dd($session->get('max_price'));
-        // mealId is altijs hetzelfde als getMealid
-
-
-
-        if($mealIdAgo != $getMealId['mealId']){
-
-            $mealIdAgo = $getMealId['mealId'];
-            $session->set('min_price', $minWinePrice);
-            $session->set('max_price', $maxWinePrice);
-            $session->set('mealId', $mealId);
-            $minWinePrice = $session->get('min_price');
-            $maxWinePrice = $session->get('max_price');
-            
-        }
-        #dd($session->get('min_price'));
-        #dd($session->get('max_price'));
-
-        $maxWinePrice = $session->get('max_price');
-        $minWinePrice = $session->get('min_price');
-
-        // dd($session->get('max_price'));
-
-
- 
-
-        
 
         usort($matches, static function ($matchA, $matchB) {
             return $matchA->getScore() === $matchB->getScore() ? 0 : ($matchA->getScore() < $matchB->getScore() ? 1 : - 1);
         });
 
-        $matchesForPage = array_slice($matches, ($page) * $productsPerPage, $productsPerPage);
+        $matchesForPage = array_slice($matches, $productsPerPage * ($page - 1), $productsPerPage);
+
         $totalProductCount = count($matches);
-        $totalPages = ceil($totalProductCount / $productsPerPage);
-//        dd($totalPages);
+        $totalPages = (int) ceil($totalProductCount / $productsPerPage);
+
         $mealArr = [urldecode($mealId)];
 
-        if ($session->get('max_price') === null)
-        {
-            $session->set('max_price', $maxWinePrice);
-            $session->set('min_price', $minWinePrice);
-        } else
-        {
-            $maxWinePrice = $session->get('max_price');
-            $minWinePrice = $session->get('min_price');
+        $countWit = 0;
+        $countRood = 0;
+        $countRosé = 0;
+        $countPort = 0;
+        $countSherry = 0;
+        $countMadeira = 0;
+        $countVermout = 0;
+
+
+        foreach ($matchesForPage as $amountWine) {
+            if($amountWine->product->getWineSort() == 'Wit'){
+                $countWit++;
+            }
+            if($amountWine->product->getWineSort() == 'Rood'){
+                $countRood++;
+            }
+            if($amountWine->product->getWineSort() == 'Rosé'){
+                $countRosé++;
+            }
+            if($amountWine->product->getWineSort() == 'Port'){
+                $countPort++;
+            }
+            if($amountWine->product->getWineSort() == 'Sherry'){
+                $countSherry++;
+            }
+            if($amountWine->product->getWineSort() == 'Madeira'){
+                $countMadeira++;
+            }
+            if($amountWine->product->getWineSort() == 'Vermout'){
+                $countVermout++;
+            }
         }
+
+        $countWines = ['countWit'=>$countWit, 'countRood'=>$countRood, 'countRosé'=>$countRosé, 'countPort'=>$countPort, 'countSherry'=>$countSherry, 'countMadeira'=>$countMadeira, 'countVermout'=>$countVermout];
+
+
+        //dd($wineSorts);
 
         return $this->render('wines/index.html.twig', [
             'matches' => $matchesForPage,
@@ -182,7 +185,9 @@ class MealController extends AbstractController {
             'minWinePrice' => $minWinePrice,
             'total_pages' => $totalPages,
             'current_page' => $page,
-            'meal_id' => $mealArr
+            'meal_id' => $mealArr,
+            'wineSorts' => $wineSorts,
+            'countWines' => $countWines
         ]);
     }
 }

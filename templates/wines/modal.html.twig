@@ -5,10 +5,9 @@
         <!-- Modal content-->
         <div class="modal-content">
             <h3 class="modal-title" style='text-align:center; margin-top:30px;'>{{ match.product.name }}</h3>
-
             <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}" class="wineImage"
                  alt="{{ match.product.sku }}"/>
-            <div class="tabs">
+            <div style="margin-top: 30px;" class="tabs">
                 <div role="tablist" aria-label="Sample Tabs">
                     <button class="btn btn-danger" role="tab" aria-selected="true" aria-controls="panel-1" id="tab-1"
                             tabindex="0">
@@ -32,33 +31,34 @@
                     <p>Content for the second panel</p>
                 </div>
                 <div id="panel-3" role="tabpanel" tabindex="0" aria-labelledby="tab-3" hidden>
-                    <table style="margin-left: 5vw; line-height: 4; font-weight: 400; font-size: 1.6rem">
+                    <table style="margin: auto; line-height: 4; font-weight: 400; font-size: 1.6rem">
                         <tbody>
                         <tr>
-                            <th>Prijs</th>
+                            <th>Prijs:</th>
                             <td>{{ match.product.price }}</td>
                         </tr>
                         <tr>
-                            <th>Voorraad</th>
-                            <td>...</td>
+                            <th>Voorraad:</th>
+                            <td>{{ match.product.stock }}</td>
                         </tr>
                         <tr>
-                            <th>Locatie</th>
-                            <td>...</td>
+                            <th>Locatie:</th>
+                            <td>{{ match.product.location }}</td>
                         </tr>
                         <tr>
-                            <th>Streek</th>
-                            <td>...</td>
+                            <th>Streek:</th>
+                            <td>{{ match.product.region }}</td>
                         </tr>
                         <tr>
-                            <th>Land</th>
-                            <td>{{ match.product.land }}</td>
+                            <th>Land:</th>
+                            <td>{{ match.product.country }}</td>
                         </tr>
                         <tr>
                             <th>Druiven</th>
+                            <td>{{ match.product.grapes }}</td>
                         </tr>
                         <tr>
-                            <th>Wijnhuis</th>
+                            <th>Wijnhuis:</th>
                             <td style="margin-left: 5vw !important;">{{ match.product.wineHouse }}</td>
                         </tr>
                         </tbody>
@@ -96,7 +96,7 @@
                     meest bijpassende wijnen voor uw gekozen gerecht . De score van de wijn in
                     relatie tot uw gekozen gerecht wordt getoond in het groene blokje als een rating
                     met
-                    <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg">
+                    <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg" alt="corkscrew">
                     als symbool. Alle wijnen met een score hoger dan 70 wordt door ons systeem
                     herkend als bijpassend. De wijnen worden getoond op basis van score zodat de
                     beste match bovenaan staat!</p>

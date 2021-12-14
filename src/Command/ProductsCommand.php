@@ -18,9 +18,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-
-class ProductsCommand extends Command
-{
+//[pageSize]=20
+class ProductsCommand extends Command {
     protected static $defaultName = 'app:fill:products';
     protected static $defaultDescription = 'Fills products database';
 
@@ -46,25 +45,6 @@ class ProductsCommand extends Command
         $this->attributes = $attributes;
     }
 
-    public function getAuthToken(): bool|string
-    {
-        $token = 'tc55zrtlllvm3uffu2ml837mwmtbuea3';
-
-        $httpClient = new Client();
-
-        $response = $httpClient->get(
-            'https://httpbin.org/bearer',
-            [
-                RequestOptions::HEADERS => [
-                    'Accept' => 'application/json',
-                    'Authorization' => 'Bearer ' . $token,
-                ]
-            ]
-        );
-
-        return ($response->getBody()->getContents());
-    }
-
     protected function configure(): void
     {
         $this->setDescription(self::$defaultDescription);
@@ -80,51 +60,67 @@ class ProductsCommand extends Command
         $items = $this->products->getProducts()['items'];
         $countryAttributes = $this->attributes->getProductAttributeOptions('land');
         $wineHouseAttributes = $this->attributes->getProductAttributeOptions('wijnhuis');
-        /*$grapeAttributes = $this->attributes->getProductAttributeOptions('druiven');
-        dump($grapeAttributes);
-        die();*/
+        $grapeAttributes = $this->attributes->getProductAttributeOptions('druif');
+        $wineSortAttributes = $this->attributes->getProductAttributeOptions('wijnsoort');
+        $regionAttributes = $this->attributes->getProductAttributeOptions('regio');
+//        $locationAttributes = $this->attributes->getProductAttributeOptions('lokatie');
 
-        foreach ($items as $magentoProduct) {
-            // var_dump($magentoProduct['custom_attributes'][0]['value']);
-            // die();
-            if ($magentoProduct['status'] !== 1) {
+
+        foreach ($items as $magentoProduct)
+        {
+//            var_dump($magentoProduct['custom_attributes']);
+//             die();
+            if ($magentoProduct['status'] !== 1)
+            {
                 continue;
             }
-            if (!isset($magentoProduct['media_gallery_entries'][0])) {
+            if ( ! isset($magentoProduct['media_gallery_entries'][0]))
+            {
                 continue;
             }
-            if ($this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'land') === null) {
+
+            if ($this->findLabelForValue($countryAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'land')) === null)
+            {
                 continue;
             }
-            if ($this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'wijnhuis') === null) {
+            if ($this->findLabelForValue($wineHouseAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'wijnhuis')) === null)
+            {
                 continue;
             }
+            //Todo: investigate multi-select
+            if ($this->findLabelForValue($grapeAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'druif')) === null)
+            {
+                continue;
+            }
+            if ($this->findLabelForValue($wineSortAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'wijnsoort')) === null)
+            {
+                continue;
+            }
+            if ($this->findLabelForValue($regionAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'regio')) === null)
+            {
+                continue;
+            }
+            if ($this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'lokatie') === null)
+            {
+                continue;
+            }
+
+
             $product = $this->productRepository->findOneBy(['sku' => $magentoProduct['sku']]);
             $updatedAt = new DateTime($magentoProduct['updated_at']);
-//            $io->comment($magentoProduct['custom_attributes'][8]['value']);
-            if ($product === null) {
+//            $io->comment($locationAttributes);
+            if ($product === null)
+            {
                 var_dump($magentoProduct['sku']);
                 $product = new Product();
-                $product
-                    ->setSku($magentoProduct['sku'])
-                    ->setUpdatedAt($updatedAt)
-                    ->setName($magentoProduct['name'])
-                    ->setDescription($magentoProduct['custom_attributes'][1]['value'])
-                    ->setPrice($magentoProduct["price"])
-                    ->setStock($magentoProduct['extension_attributes']['stock_item']['qty'])
-                    ->setImage($magentoProduct['media_gallery_entries'][0]['file'])
-                    ->setLand($this->findCountryForId($countryAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'land')))
-                    ->setWineHouse($this->findCountryForId($wineHouseAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'wijnhuis')));
-//                    ->setWineHouse($this->findCountryForId($grapeAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'wijnhuis')));
-                    //->setWijnsoort($magentoProduct['custom_attributes'][0]['value']);
-            } else if ($updatedAt > $product->getUpdatedAt()) {
-                $product
-                    ->setValid(false)
-                    ->setCheckedSinceUpdate(false);
+                $this->updateProduct($product, $magentoProduct, $updatedAt, $countryAttributes, $wineHouseAttributes, $grapeAttributes, $wineSortAttributes, $regionAttributes);
+            } else if ($updatedAt > $product->getUpdatedAt())
+            {
+                $this->updateProduct($product, $magentoProduct, $updatedAt, $countryAttributes, $wineHouseAttributes, $grapeAttributes, $wineSortAttributes, $regionAttributes);
             }
+//            var_dump($product->getCountry());
             $this->manager->persist($product);
         }
-
         $this->manager->flush();
 
         $io->success('Product database updated');
@@ -134,22 +130,61 @@ class ProductsCommand extends Command
 
     private function findAttributeValueForCode(array $attributes, string $code)
     {
-        foreach ($attributes as $attribute) {
-            if ($attribute['attribute_code'] === $code) {
+        foreach ($attributes as $attribute)
+        {
+            if ($attribute['attribute_code'] === $code)
+            {
                 return $attribute['value'];
             }
         }
+
         return null;
     }
 
-    private function findCountryForId(array $countryAttributes, string $id)
+    private function findLabelForValue(array $attributes, ?string $id)
     {
-        var_dump($id);
-        foreach ($countryAttributes as $attribute) {
-            if ($attribute['value'] === $id) {
+//        var_dump($id);
+        if ($id === null)
+        {
+            return null;
+        }
+        foreach ($attributes as $attribute)
+        {
+            if ($attribute['value'] === $id)
+            {
                 return $attribute['label'];
             }
         }
+
         return null;
+    }
+
+    /**
+     * @param \App\Entity\Product $product
+     * @param mixed $magentoProduct
+     * @param \DateTime $updatedAt
+     * @param array $countryAttributes
+     * @param array $wineHouseAttributes
+     * @param array $grapeAttributes
+     * @param array $wineSortAttributes
+     * @param array $regionAttributes
+     * @return void
+     */
+    protected function updateProduct(Product $product, mixed $magentoProduct, DateTime $updatedAt, array $countryAttributes, array $wineHouseAttributes, array $grapeAttributes, array $wineSortAttributes, array $regionAttributes): void
+    {
+        $product
+            ->setSku($magentoProduct['sku'])
+            ->setUpdatedAt($updatedAt)
+            ->setName($magentoProduct['name'])
+            ->setDescription($magentoProduct['custom_attributes'][1]['value'])
+            ->setPrice($magentoProduct["price"])
+            ->setStock($magentoProduct['extension_attributes']['stock_item']['qty'])
+            ->setImage($magentoProduct['media_gallery_entries'][0]['file'])
+            ->setCountry($this->findLabelForValue($countryAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'land')))
+            ->setWineHouse($this->findLabelForValue($wineHouseAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'wijnhuis')))
+            ->setGrapes($this->findLabelForValue($grapeAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'druif')))
+            ->setWineSort($this->findLabelForValue($wineSortAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'wijnsoort')))
+            ->setRegion($this->findLabelForValue($regionAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'regio')))
+            ->setLocation($this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'lokatie'));
     }
 }

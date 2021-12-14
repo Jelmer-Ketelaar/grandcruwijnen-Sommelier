@@ -9,8 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  */
-class Product
-{
+class Product {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -27,16 +26,6 @@ class Product
      * @ORM\Column(type="datetime")
      */
     private ?\DateTimeInterface $updatedAt;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private bool $valid;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private bool $checkedSinceUpdate;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -59,28 +48,39 @@ class Product
     private $stock;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $image;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $land;
+    private $country;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $wineHouse;
 
     /**
-     * Product constructor.
+     * @ORM\Column(type="string", length=255)
      */
-    public function __construct()
-    {
-        $this->valid = false;
-        $this->checkedSinceUpdate = false;
-    }
+    private $grapes;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $wineSort;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $location;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $region;
 
     public function getId(): ?int
     {
@@ -107,30 +107,6 @@ class Product
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getValid(): ?bool
-    {
-        return $this->valid;
-    }
-
-    public function setValid(bool $valid): self
-    {
-        $this->valid = $valid;
-
-        return $this;
-    }
-
-    public function getCheckedSinceUpdate(): ?bool
-    {
-        return $this->checkedSinceUpdate;
-    }
-
-    public function setCheckedSinceUpdate(bool $checkedSinceUpdate): self
-    {
-        $this->checkedSinceUpdate = $checkedSinceUpdate;
 
         return $this;
     }
@@ -195,14 +171,14 @@ class Product
         return $this;
     }
 
-    public function getLand(): ?string
+    public function getCountry(): ?string
     {
-        return $this->land;
+        return $this->country;
     }
 
-    public function setLand(string $land): self
+    public function setCountry(string $country): self
     {
-        $this->land = $land;
+        $this->country = $country;
 
         return $this;
     }
@@ -215,6 +191,54 @@ class Product
     public function setWineHouse(string $wineHouse): self
     {
         $this->wineHouse = $wineHouse;
+
+        return $this;
+    }
+
+    public function getGrapes(): ?string
+    {
+        return $this->grapes;
+    }
+
+    public function setGrapes(?string $grapes): self
+    {
+        $this->grapes = $grapes;
+
+        return $this;
+    }
+
+    public function getWineSort(): ?string
+    {
+        return $this->wineSort;
+    }
+
+    public function setWineSort(?string $wineSort): self
+    {
+        $this->wineSort = $wineSort;
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(string $location): self
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?string $region): self
+    {
+        $this->region = $region;
 
         return $this;
     }

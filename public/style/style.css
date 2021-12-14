@@ -1,7 +1,7 @@
 body {
     font-family: 'Montserrat', sans-serif;
     width: 100%;
-    background-color: #e9dcd1;
+    background-color: #F5F4ED;
 }
 
 .example-wrapper {
@@ -24,11 +24,11 @@ body {
     display: inline-grid;
     border: #1111 1px solid;
     box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%), 0 0 20px -1px rgb(0 0 0 / 15%);
-    margin: 4vw 0 0 4.5vw;
+    margin: 3vw 0 0 11vw;
     height: 25vh;
     width: 20vh;
     border-radius: 10%;
-    background-color: #e9dcd1;
+    background-color: #E9DCD1;
 }
 
 .grid-sub {
@@ -40,7 +40,7 @@ body {
     height: 60px;
     width: 20vh;
     border-radius: 10px;
-    background-color: #e9dcd1;
+    background-color: #E9DCD1;
 }
 
 .grid:active {
@@ -56,11 +56,12 @@ body {
 }
 
 .image {
-    margin-top: 5vh;
-    height: 10vh;
+    margin-top: 2vh;
+    height: 15vh;
 }
 
-.text {
+#text {
+    margin-top: -4vh;
     margin-left: 2vw;
 }
 
@@ -78,7 +79,7 @@ h1 {
 }
 
 .content {
-    height: 100vh !important;
+    height: 110vh !important;
 }
 
 .mealImage {
@@ -139,8 +140,15 @@ button {
     content: "€" !important;
 }
 
+#slider-container {
+    background-color: #e9dcd1;
+    width: 22%;
+    top: 34%;
+}
+
 /* ---------------- end price slider ---------------------------------------- */
 
+/* ---------------- begin pagination ---------------------------------------- */
 
 #pagination {
     display: flex;
@@ -183,10 +191,135 @@ button {
     border-right: 2px solid rgba(0, 0, 0, 1);
 }
 
+
 .row {
     display: flex;
     flex-wrap: wrap;
     justify-content: right;
     margin-right: 1%;
-    background-color: #e9dcd1;
+}
+
+/* ---------------- end pagination ---------------------------------------- */
+
+#page-description {
+    width: 40vw;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 17px
+}
+
+
+/* ---------------- begin checkbox slider ---------------------------------------- */
+
+.filter__control {
+    flex: 1;
+    position: absolute;
+    margin-left: -13vw;
+    margin-top: 7vh;
+    overflow: hidden;
+}
+
+.filter__button {
+    display: block;
+    padding: 10px 20px;
+    cursor: pointer;
+    /*color: #333;*/
+    position: relative;
+    overflow: hidden;
+    transition: 0.2s ease-in-out;
+}
+
+.filter__button:before {
+    content: '';
+    display: block;
+    background: rgb(217, 83, 79);
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 10px;
+    transform: translateX(-10px);
+    transition: 0.2s ease-in-out;
+}
+
+.filter__button:hover:before {
+    transform: translateX(-5px);
+}
+
+
+input[type="checkbox"]#wit:checked ~ .filter__control .filter__button[for="wit"]:before {
+    transform: translateX(0px);
+}
+
+input[type="checkbox"]#wit:checked ~ .filter__control .filter__button[for="wit"] {
+    background: #fff;
+    padding-left: 30px;
+}
+
+input[type="checkbox"]#rood:checked ~ .filter__control .filter__button[for="rood"]:before {
+    transform: translateX(0px);
+}
+
+input[type="checkbox"]#rood:checked ~ .filter__control .filter__button[for="rood"] {
+    background: #fff;
+    padding-left: 30px;
+}
+
+input[type="checkbox"]#rose:checked ~ .filter__control .filter__button[for="rose"]:before {
+    transform: translateX(0px);
+}
+
+input[type="checkbox"]#rose:checked ~ .filter__control .filter__button[for="rose"] {
+    background: #fff;
+    padding-left: 30px;
+}
+
+input[type="checkbox"]#port:checked ~ .filter__control .filter__button[for="port"] {
+    background: #fff;
+    padding-left: 30px;
+}
+
+input[type="checkbox"]#port:checked ~ .filter__control .filter__button[for="port"]:before {
+    transform: translateX(0px);
+}
+
+input[type="checkbox"]#sherry:checked ~ .filter__control .filter__button[for="sherry"] {
+    background: #fff;
+    padding-left: 30px;
+}
+
+input[type="checkbox"]#sherry:checked ~ .filter__control .filter__button[for="sherry"]:before {
+    transform: translateX(0px);
+}
+
+input[type="checkbox"]#madeira:checked ~ .filter__control .filter__button[for="madeira"] {
+    background: #fff;
+    padding-left: 30px;
+}
+
+input[type="checkbox"]#madeira:checked ~ .filter__control .filter__button[for="madeira"]:before {
+    transform: translateX(0px);
+}
+
+input[type="checkbox"]#vermout:checked ~ .filter__control .filter__button[for="vermout"] {
+    background: #fff;
+    padding-left: 30px;
+}
+
+input[type="checkbox"]#vermout:checked ~ .filter__control .filter__button[for="vermout"]:before {
+    transform: translateX(0px);
+}
+
+/* ---------------- end checkbox slider ---------------------------------------- */
+#producten {
+    text-align: center;
+    padding: 10px 10px 10px 10px;
+    margin: 5px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+}
+
+.mealsDescription {
+    margin: 10px!important;
 }

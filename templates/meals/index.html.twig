@@ -12,18 +12,18 @@
 
     <style>
         body {
-            background-color: #e9dcd1;
+            background-color: #F5F4ED;
         }
     </style>
     {# https://mealmatcher.grandcruwijnen.nl/meals/%7B12de8bb3-8ce2-43a9-8b09-d56161365ebc%7D #}
     <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg'
          alt='logo' class="logo_landing_page">
-    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack(window.location.href)'><i
+    <div class="example-wrapper" style='text-align:center; padding-bottom:50px;'>
+    <button style="position: relative; top: 5px;" type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack(window.location.href)'><i
                 class="fa fa-arrow-left" aria-hidden="true"></i> Terug
     </button>
-    <div class="example-wrapper" style='text-align:center; padding-bottom:50px;'>
-        <h1>Welkom bij de online sommelier</h1>
-        <p>Hier kunt u uw gerecht kiezen en dan worden er bijpassende wijnen gezocht.</p>
+        <h1 style='text-align: center; width: 70%; margin: auto; margin-right: 15%; float: right;'>Welkom bij de online sommelier</h1>
+        <p class="mealsDescription">Hier kunt u uw gerecht kiezen en dan worden er bijpassende wijnen gezocht.</p>
     </div>
 
     <div class="container" style='width:100%;'>
@@ -33,7 +33,7 @@
                     localStorage.removeItem('mealId');
                     localStorage.setItem('mealId',window.location.href);
                 </script>
-                <div class="col-sm-3" id="column">
+                <div class="col-sm-3" id="column" style="background-color: #e9dcd1;">
                     <img src="https://mealmatcher.grandcruwijnen.nl/meals/{{ meal.id }}" alt="{{ meal.name }}"
                         class="mealImage">
                     <p style='margin-top:20px;'>{{ meal.name }}</p>

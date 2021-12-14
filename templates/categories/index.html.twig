@@ -9,36 +9,49 @@
 {% block title %}Online sommelier | Categories!{% endblock %}
 
 {% block body %}
-
-    <div class="content" style="background-color: #e9dcd1; height: 100%">
+    {% set categoryName =  app.request.query.get('categoryName') %}
+    <div class="content" style="background-color: #F5F4ED; height: 100%">
         <div class="container">
 
             <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg'
                  alt='logo' class="logo">
-            <button style="" type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+            <div id="text">
+            <button style="position: relative; left: 100px; top: 5px;" type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                     onclick='goBack(window.location.href)'><i
                         class="fa fa-arrow-left" aria-hidden="true"></i> Terug
             </button>
-            <div class="text">
-                <h1 style='text-align:center;'>U het gerecht en wij adviseren de wijn!</h1>
-                <p class="p"></p>
+                <h1 style='text-align: center; width: 70%; margin: auto; margin-right: 15%; float: right;'>U het gerecht en wij adviseren de wijn!</h1>
+                {% if meals[0].parent == null %}
+                    <p id="page-description"
+                       style="width: 40vw; text-align: center; margin-left: auto; margin-right: auto; font-size:17px">
+                        Als Grandcruwijnen bieden wij u een Online Sommelier welke dag-en-nacht voor u
+                        gereed staat. Deze functie is makkelijk te gebruiken. U kiest uit een zeer uitgebreide lijst aan
+                        gerechten en de Online sommelier adviseert u de geschikte wijnen en adviseert bij de wijnen de
+                        best
+                        bijpassende gerechten. Als u in een creative stemming bent en uw eigen gerecht wilt samenstellen
+                        dan
+                        kan dit ook!</p>
+                {% endif %}
             </div>
+            {% if meals[0].parent != null %}
+                <h2 style="font-weight: 350; text-align: center">Uw keuze: <span
+                            style="font-weight: bold">{{ meals[0].parent.name }}</span></h2>
+            {% endif %}
         </div>
         <br>
         {% set imageCategory = [
-            'https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/93.svg',
-            'https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/52.svg',
-            'https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/78.svg',
-            'https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/2.svg',
-            'https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/139.svg',
-            'https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/24.svg',
-            'https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/109.svg',
-            'https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/Grandcruwijnen_SmartSommelier/images/102.svg'
+            'https://jelmer.ketelaar.me/images/Animals-Chicken-icon.png',
+            'https://jelmer.ketelaar.me/images/calf.png',
+            'https://jelmer.ketelaar.me/images/Food-Lamb-Rack-icon.png',
+            'https://jelmer.ketelaar.me/images/Cow-icon.png',
+            'https://jelmer.ketelaar.me/images/Animals-Crab-icon.png',
+            'https://jelmer.ketelaar.me/images/Pig.png',
+            'https://jelmer.ketelaar.me/images/Fish.png',
+            'https://jelmer.ketelaar.me/images/deer.png'
         ] %}
-        {% set imageCounterArr = -1 %}
+        {% set imageCounterArr = 0 %}
 
         {% for meal in meals %}
-            {% set imageCounterArr = imageCounterArr + 1 %}
 
             {% if meal.parent is null %}
                 <section class="grid">
@@ -49,6 +62,8 @@
                              alt="" class="image">
                     </a>
                 </section>
+                {% set imageCounterArr = imageCounterArr + 1 %}
+
 
             {% else %}
                 <script>
@@ -57,7 +72,7 @@
                 </script>
                 <section class="grid-sub">
                     <a href="{{ path('meals_for_category', {categoryId: meal.categoryId}) }}" class="meal-name"
-                       style='heigth:50px;'>
+                       style='height:50px;'>
                         {{ meal.name }}
                     </a>
                 </section>
