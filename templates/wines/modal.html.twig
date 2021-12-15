@@ -28,7 +28,7 @@
                         <tbody>
                         <tr>
                             <th>Prijs:</th>
-                            <td>{{ match.product.price }}</td>
+                            <td>{{ match.product.price }}(Excl. BTW €{{(match.product.price / 1.21)|round(2)}})</td>
                         </tr>
                         <tr>
                             <th>Voorraad:</th>
