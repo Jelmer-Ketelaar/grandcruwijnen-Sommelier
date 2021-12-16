@@ -19,10 +19,12 @@
     <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg'
          alt='logo' class="logo_landing_page">
     <div class="example-wrapper" style='text-align:center; padding-bottom:50px;'>
-    <button style="position: relative; top: 5px;" type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack(window.location.href)'><i
-                class="fa fa-arrow-left" aria-hidden="true"></i> Terug
-    </button>
-        <h1 style='text-align: center; width: 70%; margin: auto; margin-right: 15%; float: right;'>Welkom bij de online sommelier</h1>
+        <button style="position: relative; top: 5px;" type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                onclick='goBack(window.location.href)'><i
+                    class="fa fa-arrow-left" aria-hidden="true"></i> Terug
+        </button>
+        <h1 style='text-align: center; width: 70%; margin: auto; margin-right: 15%; float: right;'>Welkom bij de online
+            sommelier</h1>
         <p class="mealsDescription">Hier kunt u uw gerecht kiezen en dan worden er bijpassende wijnen gezocht.</p>
     </div>
 
@@ -31,14 +33,15 @@
             {% for meal in meals %}
                 <script>
                     localStorage.removeItem('mealId');
-                    localStorage.setItem('mealId',window.location.href);
+                    localStorage.setItem('mealId', window.location.href);
                 </script>
                 <div class="col-sm-3" id="column" style="background-color: #e9dcd1;">
-                    <img src="https://mealmatcher.grandcruwijnen.nl/meals/{{ meal.id }}" alt="{{ meal.name }}"
-                        class="mealImage">
+                    <img src="https://mealmatcher.grandcruwijnen.dev/meals/{{ meal.id }}" alt="{{ meal.name }}"
+                         class="mealImage">
                     <p style='margin-top:20px;'>{{ meal.name }}</p>
                     <a href="{{ path('wines_for_meals', {mealId: meal.id}) }}">
-                        <button type="button" class="btn btn-danger btn-sm">Selecteer <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        <button type="button" class="btn btn-danger btn-sm">Selecteer
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
                         </button>
                     </a>
                 </div>
