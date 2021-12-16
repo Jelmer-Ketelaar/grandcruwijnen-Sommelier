@@ -68,6 +68,13 @@ class ProductsCommand extends Command {
 
         foreach ($items as $magentoProduct)
         {
+            foreach ($magentoProduct['custom_attributes'] as $attr)
+            {
+                if ($attr['attribute_code'] === 'special_price')
+                {
+                    $specialPrice = $attr['value'];
+                }
+            }
 //            var_dump($magentoProduct['custom_attributes']);
 //             die();
             if ($magentoProduct['status'] !== 1)

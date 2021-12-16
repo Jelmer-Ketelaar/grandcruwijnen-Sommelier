@@ -56,15 +56,17 @@
         <form method="GET" action="" data-ajax="false">
             <div class="filter" id="wineSorts" style="margin-top: 8vh; margin-right: 10px">
 
-                <input id="wit" name="wineSorts[]" value="Wit" type="checkbox" {% if countWines['countWit'] == 0 %}disabled{% endif %}{% if 'Wit' in app.request.query.get('wineSorts') %}checked{% endif %}/>
-                <input id="rood" name="wineSorts[]" value="Rood" type="checkbox"{% if countWines['countRood'] == 0 %}disabled{% endif %}{% if 'Rood' in app.request.query.get('wineSorts') %}checked{% endif %} />
-                <input id="rose" name="wineSorts[]" value="Rosé" type="checkbox"{% if countWines['countRosé'] == 0 %}disabled{% endif %}{% if 'Rosé' in app.request.query.get('wineSorts') %}checked{% endif %}/>
-                <input id="port" name="wineSorts[]" value="Port" type="checkbox"{% if countWines['countPort'] == 0 %}disabled{% endif %}{% if 'Port' in app.request.query.get('wineSorts') %}checked{% endif %}/>
-                <input id="sherry" name="wineSorts[]" value="Sherry" type="checkbox"{% if countWines['countSherry'] == 0 %}disabled{% endif %}{% if 'Sherry' in app.request.query.get('wineSorts') %}checked{% endif %}/>
-                <input id="madeira" name="wineSorts[]" value="Madeira" type="checkbox"{% if countWines['countMadeira'] == 0 %}disabled{% endif %}{% if 'Madeira' in app.request.query.get('wineSorts') %}checked{% endif %}/>
-                <input id="vermout" name="wineSorts[]" value="Vermout" type="checkbox"{% if countWines['countVermout'] == 0 %}disabled{% endif %}{% if 'Vermout' in app.request.query.get('wineSorts') %}checked{% endif %}/>
+                <input id="aanbieding" name="wineSorts[]" value="Aanbieding" type="checkbox"/>
+                <input id="wit" name="wineSorts[]" value="Wit" type="checkbox"/>
+                <input id="rood" name="wineSorts[]" value="Rood" type="checkbox"/>
+                <input id="rose" name="wineSorts[]" value="Rosé" type="checkbox"/>
+                <input id="port" name="wineSorts[]" value="Port" type="checkbox"/>
+                <input id="sherry" name="wineSorts[]" value="Sherry" type="checkbox"/>
+                <input id="madeira" name="wineSorts[]" value="Madeira" type="checkbox"/>
+                <input id="vermout" name="wineSorts[]" value="Vermout" type="checkbox"/>
 
                 <div class="filter__control">
+                    <label class="filter__button" for="aanbieding">Aanbieding <span style='color:#B0423D;'>({{ countWines['countAanbieding'] }})</span></label>
                     <label class="filter__button" for="wit">Wit <span style='color:#B0423D;'>({{ countWines['countWit'] }})</span></label>
                     <label class="filter__button" for="rood">Rood <span style='color:#B0423D;'>({{ countWines['countRood'] }})</span></label>
                     <label class="filter__button" for="rose">Rosé <span style='color:#B0423D;'>({{ countWines['countRosé'] }})</span></label>

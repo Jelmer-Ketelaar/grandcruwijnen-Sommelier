@@ -139,6 +139,7 @@ class MealController extends AbstractController {
 
         $mealArr = [urldecode($mealId)];
 
+        $countAanbieding = 0;
         $countWit = 0;
         $countRood = 0;
         $countRosé = 0;
@@ -149,6 +150,9 @@ class MealController extends AbstractController {
 
 
         foreach ($matchesForPage as $amountWine) {
+            if($amountWine->product->getWineSort() == 'Aanbieding'){
+                $countAanbieding++;
+            }
             if($amountWine->product->getWineSort() == 'Wit'){
                 $countWit++;
             }
@@ -172,7 +176,7 @@ class MealController extends AbstractController {
             }
         }
 
-        $countWines = ['countWit'=>$countWit, 'countRood'=>$countRood, 'countRosé'=>$countRosé, 'countPort'=>$countPort, 'countSherry'=>$countSherry, 'countMadeira'=>$countMadeira, 'countVermout'=>$countVermout];
+        $countWines = ['countAanbieding'=>$countAanbieding, 'countWit'=>$countWit, 'countRood'=>$countRood, 'countRosé'=>$countRosé, 'countPort'=>$countPort, 'countSherry'=>$countSherry, 'countMadeira'=>$countMadeira, 'countVermout'=>$countVermout];
 
 
         //dd($wineSorts);
