@@ -58,3 +58,5 @@ function changeTabs(e) {
 }
 
 // ---------------------- einde meer informatie tabs -----------------------------
+
+alert(document.getElementById('plattegrond').scr);

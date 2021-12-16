@@ -323,3 +323,8 @@ input[type="checkbox"]#vermout:checked ~ .filter__control .filter__button[for="v
 .mealsDescription {
     margin: 10px!important;
 }
+
+#plattegrond{
+    width:70%;
+    margin:40px;
+}
