@@ -57,6 +57,4 @@ function changeTabs(e) {
         .removeAttribute("hidden");
 }
 
-// ---------------------- einde meer informatie tabs -----------------------------
-
-alert(document.getElementById('plattegrond').scr);
+// ---------------------- einde meer informatie tabs ---------------------------
