@@ -82,6 +82,11 @@ class Product {
      */
     private $region;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $specialPrice;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -239,6 +244,18 @@ class Product {
     public function setRegion(?string $region): self
     {
         $this->region = $region;
+
+        return $this;
+    }
+
+    public function getSpecialPrice(): ?float
+    {
+        return $this->specialPrice;
+    }
+
+    public function setSpecialPrice(?float $specialPrice): self
+    {
+        $this->specialPrice = $specialPrice;
 
         return $this;
     }
