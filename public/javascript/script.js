@@ -57,4 +57,4 @@ function changeTabs(e) {
         .removeAttribute("hidden");
 }
 
-// ---------------------- einde meer informatie tabs -----------------------------
+// ---------------------- einde meer informatie tabs ---------------------------
