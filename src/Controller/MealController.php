@@ -108,6 +108,7 @@ class MealController extends AbstractController {
         /** @var Product[] $products */
         //wijnsoort, meenemen
         $wineSorts = $request->query->get('wineSorts');
+        $specialPriceSorts = $request->query->get('specialPriceSorts');
         // dd($wineSorts);
         $products = $this->getDoctrine()->getRepository(Product::class)->findWinesBySkus($skus, $formMinPrice, $formMaxPrice);
 
@@ -193,10 +194,10 @@ class MealController extends AbstractController {
 
 //        $countWines = ['countAanbieding' => $countAanbieding, 'countWit' => $countWit, 'countRood' => $countRood, 'countRosé' => $countRosé, 'countPort' => $countPort, 'countSherry' => $countSherry, 'countMadeira' => $countMadeira, 'countVermout' => $countVermout];
         $countWines = ['countWit' => $countWit, 'countRood' => $countRood, 'countRosé' => $countRosé, 'countPort' => $countPort, 'countSherry' => $countSherry, 'countMadeira' => $countMadeira, 'countVermout' => $countVermout];
-
+        $countSpecialPrice = ['countAanbieding' => $countAanbieding];
         $image = 'https://mealmatcher.grandcruwijnen.dev/meals/{{ meal.id }}';
 
-        //dd($wineSorts);
+//        dd($wineSorts);
 
         return $this->render('wines/index.html.twig', [
             'matches' => $matchesForPage,
@@ -208,7 +209,9 @@ class MealController extends AbstractController {
             'current_page' => $page,
             'meal_id' => $mealArr,
             'wineSorts' => $wineSorts,
-            'countWines' => $countWines
+            'countWines' => $countWines,
+            'specialPriceSorts' => $specialPriceSorts,
+            'countSpecialPrice' => $countSpecialPrice
         ]);
     }
 }
