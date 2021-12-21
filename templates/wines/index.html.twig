@@ -1,4 +1,4 @@
-{       % extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 {% block stylesheets %}
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -81,8 +81,6 @@
                         {% if 'Vermout' in app.request.query.get('wineSorts') %}checked{% endif %}/>
 
                 <div class="filter__control">
-                    <label class="filter__button" for="aanbieding">Aanbieding <span
-                                style='color:#B0423D;'>({{ countWines['countAanbieding'] }})</span></label>
                     <label class="filter__button" for="wit">Wit <span
                                 style='color:#B0423D;'>({{ countWines['countWit'] }})</span></label>
                     <label class="filter__button" for="rood">Rood <span
