@@ -339,6 +339,12 @@ input[type="checkbox"]#vermout:checked
   transform: translateX(0px);
 }
 
+input[type="checkbox"]#aanbiedingen:checked
+  ~ .filter__control
+  .filter__button[for="aanbiedingen"]:before {
+  transform: translateX(0px);
+}
+
 /* ---------------- end checkbox slider ---------------------------------------- */
 #producten {
   text-align: center;
@@ -365,6 +371,20 @@ input[type="checkbox"]#vermout:checked
   position: absolute;
   top: 45%;
   left: 2vw;
+  right: 0;
+  border-top: 3px solid red;
+  transform: rotate(-20deg);
+}
+
+.original-price-modal {
+  position: relative;
+  color: #555;
+}
+.original-price-modal::after {
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: 0;
   right: 0;
   border-top: 3px solid red;
   transform: rotate(-20deg);

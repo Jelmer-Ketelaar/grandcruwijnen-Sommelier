@@ -11,12 +11,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
-use Throwable;
 
 
-class MealController extends AbstractController {
+class MealController extends AbstractController
+{
 
     private $requestStack;
 
@@ -71,21 +70,19 @@ class MealController extends AbstractController {
         $matches = [];
 
         //If there is any letter in front it will convert to a 0.
-        $page = (int) $request->query->get('page');
+        $page = (int)$request->query->get('page');
 
         //set 18 products per page
         $productsPerPage = 18;
         //start at page 1 if no page is clicked yet
-        if ($page === 0)
-        {
+        if ($page === 0) {
             $page = 1;
         }
         //skuScores is an arry
         $skuScores = [];
         //skus is an arry
         $skus = [];
-        foreach ($mealMatcherService->getWinesForMeal($mealId) as $wine)
-        {
+        foreach ($mealMatcherService->getWinesForMeal($mealId) as $wine) {
             $skus[] = $wine->wine->sku;
             $skuScores[$wine->wine->sku] = $wine->score;
         }
@@ -96,57 +93,50 @@ class MealController extends AbstractController {
         $formMinPrice = $request->query->get('price-min');
         $formMaxPrice = $request->query->get('price-max');
 
-        if ($formMinPrice === null)
-        {
+        if ($formMinPrice === null) {
             $formMinPrice = 1;
         }
-        if ($formMaxPrice === null)
-        {
+        if ($formMaxPrice === null) {
             $formMaxPrice = 100000;
         }
 
-        /** @var Product[] $products */
         //wijnsoort, meenemen
         $wineSorts = $request->query->get('wineSorts');
         $specialPriceSorts = $request->query->get('specialPriceSorts');
         // dd($wineSorts);
+        /** @var Product[] $products */
         $products = $this->getDoctrine()->getRepository(Product::class)->findWinesBySkus($skus, $formMinPrice, $formMaxPrice);
 
 
-        foreach ($products as $product)
-        {
+        foreach ($products as $product) {
             $productMatch = new ProductMatch($product, $skuScores[$product->getSku()]);
             $winePrice = $productMatch->product->getprice();
 
 
-            if ($minWinePrice > $winePrice)
-            {
+            if ($minWinePrice > $winePrice) {
                 $minWinePrice = $winePrice;
             }
 
-            if ($maxWinePrice < $winePrice)
-            {
+            if ($maxWinePrice < $winePrice) {
                 $maxWinePrice = $winePrice;
             }
 
-            if ($winePrice >= $formMinPrice && $winePrice <= $formMaxPrice)
-            {
+            if ($winePrice >= $formMinPrice && $winePrice <= $formMaxPrice) {
                 $matches[] = $productMatch;
             }
         }
 
         usort($matches, static function ($matchA, $matchB) {
-            return $matchA->getScore() === $matchB->getScore() ? 0 : ($matchA->getScore() < $matchB->getScore() ? 1 : - 1);
+            return $matchA->getScore() === $matchB->getScore() ? 0 : ($matchA->getScore() < $matchB->getScore() ? 1 : -1);
         });
 
         $matchesForPage = array_slice($matches, $productsPerPage * ($page - 1), $productsPerPage);
 
         $totalProductCount = count($matches);
-        $totalPages = (int) ceil($totalProductCount / $productsPerPage);
+        $totalPages = (int)ceil($totalProductCount / $productsPerPage);
 
         $mealArr = [urldecode($mealId)];
 
-        $countAanbieding = 0;
         $countWit = 0;
         $countRood = 0;
         $countRosé = 0;
@@ -156,45 +146,39 @@ class MealController extends AbstractController {
         $countVermout = 0;
 
 
-        foreach ($matchesForPage as $amountWine)
-        {
-            /*if ($amountWine->product->getWineSort() === 'Aanbieding')
-            {
-                $countAanbieding ++;
-            }*/
-            if ($amountWine->product->getWineSort() === 'Wit')
-            {
-                $countWit ++;
+        foreach ($matchesForPage as $amountWine) {
+            if ($amountWine->product->getWineSort() === 'Wit') {
+                $countWit++;
             }
-            if ($amountWine->product->getWineSort() === 'Rood')
-            {
-                $countRood ++;
+            if ($amountWine->product->getWineSort() === 'Rood') {
+                $countRood++;
             }
-            if ($amountWine->product->getWineSort() === 'Rosé')
-            {
-                $countRosé ++;
+            if ($amountWine->product->getWineSort() === 'Rosé') {
+                $countRosé++;
             }
-            if ($amountWine->product->getWineSort() === 'Port')
-            {
-                $countPort ++;
+            if ($amountWine->product->getWineSort() === 'Port') {
+                $countPort++;
             }
-            if ($amountWine->product->getWineSort() === 'Sherry')
-            {
-                $countSherry ++;
+            if ($amountWine->product->getWineSort() === 'Sherry') {
+                $countSherry++;
             }
-            if ($amountWine->product->getWineSort() === 'Madeira')
-            {
-                $countMadeira ++;
+            if ($amountWine->product->getWineSort() === 'Madeira') {
+                $countMadeira++;
             }
-            if ($amountWine->product->getWineSort() === 'Vermout')
-            {
-                $countVermout ++;
+            if ($amountWine->product->getWineSort() === 'Vermout') {
+                $countVermout++;
             }
         }
 
-//        $countWines = ['countAanbieding' => $countAanbieding, 'countWit' => $countWit, 'countRood' => $countRood, 'countRosé' => $countRosé, 'countPort' => $countPort, 'countSherry' => $countSherry, 'countMadeira' => $countMadeira, 'countVermout' => $countVermout];
+        $countSpecialPrice = 0;
+        foreach ($matchesForPage as $amountSale) {
+            if ($amountSale->product->getWineSort() === 'specialPrice') {
+                $countSpecialPrice++;
+            }
+        }
+
         $countWines = ['countWit' => $countWit, 'countRood' => $countRood, 'countRosé' => $countRosé, 'countPort' => $countPort, 'countSherry' => $countSherry, 'countMadeira' => $countMadeira, 'countVermout' => $countVermout];
-        $countSpecialPrice = ['countAanbieding' => $countAanbieding];
+        $countSpecialPrice = ['countSpecialPrice' => $countSpecialPrice];
         $image = 'https://mealmatcher.grandcruwijnen.dev/meals/{{ meal.id }}';
 
 //        dd($wineSorts);
