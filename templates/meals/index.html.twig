@@ -38,7 +38,7 @@
                 <div class="col-sm-3" id="column" style="background-color: #e9dcd1;">
 
                     <img src="https://mealmatcher.grandcruwijnen.dev/meals/{{ meal.id }}" 
-                            onerror="this.onerror=null; this.src='https://jelmer.ketelaar.me/images/calf.png';" alt="{{ meal.name }}"
+                            onerror="this.onerror=null; this.src='{{ app.session.get('keuze') }}';" alt="{{ meal.name }}"
                          class="mealImage">
                     <p style='margin-top:20px;'>{{ meal.name }}</p>
                     <a href="{{ path('wines_for_meals', {mealId: meal.id}) }}">
@@ -50,8 +50,6 @@
             {% endfor %}
         </div>
     </div>
-
-
 
 {% endblock %}
 

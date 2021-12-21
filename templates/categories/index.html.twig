@@ -9,7 +9,6 @@
 {% block title %}Online sommelier | Categories!{% endblock %}
 
 {% block body %}
-    {% set categoryName =  app.request.query.get('categoryName') %}
     <div class="content" style="background-color: #F5F4ED; height: 100%">
         <div class="container">
 
@@ -36,24 +35,36 @@
             {% if meals[0].parent != null %}
                 <h2 style="font-weight: 350; text-align: center">Uw keuze: <span
                             style="font-weight: bold">{{ meals[0].parent.name }}</span></h2>
+                {{ app.session.set('keuze', '') }}
+
+
             {% endif %}
         </div>
         <br>
         {% set imageCategory = [
-            'https://jelmer.ketelaar.me/images/Animals-Chicken-icon.png',
-            'https://jelmer.ketelaar.me/images/calf.png',
-            'https://jelmer.ketelaar.me/images/Food-Lamb-Rack-icon.png',
-            'https://jelmer.ketelaar.me/images/Cow-icon.png',
-            'https://jelmer.ketelaar.me/images/Animals-Crab-icon.png',
-            'https://jelmer.ketelaar.me/images/Pig.png',
-            'https://jelmer.ketelaar.me/images/Fish.png',
-            'https://jelmer.ketelaar.me/images/deer.png'
+            'https://jelmer.ketelaar.me/images/Gevogelte.png',
+            'https://jelmer.ketelaar.me/images/Kalf.png',
+            'https://jelmer.ketelaar.me/images/Lam.png',
+            'https://jelmer.ketelaar.me/images/Rund.png',
+            'https://jelmer.ketelaar.me/images/Schaaldier.png',
+            'https://jelmer.ketelaar.me/images/Varken.png',
+            'https://jelmer.ketelaar.me/images/Vis.png',
+            'https://jelmer.ketelaar.me/images/Wild.png'
         ] %}
+
         {% set imageCounterArr = 0 %}
 
-        {% for meal in meals %}
+        {% if meals[0].parent != null %}
+            {% for image in imageCategory %}
+                {% if meals[0].parent.name in image %}
+                    {{ app.session.set('keuze', image) }}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
 
+        {% for meal in meals %}
             {% if meal.parent is null %}
+
                 <section class="grid">
                     <a href="{{ path('meal_categories_for_parent', {parentId: meal.categoryId}) }}"
                        class="meal-name">
@@ -63,9 +74,8 @@
                     </a>
                 </section>
                 {% set imageCounterArr = imageCounterArr + 1 %}
-
-
             {% else %}
+
                 <script>
                     localStorage.removeItem('categoryId');
                     localStorage.setItem('categoryId', window.location.href);
@@ -76,9 +86,8 @@
                         {{ meal.name }}
                     </a>
                 </section>
+
             {% endif %}
-
-
         {% endfor %}
 
     </div>
