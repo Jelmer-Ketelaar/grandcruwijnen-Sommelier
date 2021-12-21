@@ -58,6 +58,7 @@
 					<input id="madeira" name="wineSorts[]" value="Madeira" type="checkbox" {% if countWines['countMadeira'] == 0 %} disabled {% endif %} {% if 'Madeira' in app.request.query.get('wineSorts') %} checked {% endif %}/>
 					<input id="vermout" name="wineSorts[]" value="Vermout" type="checkbox" {% if countWines['countVermout'] == 0 %} disabled {% endif %} {% if 'Vermout' in app.request.query.get('wineSorts') %} checked {% endif %}/>
 
+
 					<div class="filter__control">
 						<label class="filter__button" for="wit">Wit
 							<span style='color:#B0423D;'>({{ countWines['countWit'] }})</span>
