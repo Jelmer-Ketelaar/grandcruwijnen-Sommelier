@@ -1,122 +1,129 @@
 <!-- Modal -->
 <div class="modal fade" id="myModal{{ match.product.id }}" role="dialog">
-    <div
-            class="modal-dialog" style='width:900px;'>
-        <!-- Modal content-->
-        <div class="modal-content">
-            <h3 class="modal-title" style='text-align:center; margin-top:30px;'>{{ match.product.name }}</h3>
-            <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}" class="wineImage"
-                 alt="{{ match.product.sku }}"/>
-            <div style="margin-top: 30px;" class="tabs">
-                <div role="tablist" aria-label="Sample Tabs">
-                    <button class="btn btn-danger" role="tab" aria-selected="true" aria-controls="panel-1" id="tab-1"
-                            tabindex="0">
-                        Informatie
-                    </button>
-                    <button class="btn btn-danger" role="tab" aria-selected="false" aria-controls="panel-2" id="tab-2"
-                            tabindex="-1">
-                        Plattegrond
-                    </button>
-                    <button class="btn btn-danger" role="tab" aria-selected="false" aria-controls="panel-3" id="tab-3"
-                            tabindex="-1">
-                        Kenmerken
-                    </button>
-                </div>
-                <div id="panel-1" role="tabpanel" tabindex="0" aria-labelledby="tab-1">
-                    <div class="modal-body" style='text-align:left;margin:40px;'>
-                        <p>{{ match.product.description | raw }}</p>
-                    </div>
-                </div>
-                <div id="panel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2" hidden>
-                    <p>
-                    
-                    {% set location = match.product.location|split(',') %}     
-                    {% set locationLengthMin = location[0]|length - 1 %}
-                    <br>
-                    Locatie: {{ location[0] }}
-                    <br>
-                    Uw geselecteerde wijn ligt in het rode vlak.
-                    <br>
-                    
-                    <img id='plattegrond' src='../img/winePlaces/{{ location[0][:locationLengthMin] }}.png'> 
-                    
-                    </p>
-                </div>
-                <div id="panel-3" role="tabpanel" tabindex="0" aria-labelledby="tab-3" hidden>
-                    <table style="margin: auto; line-height: 4; font-weight: 400; font-size: 1.6rem">
-                        <tbody>
-                        <tr>
-                            <th>Prijs:</th>
-                            <td>{{ match.product.price }}(Excl. BTW €{{ (match.product.price / 1.21)|round(2) }})</td>
-                        </tr>
-                        <tr>
-                            <th>Voorraad:</th>
-                            <td>{{ match.product.stock }}</td>
-                        </tr>
-                        <tr>
-                            <th>Locatie:</th>
-                            <td>{{ location[0] }}</td>
-                        </tr>
-                        <tr>
-                            <th>Streek:</th>
-                            <td>{{ match.product.region }}</td>
-                        </tr>
-                        <tr>
-                            <th>Land:</th>
-                            <td>{{ match.product.country }}</td>
-                        </tr>
-                        <tr>
-                            <th>Druiven</th>
-                            <td>{{ match.product.grapes }}</td>
-                        </tr>
-                        <tr>
-                            <th>Wijnhuis:</th>
-                            <td style="margin-left: 5vw !important;">{{ match.product.wineHouse }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <br>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="">
-                        <i class=" fa fa-shopping-cart" aria-hidden="true"></i>
-                        Winkelmandje
-                    </button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div
+		class="modal-dialog" style='width:900px;'>
+		<!-- Modal content-->
+		<div class="modal-content">
+			<h3 class="modal-title" style='text-align:center; margin-top:30px;'>{{ match.product.name }}</h3>
+			<img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}" class="wineImage" alt="{{ match.product.sku }}"/>
+			<div style="margin-top: 30px;" class="tabs">
+				<div role="tablist" aria-label="Sample Tabs">
+					<button class="btn btn-danger" role="tab" aria-selected="true" aria-controls="panel-1" id="tab-1" tabindex="0">
+						Informatie
+					</button>
+					<button class="btn btn-danger" role="tab" aria-selected="false" aria-controls="panel-2" id="tab-2" tabindex="-1">
+						Plattegrond
+					</button>
+					<button class="btn btn-danger" role="tab" aria-selected="false" aria-controls="panel-3" id="tab-3" tabindex="-1">
+						Kenmerken
+					</button>
+				</div>
+				<div id="panel-1" role="tabpanel" tabindex="0" aria-labelledby="tab-1">
+					<div class="modal-body" style='text-align:left;margin:40px;'>
+						<p>{{ match.product.description | raw }}</p>
+					</div>
+				</div>
+				<div id="panel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2" hidden>
+					<p>
+
+						{% set location = match.product.location|split(',') %}
+						{% set locationLengthMin = location[0]|length - 1 %}
+						<br>
+						Locatie: {{ location[0] }}
+						<br>
+						Uw geselecteerde wijn ligt in het rode vlak.
+						<br>
+
+						<img id='plattegrond' src='../img/winePlaces/{{ location[0][:locationLengthMin] }}.png'>
+
+					</p>
+				</div>
+				<div id="panel-3" role="tabpanel" tabindex="0" aria-labelledby="tab-3" hidden>
+					<table style="margin: auto; line-height: 4; font-weight: 400; font-size: 1.6rem">
+						<tbody>
+							<tr>
+								<th>Prijs:</th>
+								<td>
+									{% if(match.product.specialPrice == true) %}
+										<span class="original-price" aria-label="Original Price">
+											€{{ match.product.price }}</span>
+										&nbsp;&nbsp;
+										<span aria-label="Sale Price">€{{ match.product.specialPrice }}</span>
+									{% else %}
+
+										<td>€{{ match.product.price }}</td>
+                                        
+									{% endif %}
+								</td>
+								<td>{{ match.product.price }}(Excl. BTW €{{ (match.product.price / 1.21)|round(2) }})</td>
+							</tr>
+							<tr>
+								<th>Voorraad:</th>
+								<td>{{ match.product.stock }}</td>
+							</tr>
+							<tr>
+								<th>Locatie:</th>
+								<td>{{ location[0] }}</td>
+							</tr>
+							<tr>
+								<th>Streek:</th>
+								<td>{{ match.product.region }}</td>
+							</tr>
+							<tr>
+								<th>Land:</th>
+								<td>{{ match.product.country }}</td>
+							</tr>
+							<tr>
+								<th>Druiven</th>
+								<td>{{ match.product.grapes }}</td>
+							</tr>
+							<tr>
+								<th>Wijnhuis:</th>
+								<td style="margin-left: 5vw !important;">{{ match.product.wineHouse }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="">
+						<i class=" fa fa-shopping-cart" aria-hidden="true"></i>
+						Winkelmandje
+					</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="modal fade" id="ModalSommelier" role="dialog">
-    <div
-            class="modal-dialog" style='width:900px;'>
-        <!-- Modal content-->
-        <div class="modal-content">
-            <h3 class="modal-title" style='text-align:center; margin-top:30px;'>Sommelier
-                Rating</h3>
+	<div
+		class="modal-dialog" style='width:900px;'>
+		<!-- Modal content-->
+		<div class="modal-content">
+			<h3 class="modal-title" style='text-align:center; margin-top:30px;'>Sommelier
+				                Rating</h3>
 
-            <div class="modal-header">
-                <p>Score:
-                    {{ match.score|number_format(0) }}</p>
-            </div>
-            <div class="modal-body" style='text-align:left;margin:40px;'>
-                <p>Als Grandcruwijnen bieden wij u een Online Sommelier welke dag-en-nacht voor u
-                    gereed staat. Deze functie is volledig gratis! U kiest uit een zeer uitgebreide
-                    lijst aan gerechten en de Online sommelier adviseert u de geschikte wijnen en
-                    adviseert bij de wijnen de best bijpassende gerechten. U ziet op het moment de
-                    meest bijpassende wijnen voor uw gekozen gerecht . De score van de wijn in
-                    relatie tot uw gekozen gerecht wordt getoond in het groene blokje als een rating
-                    met
-                    <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg" alt="corkscrew">
-                    als symbool. Alle wijnen met een score hoger dan 70 wordt door ons systeem
-                    herkend als bijpassend. De wijnen worden getoond op basis van score zodat de
-                    beste match bovenaan staat!</p>
-            </div>
-            <br>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
-            </div>
-        </div>
-    </div>
+			<div class="modal-header">
+				<p>Score: {{ match.score|number_format(0) }}</p>
+			</div>
+			<div class="modal-body" style='text-align:left;margin:40px;'>
+				<p>Als Grandcruwijnen bieden wij u een Online Sommelier welke dag-en-nacht voor u
+					                    gereed staat. Deze functie is volledig gratis! U kiest uit een zeer uitgebreide
+					                    lijst aan gerechten en de Online sommelier adviseert u de geschikte wijnen en
+					                    adviseert bij de wijnen de best bijpassende gerechten. U ziet op het moment de
+					                    meest bijpassende wijnen voor uw gekozen gerecht . De score van de wijn in
+					                    relatie tot uw gekozen gerecht wordt getoond in het groene blokje als een rating
+					                    met
+					<img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg" alt="corkscrew">
+					als symbool. Alle wijnen met een score hoger dan 70 wordt door ons systeem
+					                    herkend als bijpassend. De wijnen worden getoond op basis van score zodat de
+					                    beste match bovenaan staat!</p>
+			</div>
+			<br>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
+			</div>
+		</div>
+	</div>
 </div>

@@ -1,149 +1,151 @@
 body {
-    font-family: 'Montserrat', sans-serif;
-    width: 100%;
-    background-color: #F5F4ED;
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+  background-color: #f5f4ed;
 }
 
 .example-wrapper {
-    margin: 1em auto;
-    max-width: 800px;
-    width: 95%;
-    font: 18px/1.5 sans-serif;
+  margin: 1em auto;
+  max-width: 800px;
+  width: 95%;
+  font: 18px/1.5 sans-serif;
 }
 
 .example-wrapper code {
-    background: #F5F5F5;
-    padding: 2px 6px;
+  background: #f5f5f5;
+  padding: 2px 6px;
 }
 
 .p {
-    line-height: 1.5;
+  line-height: 1.5;
 }
 
 .grid {
-    display: inline-grid;
-    border: #1111 1px solid;
-    box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%), 0 0 20px -1px rgb(0 0 0 / 15%);
-    margin: 3vw 0 0 11vw;
-    height: 25vh;
-    width: 20vh;
-    border-radius: 10%;
-    background-color: #E9DCD1;
+  display: inline-grid;
+  border: #1111 1px solid;
+  box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%),
+    0 0 20px -1px rgb(0 0 0 / 15%);
+  margin: 3vw 0 0 11vw;
+  height: 25vh;
+  width: 20vh;
+  border-radius: 10%;
+  background-color: #e9dcd1;
 }
 
 .grid-sub {
-    display: inline-grid;
-    text-align: center;
-    border: #1111 1px solid;
-    box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%), 0 0 20px -1px rgb(0 0 0 / 15%);
-    margin: 4vw 0 0 4.5vw;
-    height: 60px;
-    width: 20vh;
-    border-radius: 10px;
-    background-color: #E9DCD1;
+  display: inline-grid;
+  text-align: center;
+  border: #1111 1px solid;
+  box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%),
+    0 0 20px -1px rgb(0 0 0 / 15%);
+  margin: 4vw 0 0 4.5vw;
+  height: 60px;
+  width: 20vh;
+  border-radius: 10px;
+  background-color: #e9dcd1;
 }
 
 .grid:active {
-    box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%), 0 0 20px -1px rgb(0 0 0 / 15%);
-    transform: translateY(10px) translateX(10px);
+  box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%),
+    0 0 20px -1px rgb(0 0 0 / 15%);
+  transform: translateY(10px) translateX(10px);
 }
 
 .meal-name {
-    color: #b5191f !important;
-    text-decoration: none;
-    text-align: center;
-    margin-top: 2vh;
+  color: #b5191f !important;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 2vh;
 }
 
 .image {
-    margin-top: 2vh;
-    height: 15vh;
+  margin-top: 2vh;
+  height: 15vh;
 }
 
 #text {
-    margin-top: -4vh;
-    margin-left: 2vw;
+  margin-top: -4vh;
+  margin-left: 2vw;
 }
 
 h1 {
-    font-size: 4rem;
+  font-size: 4rem;
 }
 
 .logo_landing_page {
-    margin: 30px 30px 30px 5vw;
+  margin: 30px 30px 30px 5vw;
 }
 
 .logo {
-    margin: 30px 30px 30px -10vw;
-
+  margin: 30px 30px 30px -10vw;
 }
 
 .content {
-    height: 110vh !important;
+  height: 110vh !important;
 }
 
 .mealImage {
-    /*margin: -10px;*/
-    width: 19.6vw;
-    margin-left: -15px;
-    border-radius: 20px 20px 0 0;
-    min-height: 20vw
+  /*margin: -10px;*/
+  width: 19.6vw;
+  margin-left: -15px;
+  border-radius: 20px 20px 0 0;
+  min-height: 20vw;
 }
 
 #row {
-    display: flex;
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 button {
-    outline: none !important;
+  outline: none !important;
 }
 
 #column {
-    text-align: center;
-    border-radius: 20px;
-    margin: 10px;
-    width: 20%;
-    height: 54vh;
-    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  text-align: center;
+  border-radius: 20px;
+  margin: 10px;
+  width: 20%;
+  height: 54vh;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
 
 .wineImage {
-    max-width: 40vw;
-    max-height: 50vh;
-    position: relative;
-    padding-top: 5vh
+  max-width: 40vw;
+  max-height: 50vh;
+  position: relative;
+  padding-top: 5vh;
 }
 
 .imageWine {
-    max-width: 200px;
-    max-height: 200px;
+  max-width: 200px;
+  max-height: 200px;
 }
 
 /* ---------------------- price slider ----------------------------------*/
 
 .ui-page-theme-a .ui-btn {
-    background-color: #d9534f !important;
-    color: #fff !important;
+  background-color: #d9534f !important;
+  color: #fff !important;
 }
 
 .ui-page-theme-a .ui-slider-track .ui-btn-active {
-    background-color: #b5191f !important;
-    border-color: #b5191f !important;
-    color: #fff;
-    text-shadow: 0 1px 0 #b5191f !important;
+  background-color: #b5191f !important;
+  border-color: #b5191f !important;
+  color: #fff;
+  text-shadow: 0 1px 0 #b5191f !important;
 }
 
 .ui-page-theme-a .ui-body-inherit::before {
-    content: "€" !important;
+  content: "€" !important;
 }
 
 #slider-container {
-    background-color: #e9dcd1;
-    width: 22%;
-    top: 34%;
+  background-color: #e9dcd1;
+  width: 22%;
+  top: 34%;
 }
 
 /* ---------------- end price slider ---------------------------------------- */
@@ -151,180 +153,223 @@ button {
 /* ---------------- begin pagination ---------------------------------------- */
 
 #pagination {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-bottom: 10px;
 }
 
 #pagination ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
 }
 
 #pagination ul li {
-    color: #fff;
-    display: flex;
+  color: #fff;
+  display: flex;
 }
 
 #pagination ul li a {
-    background-color: #dfd9ba;
-    color: #111111;
-    padding: 20px 35px;
-    border: 2px solid rgb(0, 0, 0);
-    border-right: 0;
+  background-color: #dfd9ba;
+  color: #111111;
+  padding: 20px 35px;
+  border: 2px solid rgb(0, 0, 0);
+  border-right: 0;
 }
 
 #pagination ul li.active a {
-    background-color: #dc1e27;
+  background-color: #dc1e27;
 }
 
 #pagination ul li:first-child a {
-    border-radius: 7px 0 0 7px;
+  border-radius: 7px 0 0 7px;
 }
 
 #pagination ul li:last-child a {
-    border-radius: 0 7px 7px 0;
-    border-right: 2px solid rgba(0, 0, 0, 1);
+  border-radius: 0 7px 7px 0;
+  border-right: 2px solid rgba(0, 0, 0, 1);
 }
 
-
 .row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: right;
-    margin-right: 1%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: right;
+  margin-right: 1%;
 }
 
 /* ---------------- end pagination ---------------------------------------- */
 
 #page-description {
-    width: 40vw;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 17px
+  width: 40vw;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 17px;
 }
-
 
 /* ---------------- begin checkbox slider ---------------------------------------- */
 
 .filter__control {
-    flex: 1;
-    position: absolute;
-    margin-left: -13vw;
-    margin-top: 7vh;
-    overflow: hidden;
+  flex: 1;
+  position: absolute;
+  margin-left: -13vw;
+  margin-top: 7vh;
+  overflow: hidden;
 }
 
 .filter__button {
-    display: block;
-    padding: 10px 20px;
-    cursor: pointer;
-    /*color: #333;*/
-    position: relative;
-    overflow: hidden;
-    transition: 0.2s ease-in-out;
+  display: block;
+  padding: 10px 20px;
+  cursor: pointer;
+  /*color: #333;*/
+  position: relative;
+  overflow: hidden;
+  transition: 0.2s ease-in-out;
 }
 
 .filter__button:before {
-    content: '';
-    display: block;
-    background: rgb(217, 83, 79);
-    opacity: 0.5;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 10px;
-    transform: translateX(-10px);
-    transition: 0.2s ease-in-out;
+  content: "";
+  display: block;
+  background: rgb(217, 83, 79);
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 10px;
+  transform: translateX(-10px);
+  transition: 0.2s ease-in-out;
 }
 
 .filter__button:hover:before {
-    transform: translateX(-5px);
+  transform: translateX(-5px);
 }
 
-
-input[type="checkbox"]#wit:checked ~ .filter__control .filter__button[for="wit"]:before {
-    transform: translateX(0px);
+input[type="checkbox"]#wit:checked
+  ~ .filter__control
+  .filter__button[for="wit"]:before {
+  transform: translateX(0px);
 }
 
-input[type="checkbox"]#wit:checked ~ .filter__control .filter__button[for="wit"] {
-    background: #fff;
-    padding-left: 30px;
+input[type="checkbox"]#wit:checked
+  ~ .filter__control
+  .filter__button[for="wit"] {
+  background: #fff;
+  padding-left: 30px;
 }
 
-input[type="checkbox"]#rood:checked ~ .filter__control .filter__button[for="rood"]:before {
-    transform: translateX(0px);
+input[type="checkbox"]#rood:checked
+  ~ .filter__control
+  .filter__button[for="rood"]:before {
+  transform: translateX(0px);
 }
 
-input[type="checkbox"]#rood:checked ~ .filter__control .filter__button[for="rood"] {
-    background: #fff;
-    padding-left: 30px;
+input[type="checkbox"]#rood:checked
+  ~ .filter__control
+  .filter__button[for="rood"] {
+  background: #fff;
+  padding-left: 30px;
 }
 
-input[type="checkbox"]#rose:checked ~ .filter__control .filter__button[for="rose"]:before {
-    transform: translateX(0px);
+input[type="checkbox"]#rose:checked
+  ~ .filter__control
+  .filter__button[for="rose"]:before {
+  transform: translateX(0px);
 }
 
-input[type="checkbox"]#rose:checked ~ .filter__control .filter__button[for="rose"] {
-    background: #fff;
-    padding-left: 30px;
+input[type="checkbox"]#rose:checked
+  ~ .filter__control
+  .filter__button[for="rose"] {
+  background: #fff;
+  padding-left: 30px;
 }
 
-input[type="checkbox"]#port:checked ~ .filter__control .filter__button[for="port"] {
-    background: #fff;
-    padding-left: 30px;
+input[type="checkbox"]#port:checked
+  ~ .filter__control
+  .filter__button[for="port"] {
+  background: #fff;
+  padding-left: 30px;
 }
 
-input[type="checkbox"]#port:checked ~ .filter__control .filter__button[for="port"]:before {
-    transform: translateX(0px);
+input[type="checkbox"]#port:checked
+  ~ .filter__control
+  .filter__button[for="port"]:before {
+  transform: translateX(0px);
 }
 
-input[type="checkbox"]#sherry:checked ~ .filter__control .filter__button[for="sherry"] {
-    background: #fff;
-    padding-left: 30px;
+input[type="checkbox"]#sherry:checked
+  ~ .filter__control
+  .filter__button[for="sherry"] {
+  background: #fff;
+  padding-left: 30px;
 }
 
-input[type="checkbox"]#sherry:checked ~ .filter__control .filter__button[for="sherry"]:before {
-    transform: translateX(0px);
+input[type="checkbox"]#sherry:checked
+  ~ .filter__control
+  .filter__button[for="sherry"]:before {
+  transform: translateX(0px);
 }
 
-input[type="checkbox"]#madeira:checked ~ .filter__control .filter__button[for="madeira"] {
-    background: #fff;
-    padding-left: 30px;
+input[type="checkbox"]#madeira:checked
+  ~ .filter__control
+  .filter__button[for="madeira"] {
+  background: #fff;
+  padding-left: 30px;
 }
 
-input[type="checkbox"]#madeira:checked ~ .filter__control .filter__button[for="madeira"]:before {
-    transform: translateX(0px);
+input[type="checkbox"]#madeira:checked
+  ~ .filter__control
+  .filter__button[for="madeira"]:before {
+  transform: translateX(0px);
 }
 
-input[type="checkbox"]#vermout:checked ~ .filter__control .filter__button[for="vermout"] {
-    background: #fff;
-    padding-left: 30px;
+input[type="checkbox"]#vermout:checked
+  ~ .filter__control
+  .filter__button[for="vermout"] {
+  background: #fff;
+  padding-left: 30px;
 }
 
-input[type="checkbox"]#vermout:checked ~ .filter__control .filter__button[for="vermout"]:before {
-    transform: translateX(0px);
+input[type="checkbox"]#vermout:checked
+  ~ .filter__control
+  .filter__button[for="vermout"]:before {
+  transform: translateX(0px);
 }
 
 /* ---------------- end checkbox slider ---------------------------------------- */
 #producten {
-    text-align: center;
-    padding: 10px 10px 10px 10px;
-    margin: 5px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  text-align: center;
+  padding: 10px 10px 10px 10px;
+  margin: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
 
 .mealsDescription {
-    margin: 10px!important;
+  margin: 10px !important;
 }
 
-#plattegrond{
-    width:70%;
-    margin:40px;
+#plattegrond {
+  width: 70%;
+  margin: 40px;
+}
+
+.original-price {
+  position: relative;
+  color: #555;
+}
+.original-price::after {
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: 2vw;
+  right: 0;
+  border-top: 3px solid red;
+  transform: rotate(-20deg);
+}
+
+.price-tekst {
+  color: black !important;
 }

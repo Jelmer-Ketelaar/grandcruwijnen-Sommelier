@@ -59,29 +59,26 @@ class ProductsCommand extends Command {
         $io = new SymfonyStyle($input, $output);
         $items = $this->products->getProducts()['items'];
         $countryAttributes = $this->attributes->getProductAttributeOptions('land');
-        $specialPriceAttributes = $this->attributes->getProductAttributeOptions('special_price');
         $wineHouseAttributes = $this->attributes->getProductAttributeOptions('wijnhuis');
         $grapeAttributes = $this->attributes->getProductAttributeOptions('druif');
         $wineSortAttributes = $this->attributes->getProductAttributeOptions('wijnsoort');
         $regionAttributes = $this->attributes->getProductAttributeOptions('regio');
+        $specialPriceAttributes = $this->attributes->getProductAttributeOptions('special_price');
 //        $locationAttributes = $this->attributes->getProductAttributeOptions('lokatie');
 
 
         foreach ($items as $magentoProduct)
         {
+            $specialPrice = null;
             foreach ($magentoProduct['custom_attributes'] as $attr)
             {
                 if ($attr['attribute_code'] === 'special_price')
                 {
                     $specialPrice = $attr['value'];
+                    break;
                 }
             }
 
-            
-           var_dump($magentoProduct['custom_attributes']);
-//            dd($magentoProduct['tier_prices']);
-//            var_dump($magentoProduct['custom_at   tributes']);
-//             die();
             if ($magentoProduct['status'] !== 1)
             {
                 continue;
@@ -116,10 +113,10 @@ class ProductsCommand extends Command {
             {
                 continue;
             }
-            if ($this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'special_price') === null)
-            {
-                continue;
-            }
+            // if ($this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'special_price') === null)
+            // {
+            //     continue;
+            // }
 
 
             $product = $this->productRepository->findOneBy(['sku' => $magentoProduct['sku']]);
@@ -129,13 +126,12 @@ class ProductsCommand extends Command {
             {
                 var_dump($magentoProduct['sku']);
                 $product = new Product();
-                if (isset($specialPrice)){
-                    $product->setSpecialPrice($specialPrice);
-                }
+                $product->setSpecialPrice($specialPrice);
                 $this->updateProduct($product, $magentoProduct, $updatedAt, $countryAttributes, $wineHouseAttributes, $grapeAttributes, $wineSortAttributes, $regionAttributes, $specialPriceAttributes);
-            } else if ($updatedAt > $product->getUpdatedAt())
+            } else
             {
                 $this->updateProduct($product, $magentoProduct, $updatedAt, $countryAttributes, $wineHouseAttributes, $grapeAttributes, $wineSortAttributes, $regionAttributes, $specialPriceAttributes);
+                $product->setSpecialPrice($specialPrice);
             }
 //            var_dump($product->getCountry());
             $this->manager->persist($product);
@@ -205,6 +201,6 @@ class ProductsCommand extends Command {
             ->setWineSort($this->findLabelForValue($wineSortAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'wijnsoort')))
             ->setRegion($this->findLabelForValue($regionAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'regio')))
             ->setLocation($this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'lokatie'));
-            // ->setSpecialPrice($this->findAttributeValueForCode($magentoProduct['price']);
+            // ->setSpecialPrice($this->findAttributeValueForCode($specialPriceAttributes);
     }
 }

@@ -1,173 +1,135 @@
-{       % extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ asset('style/style.css') }}">
+	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="{{ asset('style/style.css') }}">
 {% endblock %}
 
 {% block title %}
-    Online sommelier | Wines
+	Online sommelier | Wines
 {% endblock %}
 
 {% block body %}
-    <body style="background-color: #e9dcd1;">
-    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" id="shopping-cart_btn"
-            style='display:block; float:right; margin-top: 58px; margin-right:170px ;'>
-        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-        Winkelmandje
-    </button>
-    <div class="container">
-        <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg'
-             alt='logo' style='margin: 30px 30px 30px -7vw;'>
-    </div>
+	<body style="background-color: #e9dcd1;">
+		<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" id="shopping-cart_btn" style='display:block; float:right; margin-top: 58px; margin-right:170px ;'>
+			<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+			Winkelmandje
+		</button>
+		<div class="container">
+			<img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg' alt='logo' style='margin: 30px 30px 30px -7vw;'>
+		</div>
 
-    <div class="example-wrapper" style='text-align:center;padding-bottom:50px;'>
-        <button style="position: relative; top: 5px;" type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                onclick='goBack(window.location.href)'>
-            <i class="fa fa-arrow-left" aria-hidden="true"></i> Terug
-        </button>
-        <h1 style='text-align: center; margin: auto; margin-right: 15%; float: right;'>Welkom bij de online
-            sommelier</h1>
-        <p style="margin: 20px;">Hier kunt u kiezen uit de best bijpassende wijnen gezocht bij het geselecteerde
-            gerecht.</p>
+		<div class="example-wrapper" style='text-align:center;padding-bottom:50px;'>
+			<button style="position: relative; top: 5px;" type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick='goBack(window.location.href)'>
+				<i class="fa fa-arrow-left" aria-hidden="true"></i>
+				Terug
+			</button>
+			<h1 style='text-align: center; margin: auto; margin-right: 15%; float: right;'>Welkom bij de online
+								            sommelier</h1>
+			<p style="margin: 20px;">Hier kunt u kiezen uit de best bijpassende wijnen gezocht bij het geselecteerde
+								            gerecht.</p>
 
-        {% set mealId = app.session.get('mealId') %}
+			{% set mealId = app.session.get('mealId') %}
 
-    </div>
-    <div class="row"
-         style='display: flex; flex-wrap: wrap;justify-content:right; margin-right: 1%; background-color: #e9dcd1;'>
-        <div id="slider-container" data-role="page">
-            <div data-role="main" class="ui-content">
-                <form method="GET" action="" data-ajax="false">
-                    <div data-role="rangeslider">
-                        <label for="price-min">Prijs:</label>
-                        <input class="price-s" style="background-color: #b5191f; color: #fff; font-weight: 100;"
-                               type="range" name="price-min" id="price-min" value="{{ min_price }}"
-                               min="{{ minWinePrice }}" max="{{ maxWinePrice|round }}"
-                               step="0.05">
-                        <label for="price-max"></label>
-                        <input class="price-label" style="background-color: #b5191f; color: #fff; font-weight: 100"
-                               type="range" name="price-max" id="price-max" value="{{ max_price }}"
-                               min="{{ minWinePrice }}" max="{{ maxWinePrice|round }}"
-                               step="0.05">
-                    </div>
-                    <button type="submit" class="btn btn-danger btn-sm">Submit</button>
-                </form>
-            </div>
-        </div>
-        <form method="GET" action="" data-ajax="false">
-            <div class="filter" id="wineSorts" style="margin-top: 8vh; margin-right: 10px">
+		</div>
+		<div class="row" style='display: flex; flex-wrap: wrap;justify-content:right; margin-right: 1%; background-color: #e9dcd1;'>
+			<div id="slider-container" data-role="page">
+				<div data-role="main" class="ui-content">
+					<form method="GET" action="" data-ajax="false">
+						<div data-role="rangeslider">
+							<label for="price-min">Prijs:</label>
+							<input class="price-s" style="background-color: #b5191f; color: #fff; font-weight: 100;" type="range" name="price-min" id="price-min" value="{{ min_price }}" min="{{ minWinePrice }}" max="{{ maxWinePrice|round }}" step="0.05">
+							<label for="price-max"></label>
+							<input class="price-label" style="background-color: #b5191f; color: #fff; font-weight: 100" type="range" name="price-max" id="price-max" value="{{ max_price }}" min="{{ minWinePrice }}" max="{{ maxWinePrice|round }}" step="0.05">
+						</div>
+						<button type="submit" class="btn btn-danger btn-sm">Submit</button>
+					</form>
+				</div>
+			</div>
+			<form method="GET" action="" data-ajax="false">
+				<div class="filter" id="wineSorts" style="margin-top: 8vh; margin-right: 10px">
 
-                <input id="wit" name="wineSorts[]" value="Wit" type="checkbox"
-                       {% if countWines['countWit'] == 0 %}disabled{% endif %}{% if 'Wit' in app.request.query.get('wineSorts') %}checked{% endif %}/>
-                <input id="rood" name="wineSorts[]" value="Rood" type="checkbox"
-                       {% if countWines['countRood'] == 0 %}disabled{% endif %}
-                        {% if 'Rood' in app.request.query.get('wineSorts') %}checked{% endif %}/>
-                <input id="rose" name="wineSorts[]" value="Rosé" type="checkbox"
-                       {% if countWines['countRosé'] == 0 %}disabled{% endif %}
-                        {% if 'Rosé' in app.request.query.get('wineSorts') %}checked{% endif %}/>
-                <input id="port" name="wineSorts[]" value="Port" type="checkbox"
-                       {% if countWines['countPort'] == 0 %}disabled{% endif %}
-                        {% if 'Port' in app.request.query.get('wineSorts') %}checked{% endif %}/>
-                <input id="sherry" name="wineSorts[]" value="Sherry" type="checkbox"
-                       {% if countWines['countSherry'] == 0 %}disabled{% endif %}
-                        {% if 'Sherry' in app.request.query.get('wineSorts') %}checked{% endif %}/>
-                <input id="madeira" name="wineSorts[]" value="Madeira" type="checkbox"
-                       {% if countWines['countMadeira'] == 0 %}disabled{% endif %}
-                        {% if 'Madeira' in app.request.query.get('wineSorts') %}checked{% endif %}/>
-                <input id="vermout" name="wineSorts[]" value="Vermout" type="checkbox"
-                       {% if countWines['countVermout'] == 0 %}disabled{% endif %}
-                        {% if 'Vermout' in app.request.query.get('wineSorts') %}checked{% endif %}/>
+					<input id="wit" name="wineSorts[]" value="Wit" type="checkbox" {% if countWines['countWit'] == 0 %} disabled {% endif %} {% if 'Wit' in app.request.query.get('wineSorts') %} checked {% endif %}/>
+					<input id="rood" name="wineSorts[]" value="Rood" type="checkbox" {% if countWines['countRood'] == 0 %} disabled {% endif %} {% if 'Rood' in app.request.query.get('wineSorts') %} checked {% endif %}/>
+					<input id="rose" name="wineSorts[]" value="Rosé" type="checkbox" {% if countWines['countRosé'] == 0 %} disabled {% endif %} {% if 'Rosé' in app.request.query.get('wineSorts') %} checked {% endif %}/>
+					<input id="port" name="wineSorts[]" value="Port" type="checkbox" {% if countWines['countPort'] == 0 %} disabled {% endif %} {% if 'Port' in app.request.query.get('wineSorts') %} checked {% endif %}/>
+					<input id="sherry" name="wineSorts[]" value="Sherry" type="checkbox" {% if countWines['countSherry'] == 0 %} disabled {% endif %} {% if 'Sherry' in app.request.query.get('wineSorts') %} checked {% endif %}/>
+					<input id="madeira" name="wineSorts[]" value="Madeira" type="checkbox" {% if countWines['countMadeira'] == 0 %} disabled {% endif %} {% if 'Madeira' in app.request.query.get('wineSorts') %} checked {% endif %}/>
+					<input id="vermout" name="wineSorts[]" value="Vermout" type="checkbox" {% if countWines['countVermout'] == 0 %} disabled {% endif %} {% if 'Vermout' in app.request.query.get('wineSorts') %} checked {% endif %}/>
 
-                <div class="filter__control">
-                    <label class="filter__button" for="aanbieding">Aanbieding <span
-                                style='color:#B0423D;'>({{ countWines['countAanbieding'] }})</span></label>
-                    <label class="filter__button" for="wit">Wit <span
-                                style='color:#B0423D;'>({{ countWines['countWit'] }})</span></label>
-                    <label class="filter__button" for="rood">Rood <span
-                                style='color:#B0423D;'>({{ countWines['countRood'] }})</span></label>
-                    <label class="filter__button" for="rose">Rosé <span
-                                style='color:#B0423D;'>({{ countWines['countRosé'] }})</span></label>
-                    <label class="filter__button" for="port">Port <span
-                                style='color:#B0423D;'>({{ countWines['countPort'] }})</span></label>
-                    <label class="filter__button" for="sherry">Sherry <span
-                                style='color:#B0423D;'>({{ countWines['countSherry'] }})</span></label>
-                    <label class="filter__button" for="madeira">Madeira <span
-                                style='color:#B0423D;'>({{ countWines['countMadeira'] }})</span></label>
-                    <label class="filter__button" for="vermout">Vermout <span
-                                style='color:#B0423D;'>({{ countWines['countVermout'] }})</span></label>
-                    <button id="wineSortsSubmit" type='submit' class="btn btn-danger btn-sm">Submit</button>
-                </div>
-            </div>
-        </form>
+					<div class="filter__control">
+						<label class="filter__button" for="wit">Wit
+							<span style='color:#B0423D;'>({{ countWines['countWit'] }})</span>
+						</label>
+						<label class="filter__button" for="rood">Rood
+							<span style='color:#B0423D;'>({{ countWines['countRood'] }})</span>
+						</label>
+						<label class="filter__button" for="rose">Rosé
+							<span style='color:#B0423D;'>({{ countWines['countRosé'] }})</span>
+						</label>
+						<label class="filter__button" for="port">Port
+							<span style='color:#B0423D;'>({{ countWines['countPort'] }})</span>
+						</label>
+						<label class="filter__button" for="sherry">Sherry
+							<span style='color:#B0423D;'>({{ countWines['countSherry'] }})</span>
+						</label>
+						<label class="filter__button" for="madeira">Madeira
+							<span style='color:#B0423D;'>({{ countWines['countMadeira'] }})</span>
+						</label>
+						<label class="filter__button" for="vermout">Vermout
+							<span style='color:#B0423D;'>({{ countWines['countVermout'] }})</span>
+						</label>
+						<button id="wineSortsSubmit" type='submit' class="btn btn-danger btn-sm">Submit</button>
+					</div>
+				</div>
+			</form>
 
-        {% for match in matches %}
-            {% if match.product.wineSort in wineSorts and wineSorts != null %}
-                <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
-                    <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
-                         class="imageWine" alt="{{ match.product.sku }}"/>
-                    <p>{{ match.product.name }} - {{ match.product.sku }}</p>
-                    <p>Prijs: €{{ match.product.price }}</p>
-                    <!-- Trigger the modal with a button -->
-                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
-                            data-target="#myModal{{ match.product.id }}">
-                        <i class="fa fa-info-circle" aria-hidden="true"></i>
-                        Meer informatie
-                    </button>
-                    <button type="button" class="btn btn-danger btn-sm">
-                        <i class=" fa fa-shopping-cart" aria-hidden="true"></i>
-                        Winkelmandje
-                    </button>
-                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
-                            data-target="#ModalSommelier" style="padding-top: 1px; height: 30px;">
-                        <i aria-hidden="true"></i>
-                        <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg" alt="corkscrew">
-                        Score:
-                        {{ match.score|number_format(0) }}
-                    </button>
+			{% for match in matches %}
+				<div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
+					<img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}" class="imageWine" alt="{{ match.product.sku }}"/>
+					<p>{{ match.product.name }}</p>
+					{% if(match.product.specialPrice == true) %}
+						<p>
+							<span class="original-price" aria-label="Original Price">
+								<span class="price-tekst">Prijs:</span>
+								€{{ match.product.price }}</span>
+							&nbsp;&nbsp;
+							<span aria-label="Sale Price">€{{ match.product.specialPrice }}</span>
+						</p>
+					{% else %}
+						<p>Prijs: €{{ match.product.price }}</p>
+					{% endif %}
 
-                    {% include "wines/modal.html.twig" %}
-                </div>
-            {% endif %}
-            {% if wineSorts == null %}
-                <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
-                    <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
-                         class="imageWine" alt="{{ match.product.sku }}"/>
-                    <p>{{ match.product.name }} - {{ match.product.sku }}</p>
-                    <p>Prijs: €{{ match.product.price }}</p>
-                    <!-- Trigger the modal with a button -->
-                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
-                            data-target="#myModal{{ match.product.id }}">
-                        <i class="fa fa-info-circle" aria-hidden="true"></i>
-                        Meer informatie
-                    </button>
-                    <button type="button" class="btn btn-danger btn-sm">
-                        <i class=" fa fa-shopping-cart" aria-hidden="true"></i>
-                        Winkelmandje
-                    </button>
-                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
-                            data-target="#ModalSommelier" style="padding-top: 1px; height: 30px;">
-                        <i aria-hidden="true"></i>
-                        <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg" alt="corkscrew">
-                        Score:
-                        {{ match.score|number_format(0) }}
-                    </button>
 
-                    {% include "wines/modal.html.twig" %}
-                </div>
-            {% endif %}
-        {% endfor %}
-    </div>
-    <br>
-    {% include "wines/pagination.html.twig" %}
-    <br>
-    </body>
+					<!-- Trigger the modal with a button -->
+					<button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#myModal{{ match.product.id }}">
+						<i class="fa fa-info-circle" aria-hidden="true"></i>
+						Meer informatie
+					</button>
+					<button type="button" class="btn btn-danger btn-sm">
+						<i class=" fa fa-shopping-cart" aria-hidden="true"></i>
+						Winkelmandje
+					</button>
+					<button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#ModalSommelier" style="padding-top: 1px; height: 30px;">
+						<i aria-hidden="true"></i>
+						<img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg" alt="corkscrew">
+						Score: {{ match.score|number_format(0) }}
+					</button>
+
+					{% include "wines/modal.html.twig" %}
+				</div>
+			{% endfor %}
+		</div>
+		<br>
+		{% include "wines/pagination.html.twig" %}
+		<br>
+	</body>
 {% endblock %}
 {% block javascripts %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="{{ asset('javascript/script.js') }}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="{{ asset('javascript/script.js') }}"></script>
 {% endblock %}
