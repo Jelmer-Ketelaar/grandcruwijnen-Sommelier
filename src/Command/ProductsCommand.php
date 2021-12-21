@@ -79,6 +79,8 @@ class ProductsCommand extends Command {
 
             
            var_dump($magentoProduct['custom_attributes']);
+//            dd($magentoProduct['tier_prices']);
+//            var_dump($magentoProduct['custom_at   tributes']);
 //             die();
             if ($magentoProduct['status'] !== 1)
             {

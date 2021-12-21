@@ -1,7 +1,7 @@
 <!-- Modal -->
 <div class="modal fade" id="myModal{{ match.product.id }}" role="dialog">
     <div
-        class="modal-dialog" style='width:900px;'>
+            class="modal-dialog" style='width:900px;'>
         <!-- Modal content-->
         <div class="modal-content">
             <h3 class="modal-title" style='text-align:center; margin-top:30px;'>{{ match.product.name }}</h3>
@@ -47,7 +47,7 @@
                         <tbody>
                         <tr>
                             <th>Prijs:</th>
-                            <td>{{ match.product.price }}(Excl. BTW €{{(match.product.price / 1.21)|round(2)}})</td>
+                            <td>{{ match.product.price }}(Excl. BTW €{{ (match.product.price / 1.21)|round(2) }})</td>
                         </tr>
                         <tr>
                             <th>Voorraad:</th>

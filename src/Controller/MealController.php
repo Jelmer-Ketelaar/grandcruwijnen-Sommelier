@@ -67,16 +67,22 @@ class MealController extends AbstractController {
      */
     public function getWinesForMeals(Request $request, $mealId, MealMatcherService $mealMatcherService): Response
     {
+        //matches is an array
         $matches = [];
 
+        //If there is any letter in front it will convert to a 0.
         $page = (int) $request->query->get('page');
 
+        //set 18 products per page
         $productsPerPage = 18;
+        //start at page 1 if no page is clicked yet
         if ($page === 0)
         {
             $page = 1;
         }
+        //skuScores is an arry
         $skuScores = [];
+        //skus is an arry
         $skus = [];
         foreach ($mealMatcherService->getWinesForMeal($mealId) as $wine)
         {
@@ -149,35 +155,46 @@ class MealController extends AbstractController {
         $countVermout = 0;
 
 
-        foreach ($matchesForPage as $amountWine) {
-            if($amountWine->product->getWineSort() == 'Aanbieding'){
-                $countAanbieding++;
+        foreach ($matchesForPage as $amountWine)
+        {
+            /*if ($amountWine->product->getWineSort() === 'Aanbieding')
+            {
+                $countAanbieding ++;
+            }*/
+            if ($amountWine->product->getWineSort() === 'Wit')
+            {
+                $countWit ++;
             }
-            if($amountWine->product->getWineSort() == 'Wit'){
-                $countWit++;
+            if ($amountWine->product->getWineSort() === 'Rood')
+            {
+                $countRood ++;
             }
-            if($amountWine->product->getWineSort() == 'Rood'){
-                $countRood++;
+            if ($amountWine->product->getWineSort() === 'Rosé')
+            {
+                $countRosé ++;
             }
-            if($amountWine->product->getWineSort() == 'Rosé'){
-                $countRosé++;
+            if ($amountWine->product->getWineSort() === 'Port')
+            {
+                $countPort ++;
             }
-            if($amountWine->product->getWineSort() == 'Port'){
-                $countPort++;
+            if ($amountWine->product->getWineSort() === 'Sherry')
+            {
+                $countSherry ++;
             }
-            if($amountWine->product->getWineSort() == 'Sherry'){
-                $countSherry++;
+            if ($amountWine->product->getWineSort() === 'Madeira')
+            {
+                $countMadeira ++;
             }
-            if($amountWine->product->getWineSort() == 'Madeira'){
-                $countMadeira++;
-            }
-            if($amountWine->product->getWineSort() == 'Vermout'){
-                $countVermout++;
+            if ($amountWine->product->getWineSort() === 'Vermout')
+            {
+                $countVermout ++;
             }
         }
 
-        $countWines = ['countAanbieding'=>$countAanbieding, 'countWit'=>$countWit, 'countRood'=>$countRood, 'countRosé'=>$countRosé, 'countPort'=>$countPort, 'countSherry'=>$countSherry, 'countMadeira'=>$countMadeira, 'countVermout'=>$countVermout];
+//        $countWines = ['countAanbieding' => $countAanbieding, 'countWit' => $countWit, 'countRood' => $countRood, 'countRosé' => $countRosé, 'countPort' => $countPort, 'countSherry' => $countSherry, 'countMadeira' => $countMadeira, 'countVermout' => $countVermout];
+        $countWines = ['countWit' => $countWit, 'countRood' => $countRood, 'countRosé' => $countRosé, 'countPort' => $countPort, 'countSherry' => $countSherry, 'countMadeira' => $countMadeira, 'countVermout' => $countVermout];
 
+        $image = 'https://mealmatcher.grandcruwijnen.dev/meals/{{ meal.id }}';
 
         //dd($wineSorts);
 
