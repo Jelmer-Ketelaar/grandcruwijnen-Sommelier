@@ -15,7 +15,7 @@
                     </button>
                     <button class="btn btn-danger" role="tab" aria-selected="false" aria-controls="panel-2" id="tab-2"
                             tabindex="-1">
-                        Wijnhuis
+                        Plattegrond
                     </button>
                     <button class="btn btn-danger" role="tab" aria-selected="false" aria-controls="panel-3" id="tab-3"
                             tabindex="-1">
@@ -28,14 +28,39 @@
                     </div>
                 </div>
                 <div id="panel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2" hidden>
-                    <p>Content for the second panel</p>
+                    <p>
+
+                        {% set location = match.product.location|split(',') %}
+                        {% set locationLengthMin = location[0]|length - 1 %}
+                        <br>
+                        Locatie: {{ location[0] }}
+                        <br>
+                        Uw geselecteerde wijn ligt in het rode vlak.
+                        <br>
+
+                        <img id='plattegrond' src='../img/winePlaces/{{ location[0][:locationLengthMin] }}.png'>
+
+                    </p>
                 </div>
                 <div id="panel-3" role="tabpanel" tabindex="0" aria-labelledby="tab-3" hidden>
                     <table style="margin: auto; line-height: 4; font-weight: 400; font-size: 1.6rem">
                         <tbody>
                         <tr>
                             <th>Prijs:</th>
-                            <td>{{ match.product.price }}</td>
+
+                            {% if(match.product.specialPrice == true) %}
+                                <td>
+                                <span class="original-price-modal" aria-label="Original Price">
+								€{{ match.product.price }}</span>
+                                    &nbsp;&nbsp;
+                                    <span aria-label="Sale Price">€{{ match.product.specialPrice }}</span>
+                                    &nbsp;&nbsp;
+                                    <span>(Excl. BTW €{{ (match.product.specialPrice / 1.21)|round(2) }})</span>
+                                </td>
+                            {% else %}
+                                <td>{{ match.product.price }}(Excl. BTW €{{ (match.product.price / 1.21)|round(2) }})
+                                </td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <th>Voorraad:</th>
@@ -43,7 +68,7 @@
                         </tr>
                         <tr>
                             <th>Locatie:</th>
-                            <td>{{ match.product.location }}</td>
+                            <td>{{ location[0] }}</td>
                         </tr>
                         <tr>
                             <th>Streek:</th>
@@ -76,6 +101,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="ModalSommelier" role="dialog">
     <div
             class="modal-dialog" style='width:900px;'>
@@ -85,8 +111,7 @@
                 Rating</h3>
 
             <div class="modal-header">
-                <p>Score:
-                    {{ match.score|number_format(0) }}</p>
+                <p>Score: {{ match.score|number_format(0) }}</p>
             </div>
             <div class="modal-body" style='text-align:left;margin:40px;'>
                 <p>Als Grandcruwijnen bieden wij u een Online Sommelier welke dag-en-nacht voor u
