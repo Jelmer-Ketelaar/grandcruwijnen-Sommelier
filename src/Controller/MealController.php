@@ -172,7 +172,7 @@ class MealController extends AbstractController
 
         $countSpecialPrice = 0;
         foreach ($matchesForPage as $amountSale) {
-            if ($amountSale->product->getWineSort() === 'specialPrice') {
+            if ($amountSale->product->getSpecialPrice() === 'specialPrice') {
                 $countSpecialPrice++;
             }
         }
