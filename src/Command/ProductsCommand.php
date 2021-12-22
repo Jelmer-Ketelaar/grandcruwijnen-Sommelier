@@ -10,16 +10,15 @@ use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Grandcruwijnen\SDK\Attributes;
 use Grandcruwijnen\SDK\Products;
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\RequestOptions;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 //[pageSize]=20
-class ProductsCommand extends Command {
+class ProductsCommand extends Command
+{
     protected static $defaultName = 'app:fill:products';
     protected static $defaultDescription = 'Fills products database';
 
@@ -67,33 +66,26 @@ class ProductsCommand extends Command {
 //        $locationAttributes = $this->attributes->getProductAttributeOptions('lokatie');
 
 
-        foreach ($items as $magentoProduct)
-        {
+        foreach ($items as $magentoProduct) {
             $specialPrice = null;
-            foreach ($magentoProduct['custom_attributes'] as $attr)
-            {
-                if ($attr['attribute_code'] === 'special_price')
-                {
+            foreach ($magentoProduct['custom_attributes'] as $attr) {
+                if ($attr['attribute_code'] === 'special_price') {
                     $specialPrice = $attr['value'];
                     break;
                 }
             }
 
-            if ($magentoProduct['status'] !== 1)
-            {
+            if ($magentoProduct['status'] !== 1) {
                 continue;
             }
-            if ( ! isset($magentoProduct['media_gallery_entries'][0]))
-            {
+            if (!isset($magentoProduct['media_gallery_entries'][0])) {
                 continue;
             }
 
-            if ($this->findLabelForValue($countryAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'land')) === null)
-            {
+            if ($this->findLabelForValue($countryAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'land')) === null) {
                 continue;
             }
-            if ($this->findLabelForValue($wineHouseAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'wijnhuis')) === null)
-            {
+            if ($this->findLabelForValue($wineHouseAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'wijnhuis')) === null) {
                 continue;
             }
 //            Todo: investigate multi-select
@@ -101,16 +93,13 @@ class ProductsCommand extends Command {
             {
                 continue;
             }
-            if ($this->findLabelForValue($wineSortAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'wijnsoort')) === null)
-            {
+            if ($this->findLabelForValue($wineSortAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'wijnsoort')) === null) {
                 continue;
             }
-            if ($this->findLabelForValue($regionAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'regio')) === null)
-            {
+            if ($this->findLabelForValue($regionAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'regio')) === null) {
                 continue;
             }
-            if ($this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'lokatie') === null)
-            {
+            if ($this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'lokatie') === null) {
                 continue;
             }
            /*  if ($this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'special_price') === null)
@@ -122,14 +111,12 @@ class ProductsCommand extends Command {
             $product = $this->productRepository->findOneBy(['sku' => $magentoProduct['sku']]);
             $updatedAt = new DateTime($magentoProduct['updated_at']);
 //            $io->comment($locationAttributes);
-            if ($product === null)
-            {
+            if ($product === null) {
                 var_dump($magentoProduct['sku']);
                 $product = new Product();
                 $product->setSpecialPrice($specialPrice);
                 $this->updateProduct($product, $magentoProduct, $updatedAt, $countryAttributes, $wineHouseAttributes, $grapeAttributes, $wineSortAttributes, $regionAttributes, $specialPriceAttributes);
-            } else
-            {
+            } else {
                 $this->updateProduct($product, $magentoProduct, $updatedAt, $countryAttributes, $wineHouseAttributes, $grapeAttributes, $wineSortAttributes, $regionAttributes, $specialPriceAttributes);
                 $product->setSpecialPrice($specialPrice);
             }
@@ -143,31 +130,26 @@ class ProductsCommand extends Command {
         return Command::SUCCESS;
     }
 
-    private function findAttributeValueForCode(array $attributes, string $code)
+    private function findLabelForValue(array $attributes, ?string $id)
     {
-        foreach ($attributes as $attribute)
-        {
-            if ($attribute['attribute_code'] === $code)
-            {
-                return $attribute['value'];
+//        var_dump($id);
+        if ($id === null) {
+            return null;
+        }
+        foreach ($attributes as $attribute) {
+            if ($attribute['value'] === $id) {
+                return $attribute['label'];
             }
         }
 
         return null;
     }
 
-    private function findLabelForValue(array $attributes, ?string $id)
+    private function findAttributeValueForCode(array $attributes, string $code)
     {
-//        var_dump($id);
-        if ($id === null)
-        {
-            return null;
-        }
-        foreach ($attributes as $attribute)
-        {
-            if ($attribute['value'] === $id)
-            {
-                return $attribute['label'];
+        foreach ($attributes as $attribute) {
+            if ($attribute['attribute_code'] === $code) {
+                return $attribute['value'];
             }
         }
 
@@ -185,7 +167,7 @@ class ProductsCommand extends Command {
      * @param array $regionAttributes
      * @return void
      */
-    protected function updateProduct(Product $product, mixed $magentoProduct, DateTime $updatedAt, array $countryAttributes, array $wineHouseAttributes, array $grapeAttributes, array $wineSortAttributes, array $regionAttributes, array $specialPriceAttributes): void
+    protected function updateProduct(Product $product, array $magentoProduct, DateTime $updatedAt, array $countryAttributes, array $wineHouseAttributes, array $grapeAttributes, array $wineSortAttributes, array $regionAttributes, array $specialPriceAttributes): void
     {
         $product
             ->setSku($magentoProduct['sku'])
@@ -201,6 +183,6 @@ class ProductsCommand extends Command {
             ->setWineSort($this->findLabelForValue($wineSortAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'wijnsoort')))
             ->setRegion($this->findLabelForValue($regionAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'regio')))
             ->setLocation($this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'lokatie'));
-            // ->setSpecialPrice($this->findAttributeValueForCode($specialPriceAttributes);
+        // ->setSpecialPrice($this->findAttributeValueForCode($specialPriceAttributes);
     }
 }
