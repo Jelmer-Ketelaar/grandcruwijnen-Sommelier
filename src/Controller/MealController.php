@@ -11,9 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
-use Throwable;
 
 
 class MealController extends AbstractController {
@@ -105,11 +103,24 @@ class MealController extends AbstractController {
             $formMaxPrice = 100000;
         }
 
-        /** @var Product[] $products */
         //wijnsoort, meenemen
         $wineSorts = $request->query->get('wineSorts');
+        $specialPriceSorts = $request->request->get('specialPriceSorts');
+
+
+
+        if ($specialPriceSorts !== null)
+        {
+            $specialPriceSubmit = true;
+        } else {
+            $specialPriceSubmit = false;
+        }
+
+
+//        dd($wineSorts);
         // dd($wineSorts);
-        $products = $this->getDoctrine()->getRepository(Product::class)->findWinesBySkus($skus, $formMinPrice, $formMaxPrice);
+        /** @var Product[] $products */
+        $products = $this->getDoctrine()->getRepository(Product::class)->findWinesBySkus($skus);
 
 
         foreach ($products as $product)
@@ -145,7 +156,6 @@ class MealController extends AbstractController {
 
         $mealArr = [urldecode($mealId)];
 
-        $countAanbieding = 0;
         $countWit = 0;
         $countRood = 0;
         $countRosé = 0;
@@ -153,14 +163,11 @@ class MealController extends AbstractController {
         $countSherry = 0;
         $countMadeira = 0;
         $countVermout = 0;
+        $countSpecialPrice = 0;
 
 
         foreach ($matchesForPage as $amountWine)
         {
-            /*if ($amountWine->product->getWineSort() === 'Aanbieding')
-            {
-                $countAanbieding ++;
-            }*/
             if ($amountWine->product->getWineSort() === 'Wit')
             {
                 $countWit ++;
@@ -189,14 +196,18 @@ class MealController extends AbstractController {
             {
                 $countVermout ++;
             }
+            if ($amountWine->product->getSpecialPrice() !== null)
+            {
+                $countSpecialPrice ++;
+            }
         }
 
-//        $countWines = ['countAanbieding' => $countAanbieding, 'countWit' => $countWit, 'countRood' => $countRood, 'countRosé' => $countRosé, 'countPort' => $countPort, 'countSherry' => $countSherry, 'countMadeira' => $countMadeira, 'countVermout' => $countVermout];
-        $countWines = ['countWit' => $countWit, 'countRood' => $countRood, 'countRosé' => $countRosé, 'countPort' => $countPort, 'countSherry' => $countSherry, 'countMadeira' => $countMadeira, 'countVermout' => $countVermout];
 
-        $image = 'https://mealmatcher.grandcruwijnen.dev/meals/{{ meal.id }}';
 
-        //dd($wineSorts);
+        $countWines = ['countWit' => $countWit, 'countRood' => $countRood, 'countRosé' => $countRosé, 'countPort' => $countPort, 'countSherry' => $countSherry, 'countMadeira' => $countMadeira, 'countVermout' => $countVermout, 'countSpecialPrice' => $countSpecialPrice];
+//        dd($countWines);
+
+
 
         return $this->render('wines/index.html.twig', [
             'matches' => $matchesForPage,
@@ -208,7 +219,9 @@ class MealController extends AbstractController {
             'current_page' => $page,
             'meal_id' => $mealArr,
             'wineSorts' => $wineSorts,
-            'countWines' => $countWines
+            'countWines' => $countWines,
+            'countSpecialPrice' => $countSpecialPrice,
+            'specialPriceSubmit' => $specialPriceSubmit
         ]);
     }
 }
