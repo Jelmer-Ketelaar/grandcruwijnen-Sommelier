@@ -100,17 +100,18 @@
                 </div>
             </div>
         </form>
-        <form method="GET" action="" data-ajax="false">
+
+        <form method="POST" action="" data-ajax="false">
             <div style="margin-left: -7vw; margin-top: 6vh">
                 <div class="" id="specialPriceFilter">
-                    <input id="aanbiedingen" name="wineSorts[]" value="Aanbiedingen"
+                    <input id="aanbiedingen" name="specialPriceSorts[]" value="specialPrice"
                            style=""
-                           type="checkbox" {% if countSpecialPrice['countSpecialPrice'] == 0 %} disabled {% endif %}
+                           type="checkbox" {% if countSpecialPrice == 0 %} disabled {% endif %}
                             {% if 'countAanbieding' in app.request.query.get('specialPriceSorts') %} checked {% endif %}/>
 
                     <div class="filter__control">
                         <label class="filter__button" for="aanbiedingen">Aanbiedingen
-                            <span style='color:#B0423D;'>({{ countSpecialPrice['countSpecialPrice'] }})</span>
+                            <span style='color:#B0423D;'>({{ countSpecialPrice }})</span>
                         </label>
                         <button id="wineSortsSubmit" type='submit' class="btn btn-danger btn-sm">Submit</button>
                     </div>
@@ -118,44 +119,87 @@
             </div>
         </form>
         {% for match in matches %}
-            <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
-                <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
-                     class="imageWine" alt="{{ match.product.sku }}"/>
-                <p>{{ match.product.name }}</p>
-                {% if(match.product.specialPrice == true) %}
-                    <p>
+            {% if specialPriceSubmit == true and match.product.specialPrice != 0 %}
+
+                <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
+                    <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
+                         class="imageWine" alt="{{ match.product.sku }}"/>
+                    <p>{{ match.product.name }}</p>
+                    {% if match.product.specialPrice != 0 %}
+                        <p>
 							<span class="original-price" aria-label="Original Price">
 								<span class="price-tekst">Prijs:</span>
 								€{{ match.product.price }}</span>
-                        &nbsp;&nbsp;
-                        <span aria-label="Sale Price">€{{ match.product.specialPrice }}</span>
-                    </p>
-                {% else %}
-                    <p>Prijs: €{{ match.product.price }}</p>
+                            &nbsp;&nbsp;
+                            <span aria-label="Sale Price">€{{ match.product.specialPrice }}</span>
+                        </p>
+                    {% else %}
+                        <p>Prijs: €{{ match.product.price }}</p>
+                    {% endif %}
+
+                    <!-- Trigger the modal with a button -->
+                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
+                            data-target="#myModal{{ match.product.id }}">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        Meer informatie
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm">
+                        <i class=" fa fa-shopping-cart" aria-hidden="true"></i>
+                        Winkelmandje
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
+                            data-target="#ModalSommelier"
+                            style="padding-top: 1px; height: 30px;">
+                        <i aria-hidden="true"></i>
+                        <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg"
+                             alt="corkscrew">
+                        Score: {{ match.score|number_format(0) }}
+                    </button>
+
+                    {% include "wines/modal.html.twig" %}
+                </div>
+
+            {% elseif specialPriceSubmit == false %}
+
+                <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
+                    <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
+                         class="imageWine" alt="{{ match.product.sku }}"/>
+                    <p>{{ match.product.name }}</p>
+                    {% if match.product.specialPrice != 0 %}
+                        <p>
+							<span class="original-price" aria-label="Original Price">
+								<span class="price-tekst">Prijs:</span>
+								€{{ match.product.price }}</span>
+                            &nbsp;&nbsp;
+                            <span aria-label="Sale Price">€{{ match.product.specialPrice }}</span>
+                        </p>
+                    {% else %}
+                        <p>Prijs: €{{ match.product.price }}</p>
+                    {% endif %}
+
+                    <!-- Trigger the modal with a button -->
+                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
+                            data-target="#myModal{{ match.product.id }}">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        Meer informatie
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm">
+                        <i class=" fa fa-shopping-cart" aria-hidden="true"></i>
+                        Winkelmandje
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
+                            data-target="#ModalSommelier"
+                            style="padding-top: 1px; height: 30px;">
+                        <i aria-hidden="true"></i>
+                        <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg"
+                             alt="corkscrew">
+                        Score: {{ match.score|number_format(0) }}
+                    </button>
+
+                    {% include "wines/modal.html.twig" %}
+                </div>
                 {% endif %}
 
-
-                <!-- Trigger the modal with a button -->
-                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
-                        data-target="#myModal{{ match.product.id }}">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
-                    Meer informatie
-                </button>
-                <button type="button" class="btn btn-danger btn-sm">
-                    <i class=" fa fa-shopping-cart" aria-hidden="true"></i>
-                    Winkelmandje
-                </button>
-                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
-                        data-target="#ModalSommelier"
-                        style="padding-top: 1px; height: 30px;">
-                    <i aria-hidden="true"></i>
-                    <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg"
-                         alt="corkscrew">
-                    Score: {{ match.score|number_format(0) }}
-                </button>
-
-                {% include "wines/modal.html.twig" %}
-            </div>
         {% endfor %}
     </div>
     <br>

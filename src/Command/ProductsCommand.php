@@ -96,7 +96,7 @@ class ProductsCommand extends Command {
             {
                 continue;
             }
-            //Todo: investigate multi-select
+//            Todo: investigate multi-select
             if ($this->findLabelForValue($grapeAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'druif')) === null)
             {
                 continue;
@@ -113,10 +113,10 @@ class ProductsCommand extends Command {
             {
                 continue;
             }
-            // if ($this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'special_price') === null)
-            // {
-            //     continue;
-            // }
+           /*  if ($this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'special_price') === null)
+             {
+                 continue;
+             }*/
 
 
             $product = $this->productRepository->findOneBy(['sku' => $magentoProduct['sku']]);
