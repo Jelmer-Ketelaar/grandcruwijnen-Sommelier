@@ -29,17 +29,17 @@
                 </div>
                 <div id="panel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2" hidden>
                     <p>
-
-                        {% set location = match.product.location|split(',') %}
-                        {% set locationLengthMin = location[0]|length - 1 %}
-                        <br>
-                        Locatie: {{ location[0] }}
-                        <br>
-                        Uw geselecteerde wijn ligt in het rode vlak.
-                        <br>
-
-                        <img id='plattegrond' src='../img/winePlaces/{{ location[0][:locationLengthMin] }}.png'>
-
+                    
+                    {% set location = match.product.location|split(',') %}     
+                    {% set locationLengthMin = location[0]|length - 1 %}
+                    <br>
+                    Locatie: {{ location[0] }}
+                    <br>
+                    Uw geselecteerde wijn ligt in het rode vlak.
+                    <br>
+                    
+                    
+                    <img id='plattegrond' src='../img/winePlaces/{{ location[0][:locationLengthMin] }}.png' onerror="this.onerror=null;"> 
                     </p>
                 </div>
                 <div id="panel-3" role="tabpanel" tabindex="0" aria-labelledby="tab-3" hidden>

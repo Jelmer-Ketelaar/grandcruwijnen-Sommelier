@@ -88,8 +88,9 @@ class ProductsCommand extends Command
             if ($this->findLabelForValue($wineHouseAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'wijnhuis')) === null) {
                 continue;
             }
-            //Todo: investigate multi-select
-            if ($this->findLabelForValue($grapeAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'druif')) === null) {
+//            Todo: investigate multi-select
+            if ($this->findLabelForValue($grapeAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'druif')) === null)
+            {
                 continue;
             }
             if ($this->findLabelForValue($wineSortAttributes, $this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'wijnsoort')) === null) {
@@ -101,10 +102,10 @@ class ProductsCommand extends Command
             if ($this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'lokatie') === null) {
                 continue;
             }
-            // if ($this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'special_price') === null)
-            // {
-            //     continue;
-            // }
+           /*  if ($this->findAttributeValueForCode($magentoProduct['custom_attributes'], 'special_price') === null)
+             {
+                 continue;
+             }*/
 
 
             $product = $this->productRepository->findOneBy(['sku' => $magentoProduct['sku']]);
