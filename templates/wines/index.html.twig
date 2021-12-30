@@ -119,11 +119,18 @@
             </div>
         </form>
         {% for match in matches %}
-            {% if specialPriceSubmit == true and match.product.specialPrice != 0 %}
 
+            {% if specialPriceSubmit == true and match.product.specialPrice != 0 %}
                 <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
-                    <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
-                         class="imageWine" alt="{{ match.product.sku }}"/>
+                    <div class="badge">
+                        {% set salePercentage = (match.product.specialPrice - match.product.price) %}
+                        {% set salePercentage2 = salePercentage/match.product.price %}
+                        <span>{{ salePercentage2 * 100 | floor}}</span>
+                    </div>
+                    <center>
+                        <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
+                             class="imageWine" alt="{{ match.product.sku }}"/>
+                    </center>
                     <p>{{ match.product.name }}</p>
                     {% if match.product.specialPrice != 0 %}
                         <p>
@@ -198,7 +205,7 @@
 
                     {% include "wines/modal.html.twig" %}
                 </div>
-                {% endif %}
+            {% endif %}
 
         {% endfor %}
     </div>
