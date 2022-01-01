@@ -4,6 +4,9 @@
             class="modal-dialog" style='width:900px;'>
         <!-- Modal content-->
         <div class="modal-content">
+            <div class="badge2">
+                <span>80%</span>
+            </div>
             <h3 class="modal-title" style='text-align:center; margin-top:30px;'>{{ match.product.name }}</h3>
             <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}" class="wineImage"
                  alt="{{ match.product.sku }}"/>
@@ -47,7 +50,6 @@
                         <tbody>
                         <tr>
                             <th>Prijs:</th>
-
                             {% if(match.product.specialPrice == true) %}
                                 <td>
                                 <span class="original-price-modal" aria-label="Original Price">

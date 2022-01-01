@@ -402,3 +402,49 @@ input[type="checkbox"]#aanbiedingen:checked,
 .price-tekst {
     color: black !important;
 }
+
+.badge {
+    position: relative;
+    font-family: oswald, sans-serif;
+    font-size: 20px;
+    transform: rotate(45deg);
+    margin: 0 -20vw 0 0;
+    background: #d9534f;
+    width: 45px;
+    height: 45px;
+    line-height: 20px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    color: #FFFFFF;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+}
+
+.badge span {
+    display: block;
+    transform: rotate(-45deg);
+    opacity: .9;
+    margin-left: -3px;
+    margin-top: 10px;
+}
+
+.badge2 {
+    font-family: oswald, sans-serif;
+    font-size: 32px;
+    transform: rotate(45deg);
+    margin: 50px auto;
+    background: #6c2d66;
+    width: 20px;
+    height: 20px;
+    line-height: 80px;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 8px;
+    color: #FFFFFF;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+}
+
+.badge2 span {
+    display: block;
+    transform: rotate(-45deg);
+    opacity: .9;
+}
