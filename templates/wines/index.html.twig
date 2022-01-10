@@ -125,7 +125,7 @@
                     <div class="badge">
                         {% set salePercentage = (match.product.specialPrice - match.product.price) %}
                         {% set salePercentage2 = salePercentage/match.product.price %}
-                        <span>{{ salePercentage2 * 100 | floor}}</span>
+                        <span>{{ (salePercentage2 * 100 )| round(0)}}</span>
                     </div>
                     <center>
                         <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
