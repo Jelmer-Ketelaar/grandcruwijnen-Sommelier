@@ -122,11 +122,11 @@
 
             {% if specialPriceSubmit == true and match.product.specialPrice != 0 %}
                 <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
-                    <div class="badge">
+                    {#<div class="badge">
                         {% set salePercentage = (match.product.specialPrice - match.product.price) %}
                         {% set salePercentage2 = salePercentage/match.product.price %}
                         <span>{{ salePercentage2 * 100 | floor}}</span>
-                    </div>
+                    </div>#}
                     <center>
                         <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
                              class="imageWine" alt="{{ match.product.sku }}"/>
