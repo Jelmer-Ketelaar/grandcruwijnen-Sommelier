@@ -126,7 +126,7 @@
                         {% set salePercentage = (match.product.specialPrice - match.product.price) %}
                         {% set salePercentage2 = salePercentage/match.product.price %}
                         {% set salePercentrage3 = (salePercentage2 * 100 ) | round(0) %}
-                        {{ salePercentrage3|replace({'-': '%'}) }}
+                        {{ salePercentrage3|replace({'-': ''}) }}%
 
 
                     </div>
