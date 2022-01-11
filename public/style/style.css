@@ -289,19 +289,16 @@ input[type="checkbox"]#sherry:checked, ~ .filter__control.filter__button[for="sh
     padding-left: 30px;
 }
 
-input[type="checkbox"]#sherry:checked,
-~ .filter__control.filter__button[for="sherry"]:before {
+input[type="checkbox"]#sherry:checked, ~ .filter__control.filter__button[for="sherry"]:before {
     transform: translateX(0px);
 }
 
-input[type="checkbox"]#madeira:checked,
-~ .filter__control.filter__button[for="madeira"] {
+input[type="checkbox"]#madeira:checked, ~ .filter__control.filter__button[for="madeira"] {
     background: #fff;
     padding-left: 30px;
 }
 
-input[type="checkbox"]#madeira:checked,
-~ .filter__control.filter__button[for="madeira"]:before {
+input[type="checkbox"]#madeira:checked, ~ .filter__control.filter__button[for="madeira"]:before {
     transform: translateX(0px);
 }
 
