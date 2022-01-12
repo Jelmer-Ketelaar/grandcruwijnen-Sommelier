@@ -21,7 +21,7 @@ function goBack(currentUrl) {
     }
 }
 
-// ----------------------- meer informatie tabs ----------------------------------
+// ----------------------- more information tabs ----------------------------------
 
 window.addEventListener("DOMContentLoaded", () => {
     const tabs = document.querySelectorAll('[role="tab"]');
@@ -57,4 +57,5 @@ function changeTabs(e) {
         .removeAttribute("hidden");
 }
 
-// ---------------------- einde meer informatie tabs ---------------------------
+// ---------------------- end more information tabs ---------------------------
+

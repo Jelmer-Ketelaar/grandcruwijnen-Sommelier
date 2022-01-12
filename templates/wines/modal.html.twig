@@ -60,7 +60,7 @@
                                     <span>(Excl. BTW €{{ (match.product.specialPrice / 1.21)|round(2) }})</span>
                                 </td>
                             {% else %}
-                                <td>{{ match.product.price }}(Excl. BTW €{{ (match.product.price / 1.21)|round(2) }})
+                                <td>€{{ match.product.price }}(Excl. BTW €{{ (match.product.price / 1.21)|round(2) }})
                                 </td>
                             {% endif %}
                         </tr>

@@ -21,7 +21,7 @@ body {
 }
 
 .grid {
-    display: inline-grid;
+    display: grid;
     border: #1111 1px solid;
     box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%),
     0 0 20px -1px rgb(0 0 0 / 15%);
@@ -38,7 +38,7 @@ body {
     border: #1111 1px solid;
     box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%),
     0 0 20px -1px rgb(0 0 0 / 15%);
-    margin: 4vw 0 0 4.5vw;
+    margin: 4vw 0 0 4.7vw;
     height: 60px;
     width: 20vh;
     border-radius: 10px;
@@ -210,7 +210,7 @@ button {
     font-size: 17px;
 }
 
-/* ---------------- begin checkbox slider ---------------------------------------- */
+/* ---------------- begin checkbox filter ---------------------------------------- */
 
 .filter__control {
     flex: 1;
@@ -248,111 +248,80 @@ button {
     transform: translateX(-5px);
 }
 
-input[type="checkbox"]#wit:checked,
-~ .filter__control
-.filter__button[for="wit"]:before {
+input[type="checkbox"]#wit:checked, ~ .filter__control .filter__button[for="wit"]:before {
     transform: translateX(0px);
 }
 
-input[type="checkbox"]#wit:checked,
-~ .filter__control
-.filter__button[for="wit"] {
+input[type="checkbox"]#wit:checked, ~ .filter__control .filter__button[for="wit"] {
     background: #fff;
     padding-left: 30px;
 }
 
-input[type="checkbox"]#rood:checked,
-~ .filter__control
-.filter__button[for="rood"]:before {
+input[type="checkbox"]#rood:checked, ~ .filter__control .filter__button[for="rood"]:before {
     transform: translateX(0px);
 }
 
-input[type="checkbox"]#rood:checked,
-~ .filter__control
-.filter__button[for="rood"] {
+input[type="checkbox"]#rood:checked, ~ .filter__control .filter__button[for="rood"] {
     background: #fff;
     padding-left: 30px;
 }
 
-input[type="checkbox"]#rose:checked,
-~ .filter__control
-.filter__button[for="rose"]:before {
+input[type="checkbox"]#rose:checked, ~ .filter__control .filter__button[for="rose"]:before {
     transform: translateX(0px);
 }
 
-input[type="checkbox"]#rose:checked,
-~ .filter__control
-.filter__button[for="rose"] {
+input[type="checkbox"]#rose:checked, ~ .filter__control .filter__button[for="rose"] {
     background: #fff;
     padding-left: 30px;
 }
 
-input[type="checkbox"]#port:checked,
-~ .filter__control
-.filter__button[for="port"] {
+input[type="checkbox"]#port:checked, ~ .filter__control .filter__button[for="port"] {
     background: #fff;
     padding-left: 30px;
 }
 
-input[type="checkbox"]#port:checked,
-~ .filter__control
-.filter__button[for="port"]:before {
+input[type="checkbox"]#port:checked, ~ .filter__control .filter__button[for="port"]:before {
     transform: translateX(0px);
 }
 
-input[type="checkbox"]#sherry:checked,
-~ .filter__control
-.filter__button[for="sherry"] {
+input[type="checkbox"]#sherry:checked, ~ .filter__control .filter__button[for="sherry"] {
     background: #fff;
     padding-left: 30px;
 }
 
-input[type="checkbox"]#sherry:checked,
-~ .filter__control
-.filter__button[for="sherry"]:before {
+input[type="checkbox"]#sherry:checked, ~ .filter__control .filter__button[for="sherry"]:before {
     transform: translateX(0px);
 }
 
-input[type="checkbox"]#madeira:checked,
-~ .filter__control
-.filter__button[for="madeira"] {
+input[type="checkbox"]#madeira:checked, ~ .filter__control .filter__button[for="madeira"] {
     background: #fff;
     padding-left: 30px;
 }
 
-input[type="checkbox"]#madeira:checked,
-~ .filter__control
-.filter__button[for="madeira"]:before {
+input[type="checkbox"]#madeira:checked, ~ .filter__control .filter__button[for="madeira"]:before {
     transform: translateX(0px);
 }
 
-input[type="checkbox"]#vermout:checked,
-~ .filter__control
-.filter__button[for="vermout"] {
+input[type="checkbox"]#vermout:checked, ~ .filter__control .filter__button[for="vermout"] {
     background: #fff;
     padding-left: 30px;
 }
 
-input[type="checkbox"]#vermout:checked,
-~ .filter__control
-.filter__button[for="vermout"]:before {
+input[type="checkbox"]#vermout:checked, ~ .filter__control .filter__button[for="vermout"]:before {
     transform: translateX(0px);
 }
 
-input[type="checkbox"]#aanbiedingen:checked,
-~ .filter__control
-.filter__button[for="aanbiedingen"] {
+input[type="checkbox"]#aanbiedingen:checked, ~ .filter__control .filter__button[for="aanbiedingen"] {
     background: #fff;
     padding-left: 30px;
 }
 
-input[type="checkbox"]#aanbiedingen:checked,
-~ .filter__control
-.filter__button[for="aanbiedingen"]:before {
+input[type="checkbox"]#aanbiedingen:checked, ~ .filter__control .filter__button[for="aanbiedingen"]:before {
     transform: translateX(0px);
 }
 
-/* ---------------- end checkbox slider ---------------------------------------- */
+/* ---------------- end checkbox filter ---------------------------------------- */
+
 #producten {
     text-align: center;
     padding: 10px 10px 10px 10px;
