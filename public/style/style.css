@@ -248,11 +248,11 @@ button {
     transform: translateX(-5px);
 }
 
-input[type="checkbox"]#wit:checked, ~ .filter__control .filter__button[for="wit"]:before {
+input[type="checkbox"]#wit:checked, ~ .filter__control.filter__button[for="wit"]:before {
     transform: translateX(0px);
 }
 
-input[type="checkbox"]#wit:checked, ~ .filter__control .filter__button[for="wit"] {
+input[type="checkbox"]#wit:checked, ~ .filter__control.filter__button[for="wit"] {
     background: #fff;
     padding-left: 30px;
 }
@@ -261,7 +261,7 @@ input[type="checkbox"]#rood:checked, ~ .filter__control .filter__button[for="roo
     transform: translateX(0px);
 }
 
-input[type="checkbox"]#rood:checked, ~ .filter__control .filter__button[for="rood"] {
+input[type="checkbox"]#rood:checked, ~ .filter__control.filter__button[for="rood"] {
     background: #fff;
     padding-left: 30px;
 }
@@ -270,12 +270,7 @@ input[type="checkbox"]#rose:checked, ~ .filter__control .filter__button[for="ros
     transform: translateX(0px);
 }
 
-input[type="checkbox"]#rose:checked, ~ .filter__control .filter__button[for="rose"] {
-    background: #fff;
-    padding-left: 30px;
-}
-
-input[type="checkbox"]#port:checked, ~ .filter__control .filter__button[for="port"] {
+input[type="checkbox"]#rose:checked, ~ .filter__control.filter__button[for="rose"] {
     background: #fff;
     padding-left: 30px;
 }
@@ -284,7 +279,7 @@ input[type="checkbox"]#port:checked, ~ .filter__control .filter__button[for="por
     transform: translateX(0px);
 }
 
-input[type="checkbox"]#sherry:checked, ~ .filter__control .filter__button[for="sherry"] {
+input[type="checkbox"]#port:checked, ~ .filter__control.filter__button[for="port"] {
     background: #fff;
     padding-left: 30px;
 }
@@ -293,7 +288,7 @@ input[type="checkbox"]#sherry:checked, ~ .filter__control .filter__button[for="s
     transform: translateX(0px);
 }
 
-input[type="checkbox"]#madeira:checked, ~ .filter__control .filter__button[for="madeira"] {
+input[type="checkbox"]#sherry:checked, ~ .filter__control.filter__button[for="sherry"] {
     background: #fff;
     padding-left: 30px;
 }
@@ -302,16 +297,15 @@ input[type="checkbox"]#madeira:checked, ~ .filter__control .filter__button[for="
     transform: translateX(0px);
 }
 
-input[type="checkbox"]#vermout:checked, ~ .filter__control .filter__button[for="vermout"] {
+input[type="checkbox"]#madeira:checked, ~ .filter__control.filter__button[for="madeira"] {
     background: #fff;
     padding-left: 30px;
 }
-
 input[type="checkbox"]#vermout:checked, ~ .filter__control .filter__button[for="vermout"]:before {
     transform: translateX(0px);
 }
 
-input[type="checkbox"]#aanbiedingen:checked, ~ .filter__control .filter__button[for="aanbiedingen"] {
+input[type="checkbox"]#vermout:checked, ~ .filter__control.filter__button[for="vermout"] {
     background: #fff;
     padding-left: 30px;
 }
@@ -319,6 +313,12 @@ input[type="checkbox"]#aanbiedingen:checked, ~ .filter__control .filter__button[
 input[type="checkbox"]#aanbiedingen:checked, ~ .filter__control .filter__button[for="aanbiedingen"]:before {
     transform: translateX(0px);
 }
+
+input[type="checkbox"]#aanbiedingen:checked, ~ .filter__control.filter__button[for="aanbiedingen"] {
+    background: #fff;
+    padding-left: 30px;
+}
+
 
 /* ---------------- end checkbox filter ---------------------------------------- */
 
@@ -379,13 +379,13 @@ input[type="checkbox"]#aanbiedingen:checked, ~ .filter__control .filter__button[
     transform: rotate(45deg);
     margin: 0 -20vw 0 0;
     background: #d9534f;
-    width: 45px;
-    height: 45px;
-    line-height: 20px;
+    width: 50pc;
+    height: 30px;
+    line-height: 25px;
     text-transform: uppercase;
     border-radius: 8px;
     color: #FFFFFF;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+    text-shadow: 0 1px 1px rgb(0 0 0 / 30%);
 }
 
 .badge span {
