@@ -1,12 +1,16 @@
 <!-- Modal -->
 <div class="modal fade" id="myModal{{ match.product.id }}" role="dialog">
-    <div
-            class="modal-dialog" style='width:900px;'>
+    <div class="modal-dialog" style='width:900px;'>
         <!-- Modal content-->
+        {% if match.product.specialPrice != 0 %}
+        <div class="badge2">
+            {% set salePercentage = (match.product.specialPrice - match.product.price) %}
+            {% set salePercentage2 = salePercentage/match.product.price %}
+            {% set salePercentrage3 = (salePercentage2 * 100 ) | round(0) %}
+            {{ salePercentrage3|replace({'-': ''}) }}%
+        </div>
         <div class="modal-content">
-            <div class="badge2">
-                <span>80%</span>
-            </div>
+            {% endif %}
             <h3 class="modal-title" style='text-align:center; margin-top:30px;'>{{ match.product.name }}</h3>
             <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}" class="wineImage"
                  alt="{{ match.product.sku }}"/>
@@ -22,7 +26,7 @@
                     </button>
                     <button class="btn btn-danger" role="tab" aria-selected="false" aria-controls="panel-3" id="tab-3"
                             tabindex="-1">
-                        Kenmerken  
+                        Kenmerken
                     </button>
                 </div>
                 <div id="panel-1" role="tabpanel" tabindex="0" aria-labelledby="tab-1">
@@ -32,17 +36,17 @@
                 </div>
                 <div id="panel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2" hidden>
                     <p>
-                    
-                    {% set location = match.product.location|split(',') %}     
-                    {% set locationLengthMin = location[0]|length - 1 %}
-                    <br>
-                    Locatie: {{ location[0] }}
-                    <br>
-                    Uw geselecteerde wijn ligt in het rode vlak.
-                    <br>
-                    
-                    
-                    <img id='plattegrond' src='../img/winePlaces/{{ location[0][:locationLengthMin] }}.png' onerror="this.onerror=null;"> 
+                        {% set location = match.product.location|split(',') %}
+                        {% set locationLengthMin = location[0]|length - 1 %}
+                        <br>
+                        Locatie: {{ location[0] }}
+                        <br>
+                        Uw geselecteerde wijn ligt in het rode vlak.
+                        <br>
+
+
+                        <img id='plattegrond' src='../img/winePlaces/{{ location[0][:locationLengthMin] }}.png'
+                             onerror="this.onerror=null;" alt="">
                     </p>
                 </div>
                 <div id="panel-3" role="tabpanel" tabindex="0" aria-labelledby="tab-3" hidden>
