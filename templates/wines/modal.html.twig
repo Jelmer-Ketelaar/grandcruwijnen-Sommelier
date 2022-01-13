@@ -4,10 +4,17 @@
             class="modal-dialog" style='width:900px;'>
         <!-- Modal content-->
         <div class="modal-content">
-            <div class="badge2">
-                <span>80%</span>
+            <div>
+                <h3 class="modal-title" style='text-align:center; margin-top:30px;'>{{ match.product.name }} </h3>
+                {% if match.product.specialPrice != 0 %}
+                    <div class="badge2">
+                        {% set salePercentage = (match.product.specialPrice - match.product.price) %}
+                        {% set salePercentage2 = salePercentage/match.product.price %}
+                        {% set salePercentrage3 = (salePercentage2 * 100 ) | round(0) %}
+                        {{ salePercentrage3|replace({'-': ''}) }}%
+                    </div>
+                {% endif %}
             </div>
-            <h3 class="modal-title" style='text-align:center; margin-top:30px;'>{{ match.product.name }}</h3>
             <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}" class="wineImage"
                  alt="{{ match.product.sku }}"/>
             <div style="margin-top: 30px;" class="tabs">
