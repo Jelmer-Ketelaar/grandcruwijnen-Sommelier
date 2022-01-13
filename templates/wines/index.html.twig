@@ -101,32 +101,10 @@
             </div>
         </form>
 
-        <form method="POST" action="" data-ajax="false">
-            <div style="margin-left: -7vw; margin-top: 6vh">
-                <div class="" id="specialPriceFilter">
-                    <input id="aanbiedingen" name="specialPriceSorts[]" value="specialPrice"
-                           style=""
-                           type="checkbox" {% if countSpecialPrice == 0 %} disabled {% endif %}
-                            {% if 'countAanbieding' in app.request.query.get('specialPriceSorts') %} checked {% endif %}/>
-
-                    <div class="filter__control">
-                        <label class="filter__button" for="aanbiedingen">Aanbiedingen
-                            <span style='color:#B0423D;'>({{ countSpecialPrice }})</span>
-                        </label>
-                        <button id="wineSortsSubmit" type='submit' class="btn btn-danger btn-sm">Submit</button>
-                    </div>
-                </div>
-            </div>
-        </form>
         {% for match in matches %}
 
             {% if specialPriceSubmit == true and match.product.specialPrice != 0 %}
                 <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
-                    <div class="badge">
-                        {% set salePercentage = (match.product.specialPrice - match.product.price) %}
-                        {% set salePercentage2 = salePercentage/match.product.price %}
-                        <span>{{ salePercentage2 * 100 | floor}}</span>
-                    </div>
                     <center>
                         <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
                              class="imageWine" alt="{{ match.product.sku }}"/>
@@ -167,8 +145,15 @@
                 </div>
 
             {% elseif specialPriceSubmit == false %}
-
                 <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
+                    {% if match.product.specialPrice != 0 %}
+                        <div class="badge">
+                            {% set salePercentage = (match.product.specialPrice - match.product.price) %}
+                            {% set salePercentage2 = salePercentage/match.product.price %}
+                            {% set salePercentrage3 = (salePercentage2 * 100 ) | round(0) %}
+                            {{ salePercentrage3|replace({'-': ''}) }}%
+                        </div>
+                    {% endif %}
                     <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
                          class="imageWine" alt="{{ match.product.sku }}"/>
                     <p>{{ match.product.name }}</p>
