@@ -102,7 +102,6 @@
         </form>
 
         {% for match in matches %}
-
             {% if specialPriceSubmit == true and match.product.specialPrice != 0 %}
                 <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
                     <center>
@@ -191,7 +190,6 @@
                     {% include "wines/modal.html.twig" %}
                 </div>
             {% endif %}
-
         {% endfor %}
     </div>
     <br>

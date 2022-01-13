@@ -1,17 +1,20 @@
 <!-- Modal -->
 <div class="modal fade" id="myModal{{ match.product.id }}" role="dialog">
-    <div class="modal-dialog" style='width:900px;'>
+    <div
+            class="modal-dialog" style='width:900px;'>
         <!-- Modal content-->
-        {% if match.product.specialPrice != 0 %}
-        <div class="badge2">
-            {% set salePercentage = (match.product.specialPrice - match.product.price) %}
-            {% set salePercentage2 = salePercentage/match.product.price %}
-            {% set salePercentrage3 = (salePercentage2 * 100 ) | round(0) %}
-            {{ salePercentrage3|replace({'-': ''}) }}%
-        </div>
         <div class="modal-content">
-            {% endif %}
-            <h3 class="modal-title" style='text-align:center; margin-top:30px;'>{{ match.product.name }}</h3>
+            <div>
+                <h3 class="modal-title" style='text-align:center; margin-top:30px;'>{{ match.product.name }} </h3>
+                {% if match.product.specialPrice != 0 %}
+                    <div class="badge2">
+                        {% set salePercentage = (match.product.specialPrice - match.product.price) %}
+                        {% set salePercentage2 = salePercentage/match.product.price %}
+                        {% set salePercentrage3 = (salePercentage2 * 100 ) | round(0) %}
+                        {{ salePercentrage3|replace({'-': ''}) }}%
+                    </div>
+                {% endif %}
+            </div>
             <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}" class="wineImage"
                  alt="{{ match.product.sku }}"/>
             <div style="margin-top: 30px;" class="tabs">
@@ -36,6 +39,7 @@
                 </div>
                 <div id="panel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2" hidden>
                     <p>
+
                         {% set location = match.product.location|split(',') %}
                         {% set locationLengthMin = location[0]|length - 1 %}
                         <br>
@@ -46,7 +50,7 @@
 
 
                         <img id='plattegrond' src='../img/winePlaces/{{ location[0][:locationLengthMin] }}.png'
-                             onerror="this.onerror=null;" alt="">
+                             onerror="this.onerror=null;">
                     </p>
                 </div>
                 <div id="panel-3" role="tabpanel" tabindex="0" aria-labelledby="tab-3" hidden>
@@ -64,7 +68,7 @@
                                     <span>(Excl. BTW €{{ (match.product.specialPrice / 1.21)|round(2) }})</span>
                                 </td>
                             {% else %}
-                                <td>€{{ match.product.price }}(Excl. BTW €{{ (match.product.price / 1.21)|round(2) }})
+                                <td>{{ match.product.price }}(Excl. BTW €{{ (match.product.price / 1.21)|round(2) }})
                                 </td>
                             {% endif %}
                         </tr>

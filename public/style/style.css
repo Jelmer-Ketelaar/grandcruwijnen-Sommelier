@@ -38,7 +38,7 @@ body {
     border: #1111 1px solid;
     box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%),
     0 0 20px -1px rgb(0 0 0 / 15%);
-    margin: 4vw 0 0 4.7vw;
+    margin: 4vw 0 0 4.5vw;
     height: 60px;
     width: 20vh;
     border-radius: 10px;
@@ -216,7 +216,6 @@ button {
     flex: 1;
     position: absolute;
     margin-left: -13vw;
-    margin-top: 7vh;
     overflow: hidden;
 }
 
@@ -301,6 +300,7 @@ input[type="checkbox"]#madeira:checked, ~ .filter__control.filter__button[for="m
     background: #fff;
     padding-left: 30px;
 }
+
 input[type="checkbox"]#vermout:checked, ~ .filter__control .filter__button[for="vermout"]:before {
     transform: translateX(0px);
 }
@@ -310,18 +310,8 @@ input[type="checkbox"]#vermout:checked, ~ .filter__control.filter__button[for="v
     padding-left: 30px;
 }
 
-input[type="checkbox"]#aanbiedingen:checked, ~ .filter__control .filter__button[for="aanbiedingen"]:before {
-    transform: translateX(0px);
-}
-
-input[type="checkbox"]#aanbiedingen:checked, ~ .filter__control.filter__button[for="aanbiedingen"] {
-    background: #fff;
-    padding-left: 30px;
-}
-
 
 /* ---------------- end checkbox filter ---------------------------------------- */
-
 #producten {
     text-align: center;
     padding: 10px 10px 10px 10px;
@@ -376,44 +366,29 @@ input[type="checkbox"]#aanbiedingen:checked, ~ .filter__control.filter__button[f
     position: relative;
     font-family: oswald, sans-serif;
     font-size: 20px;
-    transform: rotate(45deg);
-    margin: 0 -20vw 0 0;
+    margin: 0 20vw 0 0;
     background: #d9534f;
-    width: 50pc;
+    width: 50px;
     height: 30px;
     line-height: 25px;
-    text-transform: uppercase;
-    border-radius: 8px;
-    color: #FFFFFF;
-    text-shadow: 0 1px 1px rgb(0 0 0 / 30%);
-}
-
-.badge span {
-    display: block;
-    transform: rotate(-45deg);
-    opacity: .9;
-    margin-left: -3px;
-    margin-top: 10px;
-}
-
-.badge2 {
-    font-family: oswald, sans-serif;
-    font-size: 32px;
-    transform: rotate(45deg);
-    margin: 50px auto;
-    background: #6c2d66;
-    width: 20px;
-    height: 20px;
-    line-height: 80px;
-    text-align: center;
     text-transform: uppercase;
     border-radius: 8px;
     color: #FFFFFF;
     text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
 }
 
-.badge2 span {
-    display: block;
-    transform: rotate(-45deg);
-    opacity: .9;
+.badge2 {
+    position: relative;
+    display: inline-block;
+    font-family: oswald, sans-serif;
+    font-size: 20px;
+    margin: 0 0 0 0;
+    background: #d9534f;
+    width: 50px;
+    height: 30px;
+    line-height: 25px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    color: #FFFFFF;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.30%);
 }
