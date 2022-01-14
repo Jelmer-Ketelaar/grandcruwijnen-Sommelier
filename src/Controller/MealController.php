@@ -222,4 +222,26 @@ class MealController extends AbstractController {
             'specialPriceSubmit' => $specialPriceSubmit
         ]);
     }
+
+  /*  /**
+     * @throws GuzzleException
+     * @Route("/create/meal", name="create/meal")
+     */
+    /*public function getIngredientsGroups(MealMatcherService $mealMatcherService)
+    {
+        return $this->render('ingrediënts/index.html.twig', ['ingredients' => $mealMatcherService->getIngredientsGroup()]);
+    }*/
+
+    /**
+     * @throws GuzzleException
+     * @Route("/create/meal", name="create/own/meal")
+     */
+    public function getIngredients(MealMatcherService $mealMatcherService)
+    {
+//        dd( ['ingredients' => $mealMatcherService->getIngredients()]);
+
+        return $this->render('ingrediënts/index.html.twig', ['ingredients' => $mealMatcherService->getIngredients()]);
+    }
+
+
 }
