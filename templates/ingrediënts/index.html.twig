@@ -1,0 +1,31 @@
+{# {% for ingredient_group in ingredients_group %} #}
+<label for="searchbar"></label>
+<input id="searchbar" onkeyup="search_animal()" type="text"
+       name="search" placeholder="Search ingredients..">
+{% for ingredient in ingredients %}
+    <ul id="list">
+        <a href="#">
+            <li class="ingredients" style="display: none">{{ ingredient.name }}</li>
+        </a>
+    </ul>
+    {#        {{ ingredient.name }} #}
+{% endfor %}
+{% block javascripts %}
+    <script>
+        // JavaScript code
+        function search_animal() {
+            let input = document.getElementById('searchbar').value
+            input = input.toLowerCase();
+            let x = document.getElementsByClassName('ingredients');
+
+            for (let i = 0; i < x.length; i++) {
+                if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                    x[i].style.display = "none";
+                } else {
+                    x[i].style.display = "list-item";
+                }
+            }
+        }
+    </script>
+{% endblock %}
+{# {% endfor %} #}
