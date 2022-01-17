@@ -1,24 +1,38 @@
-{# {% for ingredient_group in ingredients_group %} #}
-<label for="searchbar"></label>
-<input id="searchbar" onkeyup="search_animal()" type="text"
-       name="search" placeholder="Search ingredients..">
+{# {% for ingredient_group in ingredients_group %} #}<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Grandcruwijnen</title>
+    <link rel="stylesheet" href="{{ asset('style/style.css') }}">
+</head>
+<body class="body_ingredients">
+<label>
+    <input type="text" id="searchbar" onkeyup="search_animal()" name="search" class="search__input"
+           placeholder="Zoek hier naar ingrediënten..">
+</label>
 {% for ingredient in ingredients %}
+    {% set ingredientName = ingredient.name %}
     <ul id="list">
         <a href="#">
-            <li class="ingredients" style="display: none">{{ ingredient.name }}</li>
+            <li class="ingredients" style="">{{ ingredientName }}</li>
         </a>
     </ul>
     {#        {{ ingredient.name }} #}
 {% endfor %}
+</body>
 {% block javascripts %}
     <script>
+        // JavaScript code
         // JavaScript code
         function search_animal() {
             let input = document.getElementById('searchbar').value
             input = input.toLowerCase();
             let x = document.getElementsByClassName('ingredients');
 
-            for (let i = 0; i < x.length; i++) {
+            for (i = 0; i < x.length; i++) {
                 if (!x[i].innerHTML.toLowerCase().includes(input)) {
                     x[i].style.display = "none";
                 } else {
@@ -28,4 +42,4 @@
         }
     </script>
 {% endblock %}
-{# {% endfor %} #}
+</html>
