@@ -236,11 +236,16 @@ class MealController extends AbstractController {
      * @throws GuzzleException
      * @Route("/create/meal", name="create/own/meal")
      */
-    public function getIngredients(MealMatcherService $mealMatcherService)
+    public function getIngredients(Request $request, MealMatcherService $mealMatcherService)
     {
-//        dd( ['ingredients' => $mealMatcherService->getIngredients()]);
 
-        return $this->render('ingrediënts/index.html.twig', ['ingredients' => $mealMatcherService->getIngredients()]);
+        $ingredientSelected = $request->query->all();
+        
+        if($ingredientSelected == null){
+            $ingredientSelected = ['name'=>''];
+        }
+
+        return $this->render('ingrediënts/index.html.twig', ['ingredients' => $mealMatcherService->getIngredients(), 'ingredientSelected' => $ingredientSelected['name']]);
     }
 
 
