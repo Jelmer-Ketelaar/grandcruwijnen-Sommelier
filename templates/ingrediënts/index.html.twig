@@ -23,8 +23,12 @@
             {% for ingredient in ingredients %}
                 {% set ingredientName = ingredient.name %}
 
-                <input id='{{ ingredientName|replace({' ': ''})|replace({'&': ''}) }}' style='visibility:hidden;' class='selectIngredient' type='checkbox' value='{{ ingredientName }}' name="name[]" onclick='ingredientSelect()' {% if ingredientSelected != '' %} {% if ingredientName in ingredientSelected %} checked {% endif %} {% endif %}>
-                <div class='ingredients' onclick='ingredientDivChoose({{ ingredientName|replace({' ': ''})|replace({'&': ''}) }})'>
+                <input id='{{ ingredientName|replace({' ': ''})|replace({'&': ''}) }}' style='visibility:hidden;'
+                       class='selectIngredient' type='checkbox' value='{{ ingredientName }}' name="name[]"
+                       onclick='ingredientSelect()'
+                        {% if ingredientSelected != '' %}{% if ingredientName in ingredientSelected %} checked {% endif %} {% endif %}>
+                <div class='ingredients'
+                     onclick='ingredientDivChoose({{ ingredientName|replace({' ': ''})|replace({'&': ''}) }})'>
                     {{ ingredientName }}
                 </div>
             {% endfor %}
