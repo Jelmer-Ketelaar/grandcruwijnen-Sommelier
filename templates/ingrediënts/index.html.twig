@@ -7,16 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Grandcruwijnen</title>
     <link rel="stylesheet" href="{{ asset('style/style.css') }}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <body class="body_ingredients">
-    <label>
-        <input type="text" id="searchbar" onkeyup="search_ingredient()" name="search" class="search__input"
-            placeholder="Zoek hier naar ingrediënten..">
-    </label>
-    <center>
+<label>
+    <input type="text" id="searchbar" onkeyup="search_ingredient()" name="search" class="search__input"
+           placeholder="Zoek hier naar ingrediënten..">
+</label>
+<center>
     <p class='search-text'>Typ hierboven het ingrediënt dat u wilt zoeken</p>
-    </center>
-    <form action='' method='GET'>
+</center>
+<form action='' method='GET'>
         <div id='allList'>
             {% for ingredient in ingredients %}
                 {% set ingredientName = ingredient.name %}
@@ -31,17 +33,17 @@
     </form>
     
     {% set counterProduct = 0 %}
-    {% for ingredient in ingredientSelected %}
-        {% set counterProduct = counterProduct + 1 %}
-        <div style='background-color:white; padding:10px; margin:10px; width:190px; text-align:left;'>
-            {{ ingredient }}
-            <a><img src='https://vanlaak.cc/img/delete-icon.png' onclick='removeIngredient({{ingredient|replace({' ': ''})|replace({'&': ''})}})' style='width:20px; float:right;'></a>
-        </div>
-    {% endfor %}
+{% for ingredient in ingredientSelected %}
+    {% set counterProduct = counterProduct + 1 %}
+    <div style='background-color:white; padding:10px; margin:10px; width:190px; text-align:left;'>
+        {{ ingredient }}
+        <a><i class="far fa-trash-alt"
+              onclick='removeIngredient({{ ingredient|replace({' ': ''})|replace({'&': ''}) }})'
+              style='width:20px; float:right; cursor: pointer'></i></a>
+    </div>
+{% endfor %}
 
-    {% if ingredientSelected != '' %}
-    <button class='searchButton' href='' >Bereken de best bijpassende wijnen</button>
-    {% endif %}
+<button class='searchButton'>Bereken de best bijpassende wijnen</button>
 
 </body>
 {% block javascripts %}
@@ -53,7 +55,7 @@
             input = input.toLowerCase();
             let x = document.getElementsByClassName('ingredients');
 
-            if(input == ''){
+            if (input === '') {
                 document.getElementById('allList').style.display = 'none';
             } else {
                 document.getElementById('allList').style.display = 'block';
@@ -71,7 +73,8 @@
         function ingredientSelect(){
             document.getElementById('ingredientForm').click();
         }
-        function ingredientDivChoose(idIngredient){
+
+        function ingredientDivChoose(idIngredient) {
 
             var idIngredientt = idIngredient.value.replace(/ /g, "");
             var idIngredient2 = idIngredientt.replace("&", "");
@@ -79,12 +82,11 @@
             document.getElementById(idIngredient2).click();
             ingredientSelect();
         }
-        function removeIngredient(nameIngredient){
+
+        function removeIngredient(nameIngredient) {
             document.getElementById(nameIngredient.value.replace(/ /g, "").replace("&", "")).click();
             ingredientSelect();
         }
-
-
     </script>
 {% endblock %}
 </html>
