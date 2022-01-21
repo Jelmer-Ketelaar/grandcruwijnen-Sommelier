@@ -88,6 +88,19 @@ class MealController extends AbstractController {
             $skuScores[$wine->wine->sku] = $wine->score;
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
         $minWinePrice = 10000;
         $maxWinePrice = 0;
 
@@ -235,14 +248,12 @@ class MealController extends AbstractController {
 
         if ($ingredientSelected == null)
         {
-            $ingredientSelected = ['name' => ''];
+            $ingredientSelected = ['ingredientId' => ''];
         }
-
-//        dd($ingredientSelected);
 
         return $this->render('ingrediënts/index.html.twig', [
             'ingredients' => $mealMatcherService->getIngredients(),
-            'ingredientSelected' => $ingredientSelected['name'],
+            'ingredientSelected' => $ingredientSelected['ingredientId'],
         ]);
     }
 
