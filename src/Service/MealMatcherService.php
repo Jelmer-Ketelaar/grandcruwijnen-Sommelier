@@ -105,22 +105,22 @@ class MealMatcherService {
         return json_decode($response->getBody()->getContents());
     }
 
-//    /**
-//     * @throws GuzzleException
-//     */
-    /*public function getIngredientsGroup()
-    {
-        $response = $this->client->request('GET', '/api/ingredient_groups');
-
-        return json_decode($response->getBody()->getContents());
-    }*/
-
     /**
      * @throws GuzzleException
      */
     public function getIngredients()
     {
-        $response = $this->client->request('GET', '/api/ingredients');
+        $response = $this->client->request('GET', '/api/ingredients?');
+
+        return json_decode($response->getBody()->getContents());
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function getWinesForIngredients($ingredientId)
+    {
+        $response = $this->client->request('GET', '/api/ingredients?ingredient=' . $ingredientId);
 
         return json_decode($response->getBody()->getContents());
     }

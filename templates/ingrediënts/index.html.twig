@@ -28,15 +28,16 @@
                        onclick='ingredientSelect()'
                         {% if ingredientSelected != '' %}{% if ingredientName in ingredientSelected %} checked {% endif %} {% endif %}>
                 <div class='ingredients'
-                     onclick='ingredientDivChoose({{ ingredientName|replace({' ': ''})|replace({'&': ''}) }})' style=" cursor: pointer">
+                     onclick='ingredientDivChoose({{ ingredientName|replace({' ': ''})|replace({'&': ''}) }})'
+                     style=" cursor: pointer">
                     {{ ingredientName }}
                 </div>
             {% endfor %}
         </div>
-        <button id='ingredientForm' type='submit' style='visibility:hidden;'>submitje</button>
-    </form>
-    
-    {% set counterProduct = 0 %}
+    <button id='ingredientForm' type='submit' style='visibility:hidden;'>submitje</button>
+</form>
+
+{% set counterProduct = 0 %}
 {% for ingredient in ingredientSelected %}
     {% set counterProduct = counterProduct + 1 %}
     <div style='background-color:white; padding:10px; margin:10px; width:190px; text-align:left;'>
@@ -45,11 +46,14 @@
               onclick='removeIngredient({{ ingredient|replace({' ': ''})|replace({'&': ''}) }})'
               style='width:20px; float:right; cursor: pointer'></i></a>
     </div>
-{% endfor %}
 
-{% if ingredientSelected != '' %}
-<button class='searchButton'>Bereken de best bijpassende wijnen</button>
-{% endif %}
+
+    {% if ingredientSelected != '' %}
+        <a href="{{ path('wines_for_ingredients', { ingredientId: ingredient.id}) }}"
+           class='searchButton'>Bereken
+            de best bijpassende wijnen</a>
+    {% endif %}
+{% endfor %}
 
 </body>
 {% block javascripts %}
