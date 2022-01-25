@@ -88,19 +88,6 @@ class MealController extends AbstractController {
             $skuScores[$wine->wine->sku] = $wine->score;
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         $minWinePrice = 10000;
         $maxWinePrice = 0;
 
@@ -259,7 +246,7 @@ class MealController extends AbstractController {
 
     /**
      * @throws GuzzleException
-     * @Route("/create/meal{id}", name="wines_for_ingredients")
+     * @Route("/create/meal{ingredientId}", name="wines_for_ingredients")
      */
     public function getWinesForIngredients(Request $request, $ingredientId, MealMatcherService $mealMatcherService)
     {
@@ -409,7 +396,8 @@ class MealController extends AbstractController {
         $countWines = ['countWit' => $countWit, 'countRood' => $countRood, 'countRosé' => $countRosé, 'countPort' => $countPort, 'countSherry' => $countSherry, 'countMadeira' => $countMadeira, 'countVermout' => $countVermout, 'countSpecialPrice' => $countSpecialPrice];
 
         return $this->render('wines_for_ingredients/index.html.twig', [
-            'ingredients' => $mealMatcherService->getWinesForIngredients($ingredientId), 'ingredientSelected' => $ingredientSelected['name'],
+            'ingredients' => $mealMatcherService->getIngredients(),
+            'ingredientSelected' => $ingredientSelected['ingredientId'],
             'matches' => $matchesForPage,
             'min_price' => $formMinPrice,
             'max_price' => $formMaxPrice,

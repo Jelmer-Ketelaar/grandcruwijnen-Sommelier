@@ -1,4 +1,4 @@
-{# {% for ingredient_group in ingredients_group %} #}<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -50,12 +50,15 @@
               style='width:20px; float:right; cursor: pointer'></i></a>
     </div>
 
+
 {% endfor %}
 
 {% if ingredientSelected != '' %}
-    <a href="{{ path('wines_for_ingredients', { id: ingredientSelected}) }}"
-        class='searchButton'>Bereken
-        de best bijpassende wijnen</a>
+    {% for ingredient in ingredients %}
+        <a href="{{ path('wines_for_ingredients', {ingredientId: ingredient.ingredientId}) }}"
+    {% endfor %}
+    class='searchButton'>Bereken
+    de best bijpassende wijnen</a>
 {% endif %}
 
 </body>

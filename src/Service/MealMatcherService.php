@@ -110,7 +110,7 @@ class MealMatcherService {
      */
     public function getIngredients()
     {
-        $response = $this->client->request('GET', '/api/ingredients?');
+        $response = $this->client->request('GET', '/api/ingredients');
 
         return json_decode($response->getBody()->getContents());
     }
@@ -118,9 +118,9 @@ class MealMatcherService {
     /**
      * @throws GuzzleException
      */
-    public function getWinesForIngredients($ingredientId)
+    public function getWinesForIngredients()
     {
-        $response = $this->client->request('GET', '/api/ingredients?ingredient=' . $ingredientId);
+        $response = $this->client->request('POST', '/winestein/meals/create');
 
         return json_decode($response->getBody()->getContents());
     }
