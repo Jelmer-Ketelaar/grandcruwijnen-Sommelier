@@ -6,7 +6,8 @@ namespace App\Service;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
-class MealMatcherService {
+class MealMatcherService
+{
     private Client $client;
 
     public function __construct()
@@ -28,12 +29,10 @@ class MealMatcherService {
         $categories = $this->getMealsCategories();
         $parentCategories = [];
 
-        foreach ($categories as $category)
-        {
+        foreach ($categories as $category) {
             //if the parent of the category is equal to null
             //put $category in $parentCategories
-            if ($category->parent === null)
-            {
+            if ($category->parent === null) {
                 $parentCategories[] = $category;
             }
         }
@@ -72,11 +71,9 @@ class MealMatcherService {
         $categories = $this->getMealsCategories();
         $childCategories = [];
 
-        foreach ($categories as $category)
-        {
+        foreach ($categories as $category) {
             //If the parent of the category is not null and the categoryId is equal to $parentId
-            if ($category->parent !== null && $category->parent->categoryId === $parentId)
-            {
+            if ($category->parent !== null && $category->parent->categoryId === $parentId) {
                 //put $category in $childCategories[]
                 $childCategories[] = $category;
             }
@@ -118,9 +115,14 @@ class MealMatcherService {
     /**
      * @throws GuzzleException
      */
-    public function getWinesForIngredients()
+    public function getWinesForIngredients($ingredients)
     {
-        $response = $this->client->request('POST', '/winestein/meals/create');
+        $ingredientMap = [];
+        foreach ($ingredients as $ingredient) {
+            $ingredientMap[] = ['id' => $ingredient, 'amount' => 1];
+        }
+        $response = $this->client->request('POST', '/winestein/meals/create', ['json' => $ingredientMap]);
+        dd($response->getBody()->getContents());
 
         return json_decode($response->getBody()->getContents());
     }

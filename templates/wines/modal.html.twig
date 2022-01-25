@@ -34,7 +34,7 @@
                 </div>
                 <div id="panel-1" role="tabpanel" tabindex="0" aria-labelledby="tab-1">
                     <div class="modal-body" style='text-align:left;margin:40px;'>
-                        <p>{{ match.product.description | raw }}</p>
+                        <p>{{ match.product.description }}</p>
                     </div>
                 </div>
                 <div id="panel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2" hidden>
@@ -112,7 +112,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="ModalSommelier" role="dialog">
+<div class="modal fade" id="ModalSommelier{{ match.product.id }}" role="dialog">
     <div
             class="modal-dialog" style='width:900px;'>
         <!-- Modal content-->
