@@ -29,27 +29,28 @@
                     </button>
                     <button class="btn btn-danger" role="tab" aria-selected="false" aria-controls="panel-3" id="tab-3"
                             tabindex="-1">
-                        Kenmerken  
+                        Kenmerken
                     </button>
                 </div>
                 <div id="panel-1" role="tabpanel" tabindex="0" aria-labelledby="tab-1">
                     <div class="modal-body" style='text-align:left;margin:40px;'>
-                        <p>{{ match.product.description | raw }}</p>
+                        <p>{{ match.product.description }}</p>
                     </div>
                 </div>
                 <div id="panel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2" hidden>
                     <p>
-                    
-                    {% set location = match.product.location|split(',') %}     
-                    {% set locationLengthMin = location[0]|length - 1 %}
-                    <br>
-                    Locatie: {{ location[0] }}
-                    <br>
-                    Uw geselecteerde wijn ligt in het rode vlak.
-                    <br>
-                    
-                    
-                    <img id='plattegrond' src='../img/winePlaces/{{ location[0][:locationLengthMin] }}.png' onerror="this.onerror=null;"> 
+
+                        {% set location = match.product.location|split(',') %}
+                        {% set locationLengthMin = location[0]|length - 1 %}
+                        <br>
+                        Locatie: {{ location[0] }}
+                        <br>
+                        Uw geselecteerde wijn ligt in het rode vlak.
+                        <br>
+
+
+                        <img id='plattegrond' src='../img/winePlaces/{{ location[0][:locationLengthMin] }}.png'
+                             onerror="this.onerror=null;">
                     </p>
                 </div>
                 <div id="panel-3" role="tabpanel" tabindex="0" aria-labelledby="tab-3" hidden>
@@ -111,7 +112,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="ModalSommelier" role="dialog">
+<div class="modal fade" id="ModalSommelier{{ match.product.id }}" role="dialog">
     <div
             class="modal-dialog" style='width:900px;'>
         <!-- Modal content-->

@@ -78,6 +78,7 @@ class MealMatcherService
                 $childCategories[] = $category;
             }
         }
+
         return $childCategories;
     }
 
@@ -97,6 +98,31 @@ class MealMatcherService
     public function getWinesForMeal($mealId)
     {
         $response = $this->client->request('GET', '/api/meal_matches?meal=' . $mealId);
+
+        return json_decode($response->getBody()->getContents());
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function getIngredients()
+    {
+        $response = $this->client->request('GET', '/api/ingredients');
+
+        return json_decode($response->getBody()->getContents());
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function getWinesForIngredients($ingredients)
+    {
+        $ingredientMap = [];
+        foreach ($ingredients as $ingredient) {
+            $ingredientMap[] = ['id' => $ingredient, 'amount' => 1];
+        }
+        $response = $this->client->request('POST', '/winestein/meals/create', ['json' => $ingredientMap]);
+        dd($response->getBody()->getContents());
 
         return json_decode($response->getBody()->getContents());
     }

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Grandcruwijnen</title>
+    <link rel="stylesheet" href="{{ asset('style/style.css') }}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+</head>
+<body class="body_ingredients">
+<label>
+    <input type="text" id="searchbar" onkeyup="search_ingredient()" name="search" class="search__input"
+           placeholder="Zoek hier naar ingrediënten..">
+</label>
+<center>
+    <p class='search-text'>Typ hierboven het ingrediënt dat u wilt zoeken</p>
+</center>
+<form action='' method='GET'>
+    <div id='allList'>
+        {% for ingredient in ingredients %}
+            {% set ingredientId = ingredient.ingredientId|replace({'{': ''})|replace({'}': ''}) %}
+            {% set ingredientName = ingredient.name %}
+
+            <input id='{{ ingredientId }}' style='display:none;'
+                   class='selectIngredient' type='checkbox' value='{{ ingredientId|e }}' name="ingredientId[]"
+                   onclick='ingredientSelect()'
+                    {% if ingredientSelected != '' %}{% if ingredientId in ingredientSelected %} checked {% endif %} {% endif %}>
+            <div class='ingredients'
+                    {% if ingredientSelected != '' %}{% if ingredientName not in ingredientSelected %} onclick='ingredientDivChoose({{ ingredientId|json_encode }})' {% endif %} {% endif %}
+                    {% if ingredientSelected != '' %}{% if ingredientName in ingredientSelected %} style='background-color:rgba(0, 0, 0, 0.09);' {% endif %} {% endif %}
+                 onclick='ingredientDivChoose({{ ingredientId|json_encode }})' style="cursor: pointer;">
+                {{ ingredientName }}
+            </div>
+        {% endfor %}
+    </div>
+    <button id='ingredientForm' type='submit' style='visibility:hidden;'>submitje</button>
+</form>
+
+{% set counterProduct = 0 %}
+{% for ingredient in ingredientSelected %}
+    {% set counterProduct = counterProduct + 1 %}
+    {% set ingredient = ingredient %}
+    <div style='background-color:white; padding:10px; margin:10px; width:190px; text-align:left;'>
+        {{ ingredient }}
+        <a><i class="far fa-trash-alt"
+              onclick='removeIngredient({{ ingredient|json_encode }})'
+              style='width:20px; float:right; cursor: pointer'></i></a>
+    </div>
+
+
+{% endfor %}
+
+{% if ingredientSelected != '' %}
+    <a href="{{ path('wines_for_ingredients', {ingredients: ingredientSelected}) }}"
+       class='searchButton'>Bereken de best bijpassende wijnen</a>
+{% endif %}
+
+</body>
+{% block javascripts %}
+    <script>
+        // JavaScript code
+        function search_ingredient() {
+
+            let input = document.getElementById('searchbar').value
+            input = input.toLowerCase();
+            let x = document.getElementsByClassName('ingredients');
+
+            if (input === '') {
+                document.getElementById('allList').style.display = 'none';
+            } else {
+                document.getElementById('allList').style.display = 'block';
+            }
+
+            for (let i = 0; i < x.length; i++) {
+                if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                    x[i].style.display = "none";
+                } else {
+                    x[i].style.display = "list-item";
+                }
+            }
+        }
+
+        function ingredientSelect() {
+            document.getElementById('ingredientForm').click();
+        }
+
+        function ingredientDivChoose(idIngredient) {
+            document.getElementById(idIngredient).click();
+            ingredientSelect();
+        }
+
+        function removeIngredient(nameIngredient) {
+            document.getElementById(nameIngredient).click();
+            ingredientSelect();
+        }
+    </script>
+{% endblock %}
+</html>

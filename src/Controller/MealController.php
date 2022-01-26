@@ -64,7 +64,7 @@ class MealController extends AbstractController
      * @throws GuzzleException
      * @Route("/matches/{mealId}", name="wines_for_meals")
      */
-    public function getWinesForMeals(Request $request, $mealId, MealMatcherService $mealMatcherService): Response
+    public function getWinesForMeals(Request $request, $mealId, MealMatcherService $mealMatcherService)
     {
         //matches is an array
         $matches = [];
@@ -145,6 +145,7 @@ class MealController extends AbstractController
         $totalProductCount = count($matches);
         $totalPages = (int)ceil($totalProductCount / $productsPerPage);
 
+//        $ingredientId =;
         $mealArr = [urldecode($mealId)];
 
         $countWit = 0;
@@ -185,6 +186,7 @@ class MealController extends AbstractController
         }
 
         $countWines = ['countWit' => $countWit, 'countRood' => $countRood, 'countRosé' => $countRosé, 'countPort' => $countPort, 'countSherry' => $countSherry, 'countMadeira' => $countMadeira, 'countVermout' => $countVermout, 'countSpecialPrice' => $countSpecialPrice];
+
 //        dd($countWines);
 
 
@@ -203,4 +205,174 @@ class MealController extends AbstractController
             'specialPriceSubmit' => $specialPriceSubmit
         ]);
     }
+
+    /**
+     * @throws GuzzleException
+     * @Route("/create/own/meal", name="create/own/meal")
+     */
+    public function getIngredients(Request $request, MealMatcherService $mealMatcherService)
+    {
+
+        $ingredientSelected = $request->query->all();
+
+        if ($ingredientSelected == null) {
+            $ingredientSelected = ['ingredientId' => ''];
+        }
+
+        return $this->render('ingrediënts/index.html.twig', [
+            'ingredients' => $mealMatcherService->getIngredients(),
+            'ingredientSelected' => $ingredientSelected['ingredientId'],
+        ]);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @Route("/create/meal", name="wines_for_ingredients")
+     */
+    public function getWinesForIngredients(Request $request, MealMatcherService $mealMatcherService)
+    {
+        $ingredientSelected = $request->query->get("ingredients");
+//        dd($ingredientSelected);
+
+        if ($ingredientSelected == null) {
+            $ingredientSelected = ['name' => ''];
+        }
+        //matches is an array
+        $matches = [];
+
+        //If there is any letter in front it will convert to a 0.
+        $page = (int)$request->query->get('page');
+
+        //set 18 products per page
+        $productsPerPage = 18;
+        //start at page 1 if no page is clicked yet
+        if ($page === 0) {
+            $page = 1;
+        }
+        //skuScores is an arry
+        $skuScores = [];
+        //skus is an arry
+        $skus = [];
+        foreach ($mealMatcherService->getWinesForIngredients($ingredientSelected) as $wine) {
+            $skus[] = $wine->wine->sku;
+            $skuScores[$wine->wine->sku] = $wine->score;
+        }
+
+        $minWinePrice = 10000;
+        $maxWinePrice = 0;
+
+        $formMinPrice = $request->query->get('price-min');
+        $formMaxPrice = $request->query->get('price-max');
+
+        if ($formMinPrice === null) {
+            $formMinPrice = 1;
+        }
+        if ($formMaxPrice === null) {
+            $formMaxPrice = 100000;
+        }
+
+        //wijnsoort, meenemen
+        $wineSorts = $request->query->get('wineSorts');
+        $specialPriceSorts = $request->request->get('specialPriceSorts');
+
+
+        if ($specialPriceSorts !== null) {
+            $specialPriceSubmit = true;
+        } else {
+            $specialPriceSubmit = false;
+        }
+
+
+//        dd($wineSorts);
+        // dd($wineSorts);
+        /** @var Product[] $products */
+        $products = $this->getDoctrine()->getRepository(Product::class)->findWinesBySkus($skus);
+
+
+        foreach ($products as $product) {
+            $productMatch = new ProductMatch($product, $skuScores[$product->getSku()]);
+            $winePrice = $productMatch->product->getprice();
+
+
+            if ($minWinePrice > $winePrice) {
+                $minWinePrice = $winePrice;
+            }
+
+            if ($maxWinePrice < $winePrice) {
+                $maxWinePrice = $winePrice;
+            }
+
+            if ($winePrice >= $formMinPrice && $winePrice <= $formMaxPrice) {
+                $matches[] = $productMatch;
+            }
+        }
+
+        usort($matches, static function ($matchA, $matchB) {
+            return $matchA->getScore() === $matchB->getScore() ? 0 : ($matchA->getScore() < $matchB->getScore() ? 1 : -1);
+        });
+
+        $matchesForPage = array_slice($matches, $productsPerPage * ($page - 1), $productsPerPage);
+
+        $totalProductCount = count($matches);
+        $totalPages = (int)ceil($totalProductCount / $productsPerPage);
+
+        $mealArr = [urlencode($ingredientId)];
+
+        $countWit = 0;
+        $countRood = 0;
+        $countRosé = 0;
+        $countPort = 0;
+        $countSherry = 0;
+        $countMadeira = 0;
+        $countVermout = 0;
+        $countSpecialPrice = 0;
+
+
+        foreach ($matchesForPage as $amountWine) {
+            if ($amountWine->product->getWineSort() === 'Wit') {
+                $countWit++;
+            }
+            if ($amountWine->product->getWineSort() === 'Rood') {
+                $countRood++;
+            }
+            if ($amountWine->product->getWineSort() === 'Rosé') {
+                $countRosé++;
+            }
+            if ($amountWine->product->getWineSort() === 'Port') {
+                $countPort++;
+            }
+            if ($amountWine->product->getWineSort() === 'Sherry') {
+                $countSherry++;
+            }
+            if ($amountWine->product->getWineSort() === 'Madeira') {
+                $countMadeira++;
+            }
+            if ($amountWine->product->getWineSort() === 'Vermout') {
+                $countVermout++;
+            }
+            if ($amountWine->product->getSpecialPrice() !== null) {
+                $countSpecialPrice++;
+            }
+        }
+
+        $countWines = ['countWit' => $countWit, 'countRood' => $countRood, 'countRosé' => $countRosé, 'countPort' => $countPort, 'countSherry' => $countSherry, 'countMadeira' => $countMadeira, 'countVermout' => $countVermout, 'countSpecialPrice' => $countSpecialPrice];
+
+        return $this->render('wines_for_ingredients/index.html.twig', [
+            'ingredients' => $mealMatcherService->getIngredients(),
+            'ingredientSelected' => $ingredientSelected['ingredientId'],
+            'matches' => $matchesForPage,
+            'min_price' => $formMinPrice,
+            'max_price' => $formMaxPrice,
+            'maxWinePrice' => $maxWinePrice,
+            'minWinePrice' => $minWinePrice,
+            'total_pages' => $totalPages,
+            'current_page' => $page,
+            'ingredient_id' => $mealArr,
+            'wineSorts' => $wineSorts,
+            'countWines' => $countWines,
+            'countSpecialPrice' => $countSpecialPrice,
+            'specialPriceSubmit' => $specialPriceSubmit]);
+    }
+
+
 }

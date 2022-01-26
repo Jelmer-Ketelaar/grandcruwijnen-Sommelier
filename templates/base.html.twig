@@ -16,9 +16,11 @@
         {# {{ encore_entry_script_tags('app') }} #}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <script> var lazyLoadInstance = new LazyLoad({
+        <script>
+            var lazyLoadInstance = new LazyLoad({
                 load_delay: 300
-            });</script>
+            });
+        </script>
     {% endblock %}
 </head>
 {% block body %}
