@@ -259,4 +259,19 @@ class Product {
 
         return $this;
     }
+
+    public function getExactLocationForWine(): ?string
+    {
+        $exactLocation = $this->location;
+        explode(",",$exactLocation);
+        // strlen($exactLocation[0]) -1;
+        $exactLocation = str_replace(',', '', $exactLocation);
+        return $exactLocation;
+    }
+
+    public function setExactLocationForWine(?string $exactLocation): self
+    {
+        $this->exactLocation = $exactLocation;
+        return $this;
+    }
 }

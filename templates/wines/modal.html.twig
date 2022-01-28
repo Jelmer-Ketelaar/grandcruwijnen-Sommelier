@@ -40,16 +40,16 @@
                 <div id="panel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2" hidden>
                     <p>
 
-                        {% set location = match.product.location|split(',') %}
-                        {% set locationLengthMin = location[0]|length - 1 %}
+                        {# {% set location = match.product.location|split(',') %}
+                        {% set locationLengthMin = location[0]|length - 1 %} #}
                         <br>
-                        Locatie: {{ location[0] }}
+                        {# Locatie: {{ location[0] }} #}
+                        Locatie: {{match.product.getExactLocationForWine()}}
                         <br>
                         Uw geselecteerde wijn ligt in het rode vlak.
                         <br>
 
-
-                        <img id='plattegrond' src='../img/winePlaces/{{ location[0][:locationLengthMin] }}.png'
+                        <img id='plattegrond' src='../img/winePlaces/{{ match.product.getExactLocationForWine }}.png'
                              onerror="this.onerror=null;">
                     </p>
                 </div>
@@ -61,7 +61,7 @@
                             {% if(match.product.specialPrice == true) %}
                                 <td>
                                 <span class="original-price-modal" aria-label="Original Price">
-								€{{ match.product.price }}</span>
+                                €{{ match.product.price }}</span>
                                     &nbsp;&nbsp;
                                     <span aria-label="Sale Price">€{{ match.product.specialPrice }}</span>
                                     &nbsp;&nbsp;
@@ -78,7 +78,7 @@
                         </tr>
                         <tr>
                             <th>Locatie:</th>
-                            <td>{{ location[0] }}</td>
+                            <td>{{ match.product.getExactLocationForWine }}</td>
                         </tr>
                         <tr>
                             <th>Streek:</th>
