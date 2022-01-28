@@ -213,6 +213,17 @@ class MealController extends AbstractController
     {
 
         $ingredientSelected = $request->query->all();
+        $ingredientNameId = [];
+
+        foreach ($mealMatcherService->getIngredients() as $ingredient){
+            foreach ($ingredientSelected['ingredientId'] as $ing){
+                $ingredientId = substr($ingredient->ingredientId, 1, -1);
+                if($ing == $ingredientId){
+
+                    array_push($ingredientNameId, [$ingredientId, $ingredient->name]);
+                }
+            }
+        }
 
         if ($ingredientSelected == null) {
             $ingredientSelected = ['ingredientId' => ''];
@@ -220,7 +231,7 @@ class MealController extends AbstractController
 
         return $this->render('ingrediënts/index.html.twig', [
             'ingredients' => $mealMatcherService->getIngredients(),
-            'ingredientSelected' => $ingredientSelected['ingredientId'],
+            'ingredientSelected' => $ingredientNameId,
         ]);
     }
 
