@@ -104,7 +104,9 @@ class MealController extends AbstractController
         //wijnsoort, meenemen
         $wineSorts = $request->query->get('wineSorts');
 
+        $specialPrice = 0;
         $priceSpecial = 0;
+        $calculatePercentage = 0;
 
 
 //        dd($wineSorts);
@@ -115,11 +117,14 @@ class MealController extends AbstractController
 
         foreach ($products as $product) {
 //            $priceSpecial = null;
-            $productMatch = new ProductMatch($product, $skuScores[$product->getSku()]);
+            $productMatch = new ProductMatch($product, $skuScores[$product->getSku()] , $specialPrice);
             $winePrice = $productMatch->product->getPrice();
             $specialPrice = $productMatch->product->getSpecialPrice();
 
-            $percentageCalculate = ($specialPrice - $winePrice) - $winePrice;
+            dd($specialPrice);
+
+            $percentage = ($specialPrice - $winePrice) - $winePrice;
+            $percentageCalculate = $percentage - $winePrice;
             $calculatePercentage = ($percentageCalculate * 100) | round(0);
 
 
@@ -202,7 +207,7 @@ class MealController extends AbstractController
             'wineSorts' => $wineSorts,
             'countWines' => $countWines,
             'specialPrice' => $priceSpecial,
-            '$calculatePercentage' => $calculatePercentage
+            'calculatePercentage' => $calculatePercentage
         ]);
     }
 
