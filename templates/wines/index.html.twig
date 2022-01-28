@@ -113,7 +113,8 @@
 
         {#        <div style="flex: 1">#}
         {% for match in matches %}
-            {% if specialPriceSubmit == true and match.product.specialPrice != 0 %}
+            {% if match.product.specialPrice != 0 %}
+            {% if match.product.specialPrice %}
                 <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
                     <center>
                         <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
@@ -126,7 +127,7 @@
                                 <span class="price-tekst">Prijs:</span>
                                 €{{ match.product.price }}</span>
                             &nbsp;&nbsp;
-                            <span aria-label="Sale Price">€{{ match.product.specialPrice }}</span>
+                            <span aria-label="Sale Price">€{{ specialPrice }}</span>
                         </p>
                     {% else %}
                         <p>Prijs: €{{ match.product.price }}</p>

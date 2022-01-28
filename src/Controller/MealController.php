@@ -102,11 +102,9 @@ class MealController extends AbstractController
         $wineSorts = $request->query->get('wineSorts');
         $specialPriceSorts = $request->request->get('specialPriceSorts');
 
-        if ($specialPriceSorts !== null) {
-            $specialPriceSubmit = true;
-        } else {
-            $specialPriceSubmit = false;
-        }
+        $specialPrice = 0;
+        $priceSpecial = 0;
+        $calculatePercentage = 0;
 
 //        dd($wineSorts);
         // dd($wineSorts);
@@ -114,8 +112,17 @@ class MealController extends AbstractController
         $products = $this->getDoctrine()->getRepository(Product::class)->findWinesBySkus($skus);
 
         foreach ($products as $product) {
-            $productMatch = new ProductMatch($product, $skuScores[$product->getSku()]);
-            $winePrice = $productMatch->product->getprice();
+//            $priceSpecial = null;
+            $productMatch = new ProductMatch($product, $skuScores[$product->getSku()] , $specialPrice);
+            $winePrice = $productMatch->product->getPrice();
+            $specialPrice = $productMatch->product->getSpecialPrice();
+
+            dd($specialPrice);
+
+            $percentage = ($specialPrice - $winePrice) - $winePrice;
+            $percentageCalculate = $percentage - $winePrice;
+            $calculatePercentage = ($percentageCalculate * 100) | round(0);
+
 
             if ($minWinePrice > $winePrice) {
                 $minWinePrice = $winePrice;
@@ -193,8 +200,8 @@ class MealController extends AbstractController
             'meal_id' => $mealArr,
             'wineSorts' => $wineSorts,
             'countWines' => $countWines,
-            'countSpecialPrice' => $countSpecialPrice,
-            'specialPriceSubmit' => $specialPriceSubmit
+            'specialPrice' => $priceSpecial,
+            'calculatePercentage' => $calculatePercentage
         ]);
     }
 
