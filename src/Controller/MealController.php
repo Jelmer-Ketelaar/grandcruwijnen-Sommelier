@@ -90,6 +90,7 @@ class MealController extends AbstractController
         $minWinePrice = 10000;
         $maxWinePrice = 0;
 
+
         $formMinPrice = $request->query->get('price-min');
         $formMaxPrice = $request->query->get('price-max');
 
@@ -102,14 +103,8 @@ class MealController extends AbstractController
 
         //wijnsoort, meenemen
         $wineSorts = $request->query->get('wineSorts');
-        $specialPriceSorts = $request->request->get('specialPriceSorts');
 
-
-        if ($specialPriceSorts !== null) {
-            $specialPriceSubmit = true;
-        } else {
-            $specialPriceSubmit = false;
-        }
+        $priceSpecial = 0;
 
 
 //        dd($wineSorts);
@@ -119,8 +114,13 @@ class MealController extends AbstractController
 
 
         foreach ($products as $product) {
+//            $priceSpecial = null;
             $productMatch = new ProductMatch($product, $skuScores[$product->getSku()]);
-            $winePrice = $productMatch->product->getprice();
+            $winePrice = $productMatch->product->getPrice();
+            $specialPrice = $productMatch->product->getSpecialPrice();
+
+            $percentageCalculate = ($specialPrice - $winePrice) - $winePrice;
+            $calculatePercentage = ($percentageCalculate * 100) | round(0);
 
 
             if ($minWinePrice > $winePrice) {
@@ -133,6 +133,10 @@ class MealController extends AbstractController
 
             if ($winePrice >= $formMinPrice && $winePrice <= $formMaxPrice) {
                 $matches[] = $productMatch;
+            }
+
+            if ($specialPrice !== null) {
+                $priceSpecial = $specialPrice;
             }
         }
 
@@ -155,7 +159,6 @@ class MealController extends AbstractController
         $countSherry = 0;
         $countMadeira = 0;
         $countVermout = 0;
-        $countSpecialPrice = 0;
 
 
         foreach ($matchesForPage as $amountWine) {
@@ -180,12 +183,9 @@ class MealController extends AbstractController
             if ($amountWine->product->getWineSort() === 'Vermout') {
                 $countVermout++;
             }
-            if ($amountWine->product->getSpecialPrice() !== null) {
-                $countSpecialPrice++;
-            }
         }
 
-        $countWines = ['countWit' => $countWit, 'countRood' => $countRood, 'countRosé' => $countRosé, 'countPort' => $countPort, 'countSherry' => $countSherry, 'countMadeira' => $countMadeira, 'countVermout' => $countVermout, 'countSpecialPrice' => $countSpecialPrice];
+        $countWines = ['countWit' => $countWit, 'countRood' => $countRood, 'countRosé' => $countRosé, 'countPort' => $countPort, 'countSherry' => $countSherry, 'countMadeira' => $countMadeira, 'countVermout' => $countVermout];
 
 //        dd($countWines);
 
@@ -201,8 +201,8 @@ class MealController extends AbstractController
             'meal_id' => $mealArr,
             'wineSorts' => $wineSorts,
             'countWines' => $countWines,
-            'countSpecialPrice' => $countSpecialPrice,
-            'specialPriceSubmit' => $specialPriceSubmit
+            'specialPrice' => $priceSpecial,
+            '$calculatePercentage' => $calculatePercentage
         ]);
     }
 
@@ -273,14 +273,6 @@ class MealController extends AbstractController
 
         //wijnsoort, meenemen
         $wineSorts = $request->query->get('wineSorts');
-        $specialPriceSorts = $request->request->get('specialPriceSorts');
-
-
-        if ($specialPriceSorts !== null) {
-            $specialPriceSubmit = true;
-        } else {
-            $specialPriceSubmit = false;
-        }
 
 
 //        dd($wineSorts);
@@ -291,8 +283,7 @@ class MealController extends AbstractController
 
         foreach ($products as $product) {
             $productMatch = new ProductMatch($product, $skuScores[$product->getSku()]);
-            $winePrice = $productMatch->product->getprice();
-
+            $winePrice = $productMatch->product->getPrice();
 
             if ($minWinePrice > $winePrice) {
                 $minWinePrice = $winePrice;
@@ -316,7 +307,7 @@ class MealController extends AbstractController
         $totalProductCount = count($matches);
         $totalPages = (int)ceil($totalProductCount / $productsPerPage);
 
-        $mealArr = [urlencode($ingredientId)];
+        $mealArr = [urlencode($ingredientSelected)];
 
         $countWit = 0;
         $countRood = 0;
@@ -325,7 +316,6 @@ class MealController extends AbstractController
         $countSherry = 0;
         $countMadeira = 0;
         $countVermout = 0;
-        $countSpecialPrice = 0;
 
 
         foreach ($matchesForPage as $amountWine) {
@@ -350,9 +340,6 @@ class MealController extends AbstractController
             if ($amountWine->product->getWineSort() === 'Vermout') {
                 $countVermout++;
             }
-            if ($amountWine->product->getSpecialPrice() !== null) {
-                $countSpecialPrice++;
-            }
         }
 
         $countWines = ['countWit' => $countWit, 'countRood' => $countRood, 'countRosé' => $countRosé, 'countPort' => $countPort, 'countSherry' => $countSherry, 'countMadeira' => $countMadeira, 'countVermout' => $countVermout, 'countSpecialPrice' => $countSpecialPrice];
@@ -369,9 +356,8 @@ class MealController extends AbstractController
             'current_page' => $page,
             'ingredient_id' => $mealArr,
             'wineSorts' => $wineSorts,
-            'countWines' => $countWines,
-            'countSpecialPrice' => $countSpecialPrice,
-            'specialPriceSubmit' => $specialPriceSubmit]);
+            'countWines' => $countWines
+        ]);
     }
 
 

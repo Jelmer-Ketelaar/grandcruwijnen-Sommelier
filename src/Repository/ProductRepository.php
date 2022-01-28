@@ -35,15 +35,17 @@ class ProductRepository extends ServiceEntityRepository {
         return $products;
     }
 
-    public function findBySkuAndPrice(string $sku, float $minPrice, float $maxPrice)
+    public function findBySkuAndPrice(string $sku, float $minPrice, float $maxPrice, float $specialPrice)
     {
         $products = $this->createQueryBuilder('p')
             ->andWhere('p.sku = :sku')
+            ->andWhere('p.specialPrice = :specialPrice')
             ->andWhere('p.price >= :minPrice')
             ->andWhere('p.price <= :maxPrice')
             ->setParameter('sku', $sku)
-            ->setParameter('minPrice', $minPrice)
             ->setParameter('maxPrice', $maxPrice)
+            ->setParameter('minPrice', $minPrice)
+            ->setParameter('specialPrice', $specialPrice)
 //            ->orderBy('p.id', 'ASC')
 //            ->setMaxResults(10)
             ->getQuery()
