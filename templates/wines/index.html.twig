@@ -114,8 +114,15 @@
         {#        <div style="flex: 1">#}
         {% for match in matches %}
             {% if match.product.specialPrice != 0 %}
-            {% if match.product.specialPrice %}
                 <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
+                {% if match.product.specialPrice != 0 %}
+                        <div class="badge">
+                            {% set salePercentage = (match.product.specialPrice - match.product.price) %}
+                            {% set salePercentage2 = salePercentage/match.product.price %}
+                            {% set salePercentrage3 = (salePercentage2 * 100 ) | round(0) %}
+                            {{ salePercentrage3|replace({'-': ''}) }}%
+                        </div>
+                {% endif %}
                     <center>
                         <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
                              class="imageWine" alt="{{ match.product.sku }}"/>
@@ -145,53 +152,6 @@
                     </button>
                     <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
                             data-target="#ModalSommelier"
-                            style="padding-top: 1px; height: 30px;">
-                        <i aria-hidden="true"></i>
-                        <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg"
-                             alt="corkscrew">
-                        Score: {{ match.score|number_format(0) }}
-                    </button>
-
-                    {% include "wines/modal.html.twig" %}
-                </div>
-
-            {% elseif specialPriceSubmit == false %}
-                <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
-                    {% if match.product.specialPrice != 0 %}
-                        <div class="badge">
-                            {% set salePercentage = (match.product.specialPrice - match.product.price) %}
-                            {% set salePercentage2 = salePercentage/match.product.price %}
-                            {% set salePercentrage3 = (salePercentage2 * 100 ) | round(0) %}
-                            {{ salePercentrage3|replace({'-': ''}) }}%
-                        </div>
-                    {% endif %}
-                    <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
-                         class="imageWine" alt="{{ match.product.sku }}"/>
-                    <p>{{ match.product.name }}</p>
-                    {% if match.product.specialPrice != 0 %}
-                        <p>
-                            <span class="original-price" aria-label="Original Price">
-                                <span class="price-tekst">Prijs:</span>
-                                €{{ match.product.price }}</span>
-                            &nbsp;&nbsp;
-                            <span aria-label="Sale Price">€{{ match.product.specialPrice }}</span>
-                        </p>
-                    {% else %}
-                        <p>Prijs: €{{ match.product.price }}</p>
-                    {% endif %}
-
-                    <!-- Trigger the modal with a button -->
-                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
-                            data-target="#myModal{{ match.product.id }}">
-                        <i class="fa fa-info-circle" aria-hidden="true"></i>
-                        Meer informatie
-                    </button>
-                    <button type="button" class="btn btn-danger btn-sm">
-                        <i class=" fa fa-shopping-cart" aria-hidden="true"></i>
-                        Winkelmandje
-                    </button>
-                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
-                            data-target="#ModalSommelier{{ match.product.id }}"
                             style="padding-top: 1px; height: 30px;">
                         <i aria-hidden="true"></i>
                         <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg"
