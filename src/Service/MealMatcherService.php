@@ -126,4 +126,13 @@ class MealMatcherService
 
         return json_decode($response->getBody()->getContents());
     }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function getWineProfileForWines($profileId)
+    {
+        $response = $this->client->request('GET', '/api/wines/'. $profileId);
+        return json_decode($response->getBody()->getContents());
+    }
 }
