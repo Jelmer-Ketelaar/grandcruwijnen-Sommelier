@@ -56,7 +56,7 @@
 {% endfor %}
 
 {% if ingredientSelected != '' %}
-    <a href=""
+    <a href="{{ path('wines_for_ingredients', {ingredients: ingredientSelected}) }}"
        class='searchButton'>Bereken de best bijpassende wijnen</a>
 {% endif %}
 
