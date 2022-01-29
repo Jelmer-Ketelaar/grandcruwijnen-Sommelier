@@ -215,12 +215,13 @@ class MealController extends AbstractController
         $ingredientSelected = $request->query->all();
         $ingredientNameId = [];
 
-        foreach ($mealMatcherService->getIngredients() as $ingredient){
-            foreach ($ingredientSelected['ingredientId'] as $ing){
-                $ingredientId = substr($ingredient->ingredientId, 1, -1);
-                if($ing == $ingredientId){
-
-                    array_push($ingredientNameId, [$ingredientId, $ingredient->name]);
+        if($ingredientSelected != []) {
+            foreach ($mealMatcherService->getIngredients() as $ingredient) {
+                foreach ($ingredientSelected['ingredientId'] as $ing) {
+                    $ingredientId = substr($ingredient->ingredientId, 1, -1);
+                    if ($ing == $ingredientId) {
+                        array_push($ingredientNameId, [$ingredientId, $ingredient->name]);
+                    }
                 }
             }
         }
