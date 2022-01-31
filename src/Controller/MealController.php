@@ -220,14 +220,10 @@ class MealController extends AbstractController
                 foreach ($ingredientSelected['ingredientId'] as $ing) {
                     $ingredientId = substr($ingredient->ingredientId, 1, -1);
                     if ($ing == $ingredientId) {
-                        array_push($ingredientNameId, [$ingredientId, $ingredient->name]);
+                        array_push($ingredientNameId, ['id'=>$ingredientId, 'name'=>$ingredient->name]);
                     }
                 }
             }
-        }
-
-        if ($ingredientSelected == null) {
-            $ingredientSelected = ['ingredientId' => ''];
         }
 
         return $this->render('ingrediënts/index.html.twig', [

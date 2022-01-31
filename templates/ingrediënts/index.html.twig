@@ -21,23 +21,21 @@
 <form action='' method='GET'>
     <div id='allList'>
         {% for ingredient in ingredients %}
+            {% set selectCheck = 'false' %}
             {% set ingredientId = ingredient.ingredientId|replace({'{': ''})|replace({'}': ''}) %}
-            {% set selectCheck = false %}
-            {% for ingredientSel in ingredientSelected %}
-                {% if ingredientId in ingredientSel %}
-                    {% set selectCheck = true %}
-                {% else %}
-                    {% set selectCheck = false %}
+            {% for ingredientSelect in ingredientSelected %}
+                {% if ingredient.name in ingredientSelect %}
+                    {% set selectCheck = 'true' %}
                 {% endif %}
             {% endfor %}
 
             <input id='{{ ingredientId }}' style='display:none;'
                    class='selectIngredient' type='checkbox' value='{{ ingredientId|e }}' name="ingredientId[]"
                    onclick='ingredientSelect()'
-                    {% if ingredientSelected != '' %}{% if selectCheck == true %} checked {% endif %} {% endif %}>
+                    {% if selectCheck == 'true' %} checked {% endif %}>
             <div class='ingredients'
-                    {% if ingredientSelected != '' %}{% if selectCheck == false %} onclick='ingredientDivChoose({{ ingredientId|json_encode }})' {% endif %} {% endif %}
-                    {% if ingredientSelected != '' %}{% if selectCheck == true %} style='background-color:rgba(0, 0, 0, 0.09);' {% endif %} {% endif %}
+                    {% if selectCheck == 'true' %} onclick='ingredientDivChoose({{ ingredientId|json_encode }})' {% endif %}
+                    {% if selectCheck == 'true' %} style='background-color:rgba(0, 0, 0, 0.09);' {% endif %}
                  onclick='ingredientDivChoose({{ ingredientId|json_encode }})' style="cursor: pointer;">
                 {{ ingredient.name }}
             </div>
@@ -48,14 +46,14 @@
 
 {% for ingredient in ingredientSelected %}
     <div style='background-color:white; padding:10px; margin:10px; width:190px; text-align:left;'>
-        {{ ingredient[1] }}
+        {{ ingredient['name'] }}
         <a><i class="far fa-trash-alt"
-              onclick='removeIngredient({{ ingredient[0]|json_encode }})'
+              onclick='removeIngredient({{ ingredient['id']|json_encode }})'
               style='width:20px; float:right; cursor: pointer'></i></a>
     </div>
 {% endfor %}
 
-{% if ingredientSelected != '' %}
+{% if ingredientSelected is not empty %}
     <a href=""
        class='searchButton'>Bereken de best bijpassende wijnen</a>
 {% endif %}
