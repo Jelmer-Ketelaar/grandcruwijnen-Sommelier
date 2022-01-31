@@ -270,6 +270,7 @@ class Product {
         explode(",", $exactLocation);
         // strlen($exactLocation[0]) -1;
         $exactLocation = str_replace(',', '', $exactLocation);
+        $exactLocation = str_replace(' ', '', $exactLocation);
 
         return $exactLocation;
     }
