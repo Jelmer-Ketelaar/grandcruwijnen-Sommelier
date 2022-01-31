@@ -5,11 +5,10 @@ namespace App\Dto;
 class ProductMatch {
     public $product;
     public $score;
-    public $specialPrice;
-    public function __construct ($product, $score, $specialPrice) {
+    public function __construct($product, $score)
+    {
         $this->product = $product;
         $this->score = $score;
-        $this->specialPrice = $specialPrice;
     }
 
     /**
@@ -26,13 +25,5 @@ class ProductMatch {
     public function getScore()
     {
         return $this->score;
-    }
-
-    /**
-     * @param mixed
-     */
-    public function getSpecialPrice()
-    {
-        return $this->specialPrice;
     }
 }

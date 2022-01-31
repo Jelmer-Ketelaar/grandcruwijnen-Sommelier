@@ -87,6 +87,10 @@ class Product {
      */
     private $specialPrice;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+
     public function getId(): ?int
     {
         return $this->id;
@@ -253,9 +257,9 @@ class Product {
         return $this->specialPrice;
     }
 
-    public function setSpecialPrice(?float $specialPrice): self
+    public function setSpecialPrice(float $specialPrice): self
     {
-        $this->specialPrice = $specialPrice;
+        $this->price = $specialPrice;
 
         return $this;
     }
@@ -263,9 +267,11 @@ class Product {
     public function getExactLocationForWine(): ?string
     {
         $exactLocation = $this->location;
-        explode(",",$exactLocation);
+        explode(",", $exactLocation);
         // strlen($exactLocation[0]) -1;
         $exactLocation = str_replace(',', '', $exactLocation);
+        $exactLocation = str_replace(' ', '', $exactLocation);
+
         return $exactLocation;
     }
 

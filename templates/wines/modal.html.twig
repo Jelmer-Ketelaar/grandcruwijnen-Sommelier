@@ -40,16 +40,13 @@
                 <div id="panel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2" hidden>
                     <p>
 
-                        {# {% set location = match.product.location|split(',') %}
-                        {% set locationLengthMin = location[0]|length - 1 %} #}
-                        <br>
-                        {# Locatie: {{ location[0] }} #}
                         Locatie: {{match.product.getExactLocationForWine()}}
                         <br>
                         Uw geselecteerde wijn ligt in het rode vlak.
                         <br>
-
-                        <img id='plattegrond' src='../img/winePlaces/{{ match.product.getExactLocationForWine }}.png'
+                        {% set locationLengthMin = match.product.getExactLocationForWine()|length - 1 %}
+                        {% set location = match.product.getExactLocationForWine()[:locationLengthMin] %}
+                        <img id='plattegrond' src='../img/winePlaces/{{ location }}.png'
                              onerror="this.onerror=null;">
                     </p>
                 </div>
