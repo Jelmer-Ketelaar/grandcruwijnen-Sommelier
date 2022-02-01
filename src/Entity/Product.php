@@ -264,6 +264,17 @@ class Product {
         return $this;
     }
 
+    // can return int or null
+    public function calculateDiscountPercentage(): ?int
+    {
+        if ($this->getSpecialPrice() !== null)
+        {
+            return 100 - $this->getSpecialPrice() / $this->getPrice() * 100;
+        }
+
+        return null;
+    }
+
     public function getExactLocationForWine(): ?string
     {
         $exactLocation = $this->location;

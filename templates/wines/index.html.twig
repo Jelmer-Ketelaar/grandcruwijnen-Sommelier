@@ -111,7 +111,7 @@
                 <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
                 {% if match.product.specialPrice != 0 %}
                         <div class="badge">
-                            {{ calculatePercentage }}%
+                            {{ match.product.calculateDiscountPercentage }}%
                         </div>
                 {% endif %}
                     <center>
@@ -130,6 +130,37 @@
                     {% else %}
                         <p>Prijs: €{{ match.product.price }}</p>
                     {% endif %}
+
+                    <!-- Trigger the modal with a button -->
+                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
+                            data-target="#myModal{{ match.product.id }}">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        Meer informatie
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm">
+                        <i class=" fa fa-shopping-cart" aria-hidden="true"></i>
+                        Winkelmandje
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
+                            data-target="#ModalSommelier"
+                            style="padding-top: 1px; height: 30px;">
+                        <i aria-hidden="true"></i>
+                        <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg"
+                             alt="corkscrew">
+                        Score: {{ match.score|number_format(0) }}
+                    </button>
+
+                    {% include "wines/modal.html.twig" %}
+                </div>
+            {% else %}
+                <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
+                    <center>
+                        <img src="https://www.grandcruwijnen.nl/media/catalog/product{{ match.product.image }}"
+                             class="imageWine" alt="{{ match.product.sku }}"/>
+                    </center>
+                    <p>{{ match.product.name }}</p>
+
+                    <p>Prijs: €{{ match.product.price }}</p>
 
                     <!-- Trigger the modal with a button -->
                     <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
