@@ -191,58 +191,58 @@ class MealController extends AbstractController
             array_push($allSkus, $idForWine->product->getSku());
         }
 
-            $wineProfile = $request->query->get('wineProfile');
-            if(isset($wineProfile)) {
-                foreach ($mealMatcherService->getWineProfileForWines($allSkus) as $amountProfile)
-                {
-                    $profiles = json_decode($amountProfile, true)['profiles'];
+        $wineProfile = $request->query->get('wineProfile');
+        if(isset($wineProfile)) {
+            foreach ($mealMatcherService->getWineProfileForWines($allSkus) as $amountProfile)
+            {
+                $profiles = json_decode($amountProfile, true)['profiles'];
 
-                    if (in_array('Aards', $profiles))
-                    {
-                        $countAards ++;
-                    }
-                    if (in_array('Complex', $profiles))
-                    {
-                        $countComplex ++;
-                    }
-                    if (in_array('DonkerFruit', $profiles))
-                    {
-                        $countDonkerFruit ++;
-                    }
-                    if (in_array('Droog', $profiles))
-                    {
-                        $countDroog ++;
-                    }
-                    if (in_array('Houtgerijpt', $profiles))
-                    {
-                        $countHoutgerijpt ++;
-                    }
-                    if (in_array('Krachtig', $profiles))
-                    {
-                        $countKrachtig ++;
-                    }
-                    if (in_array('Kruidig', $profiles))
-                    {
-                        $countKruidig ++;
-                    }
-                    if (in_array('Mineraal', $profiles))
-                    {
-                        $countMineraal ++;
-                    }
-                    if (in_array('RoodFruit', $profiles))
-                    {
-                        $countRoodFruit ++;
-                    }
-                    if (in_array('Tannines', $profiles))
-                    {
-                        $countTannines ++;
-                    }
-                    if (in_array('Vol', $profiles))
-                    {
-                        $countVol ++;
-                    }
+                if (in_array('Aards', $profiles))
+                {
+                    $countAards ++;
+                }
+                if (in_array('Complex', $profiles))
+                {
+                    $countComplex ++;
+                }
+                if (in_array('DonkerFruit', $profiles))
+                {
+                    $countDonkerFruit ++;
+                }
+                if (in_array('Droog', $profiles))
+                {
+                    $countDroog ++;
+                }
+                if (in_array('Houtgerijpt', $profiles))
+                {
+                    $countHoutgerijpt ++;
+                }
+                if (in_array('Krachtig', $profiles))
+                {
+                    $countKrachtig ++;
+                }
+                if (in_array('Kruidig', $profiles))
+                {
+                    $countKruidig ++;
+                }
+                if (in_array('Mineraal', $profiles))
+                {
+                    $countMineraal ++;
+                }
+                if (in_array('RoodFruit', $profiles))
+                {
+                    $countRoodFruit ++;
+                }
+                if (in_array('Tannines', $profiles))
+                {
+                    $countTannines ++;
+                }
+                if (in_array('Vol', $profiles))
+                {
+                    $countVol ++;
                 }
             }
+        }
         $countProfile = ['countAards' => $countAards, 'countComplex' => $countComplex, 'countDonkerFruit' => $countDonkerFruit, 'countDroog' => $countDroog, 'countHoutgerijpt' => $countHoutgerijpt, 'countKrachtig' => $countKrachtig, 'countKruidig' => $countKruidig, 'countMineraal' => $countMineraal, 'countRoodFruit' => $countMineraal, 'countTannines' => $countTannines, 'countVol' => $countVol];
             // dd($countProfile['countAards']);
 //        dd($countWines);
@@ -291,79 +291,6 @@ class MealController extends AbstractController
             'ingredients' => $mealMatcherService->getIngredients(),
             'ingredientSelected' => $ingredientNameId,
         ]);
-    }
-
-    /**
-     * @throws GuzzleException
-     * @Route("/create/meal", name="profile_for_wines")
-     */
-    public function getWineProfileForWines(Request $request, MealMatcherService $mealMatcherService)
-    {
-        $wineProfile = $request->query->get('wineProfile');
-
-        $countAards = 0;
-        $countComplex = 0;
-        $countDonkerFruit = 0;
-        $countDroog = 0;
-        $countHoutgerijpt = 0;
-        $countKrachtig = 0;
-        $countKruidig = 0;
-        $countMineraal = 0;
-        $countRoodFruit = 0;
-        $countTannines = 0;
-        $countVol = 0;
-        dd($wineProfile);
-        foreach ($wineProfile as $amountProfile)
-        {
-            if ($amountProfile->product->getWineProfile() === 'Aards')
-            {
-                $countAards ++;
-            }
-            if ($amountProfile->product->getWineProfile() === 'Complex')
-            {
-                $countComplex ++;
-            }
-            if ($amountProfile->product->getWineProfile() === 'DonkerFruit')
-            {
-                $countDonkerFruit ++;
-            }
-            if ($amountProfile->product->getWineProfile() === 'Droog')
-            {
-                $countDroog ++;
-            }
-            if ($amountProfile->product->getWineProfile() === 'Houtgerijpt')
-            {
-                $countHoutgerijpt ++;
-            }
-            if ($amountProfile->product->getWineProfile() === 'Krachtig')
-            {
-                $countKrachtig ++;
-            }
-            if ($amountProfile->product->getWineProfile() === 'Kruidig')
-            {
-                $countKruidig ++;
-            }
-            if ($amountProfile->product->getWineProfile() === 'Mineraal')
-            {
-                $countMineraal ++;
-            }
-            if ($amountProfile->product->getWineProfile() === 'RoodFruit')
-            {
-                $countRoodFruit ++;
-            }
-            if ($amountProfile->product->getWineProfile() === 'Tannines')
-            {
-                $countTannines ++;
-            }
-            if ($amountProfile->product->getWineProfile() === 'Vol')
-            {
-                $countVol ++;
-            }
-        }
-        $countProfile = ['countAards' => $countAards, 'countComplex' => $countComplex, 'countDonkerFruit' => $countDonkerFruit, 'countDroog' => $countDroog, 'countHoutgerijpt' => $countHoutgerijpt, 'countKrachtig' => $countKrachtig, 'countKruidig' => $countKruidig, 'countMineraal' => $countMineraal, 'countRoodFruit' => $countMineraal, 'countTannines' => $countTannines, 'countVol' => $countVol];
-
-        return $this->render('wines_for_ingredients/index.html.twig', [
-            'countProfile' => $countProfile]);
     }
 
     /**
@@ -502,6 +429,76 @@ class MealController extends AbstractController
 
         $countWines = ['countWit' => $countWit, 'countRood' => $countRood, 'countRosé' => $countRosé, 'countPort' => $countPort, 'countSherry' => $countSherry, 'countMadeira' => $countMadeira, 'countVermout' => $countVermout];
 
+        $countAards = 0;
+        $countComplex = 0;
+        $countDonkerFruit = 0;
+        $countDroog = 0;
+        $countHoutgerijpt = 0;
+        $countKrachtig = 0;
+        $countKruidig = 0;
+        $countMineraal = 0;
+        $countRoodFruit = 0;
+        $countTannines = 0;
+        $countVol = 0;
+        $allSkus = [];
+        foreach ($matchesForPage as $idForWine) {
+            array_push($allSkus, $idForWine->product->getSku());
+        }
+
+        $wineProfile = $request->query->get('wineProfile');
+        if(isset($wineProfile)) {
+            foreach ($mealMatcherService->getWineProfileForWines($allSkus) as $amountProfile)
+            {
+                $profiles = json_decode($amountProfile, true)['profiles'];
+
+                if (in_array('Aards', $profiles))
+                {
+                    $countAards ++;
+                }
+                if (in_array('Complex', $profiles))
+                {
+                    $countComplex ++;
+                }
+                if (in_array('DonkerFruit', $profiles))
+                {
+                    $countDonkerFruit ++;
+                }
+                if (in_array('Droog', $profiles))
+                {
+                    $countDroog ++;
+                }
+                if (in_array('Houtgerijpt', $profiles))
+                {
+                    $countHoutgerijpt ++;
+                }
+                if (in_array('Krachtig', $profiles))
+                {
+                    $countKrachtig ++;
+                }
+                if (in_array('Kruidig', $profiles))
+                {
+                    $countKruidig ++;
+                }
+                if (in_array('Mineraal', $profiles))
+                {
+                    $countMineraal ++;
+                }
+                if (in_array('RoodFruit', $profiles))
+                {
+                    $countRoodFruit ++;
+                }
+                if (in_array('Tannines', $profiles))
+                {
+                    $countTannines ++;
+                }
+                if (in_array('Vol', $profiles))
+                {
+                    $countVol ++;
+                }
+            }
+        }
+        $countProfile = ['countAards' => $countAards, 'countComplex' => $countComplex, 'countDonkerFruit' => $countDonkerFruit, 'countDroog' => $countDroog, 'countHoutgerijpt' => $countHoutgerijpt, 'countKrachtig' => $countKrachtig, 'countKruidig' => $countKruidig, 'countMineraal' => $countMineraal, 'countRoodFruit' => $countMineraal, 'countTannines' => $countTannines, 'countVol' => $countVol];
+ 
         return $this->render('wines_for_ingredients/index.html.twig', [
             'ingredients' => $mealMatcherService->getIngredients(),
             'ingredientSelected' => $ingredientSelected['ingredientId'],
@@ -514,7 +511,8 @@ class MealController extends AbstractController
             'current_page' => $page,
             'ingredient_id' => $mealArr,
             'wineSorts' => $wineSorts,
-            'countWines' => $countWines
+            'countWines' => $countWines,
+            'countProfile' => $countProfile
         ]);
     }
 }
