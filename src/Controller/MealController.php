@@ -195,56 +195,56 @@ class MealController extends AbstractController
             $wineProfile = $request->query->get('wineProfile');
                 foreach ($mealMatcherService->getWineProfileForWines($allSkus) as $amountProfile)
                 {
-                    $profilis = json_decode($amountProfile, true)['profiles'];
+                    $profiles = json_decode($amountProfile, true)['profiles'];
 
-                    if (in_array('Aards', $profilis))
+                    if (in_array('Aards', $profiles))
                     {
                         $countAards ++;
                     }
-                    if (in_array('Complex', $profilis))
+                    if (in_array('Complex', $profiles))
                     {
                         $countComplex ++;
                     }
-                    if (in_array('DonkerFruit', $profilis))
+                    if (in_array('DonkerFruit', $profiles))
                     {
                         $countDonkerFruit ++;
                     }
-                    if (in_array('Droog', $profilis))
+                    if (in_array('Droog', $profiles))
                     {
                         $countDroog ++;
                     }
-                    if (in_array('Houtgerijpt', $profilis))
+                    if (in_array('Houtgerijpt', $profiles))
                     {
                         $countHoutgerijpt ++;
                     }
-                    if (in_array('Krachtig', $profilis))
+                    if (in_array('Krachtig', $profiles))
                     {
                         $countKrachtig ++;
                     }
-                    if (in_array('Kruidig', $profilis))
+                    if (in_array('Kruidig', $profiles))
                     {
                         $countKruidig ++;
                     }
-                    if (in_array('Mineraal', $profilis))
+                    if (in_array('Mineraal', $profiles))
                     {
                         $countMineraal ++;
                     }
-                    if (in_array('RoodFruit', $profilis))
+                    if (in_array('RoodFruit', $profiles))
                     {
                         $countRoodFruit ++;
                     }
-                    if (in_array('Tannines', $profilis))
+                    if (in_array('Tannines', $profiles))
                     {
                         $countTannines ++;
                     }
-                    if (in_array('Vol', $profilis))
+                    if (in_array('Vol', $profiles))
                     {
                         $countVol ++;
                     }
 
             }
         $countProfile = ['countAards' => $countAards, 'countComplex' => $countComplex, 'countDonkerFruit' => $countDonkerFruit, 'countDroog' => $countDroog, 'countHoutgerijpt' => $countHoutgerijpt, 'countKrachtig' => $countKrachtig, 'countKruidig' => $countKruidig, 'countMineraal' => $countMineraal, 'countRoodFruit' => $countMineraal, 'countTannines' => $countTannines, 'countVol' => $countVol];
-
+            // dd($countProfile['countAards']);
 //        dd($countWines);
 
         return $this->render('wines/index.html.twig', [
@@ -258,7 +258,7 @@ class MealController extends AbstractController
             'meal_id' => $mealArr,
             'wineSorts' => $wineSorts,
             'countWines' => $countWines,
-            'countProfile' => $countProfile,
+            'countProfile' => $countProfile
         ]);
     }
 
