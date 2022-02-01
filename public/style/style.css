@@ -20,7 +20,7 @@ body {
     line-height: 1.5;
 }
 
-.grid {
+/* .grid {
     display: inline-grid;
     border: #1111 1px solid;
     box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%),
@@ -30,7 +30,7 @@ body {
     width: 20vh;
     border-radius: 10%;
     background-color: #e9dcd1;
-}
+} */
 
 .grid-sub {
     display: inline-grid;
@@ -45,11 +45,11 @@ body {
     background-color: #e9dcd1;
 }
 
-.grid:active {
+/* .grid:active {
     box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%),
     0 0 20px -1px rgb(0 0 0 / 15%);
     transform: translateY(10px) translateX(10px);
-}
+} */
 
 .meal-name {
     color: #b5191f !important;
@@ -93,10 +93,11 @@ h1 {
 }
 
 #row {
-    display: flex;
     width: 100%;
-    flex-wrap: wrap;
     justify-content: center;
+}
+.col-sm-3 {
+    float: right;
 }
 
 button {
@@ -196,7 +197,7 @@ button {
 .row {
     display: flex;
     flex-wrap: wrap;
-    justify-content: right;
+    justify-content: right !important;
     margin-right: 1%;
 }
 
@@ -215,7 +216,7 @@ button {
 .filter__control {
     flex: 1;
     position: absolute;
-    margin-left: -13vw;
+    margin-left: -7vw;
     overflow: hidden;
 }
 
