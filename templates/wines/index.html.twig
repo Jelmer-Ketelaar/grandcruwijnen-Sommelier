@@ -113,7 +113,7 @@
                 <div class="col-sm-3" id="producten" data-filter="{{ match.product.wineSort }}">
                 {% if match.product.specialPrice != 0 %}
                         <div class="badge">
-                            {{ calculatePercentage }}%
+                            {{ match.product.calculateDiscountPercentage }}%
                         </div>
                 {% endif %}
                     <center>
