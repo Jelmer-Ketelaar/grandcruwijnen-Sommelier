@@ -187,12 +187,12 @@ class MealController extends AbstractController
         $countTannines = 0;
         $countVol = 0;
         $allSkus = [];
+
         foreach ($matchesForPage as $idForWine) {
             array_push($allSkus, $idForWine->product->getSku());
         }
 
             $wineProfile = $request->query->get('wineProfile');
-            if(isset($wineProfile)) {
                 foreach ($mealMatcherService->getWineProfileForWines($allSkus) as $amountProfile)
                 {
                     $profilis = json_decode($amountProfile, true)['profiles'];
@@ -241,7 +241,7 @@ class MealController extends AbstractController
                     {
                         $countVol ++;
                     }
-                }
+
             }
         $countProfile = ['countAards' => $countAards, 'countComplex' => $countComplex, 'countDonkerFruit' => $countDonkerFruit, 'countDroog' => $countDroog, 'countHoutgerijpt' => $countHoutgerijpt, 'countKrachtig' => $countKrachtig, 'countKruidig' => $countKruidig, 'countMineraal' => $countMineraal, 'countRoodFruit' => $countMineraal, 'countTannines' => $countTannines, 'countVol' => $countVol];
 
@@ -258,6 +258,7 @@ class MealController extends AbstractController
             'meal_id' => $mealArr,
             'wineSorts' => $wineSorts,
             'countWines' => $countWines,
+            'countProfile' => $countProfile,
         ]);
     }
 
