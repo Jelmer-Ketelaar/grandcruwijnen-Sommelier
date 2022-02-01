@@ -283,11 +283,7 @@ class Product {
     public function getExactLocationForWine(): ?string
     {
         $exactLocation = $this->location;
-        explode(",", $exactLocation);
-        // strlen($exactLocation[0]) -1;
-        $exactLocation = str_replace(',', '', $exactLocation);
-        $exactLocation = str_replace(' ', '', $exactLocation);
-
+        $exactLocation = str_replace(array(',', ' '), '', $exactLocation);
         return $exactLocation;
     }
 
