@@ -264,6 +264,22 @@ class Product {
         return $this;
     }
 
+    // can return int or null
+    //This function returns standard null and only returns the percentage if there is a specialPrice
+    public function calculateDiscountPercentage(): ?int
+    {
+        $specialPrice = $this->getSpecialPrice();
+        $winePrice = $this->getPrice();
+        //If specialPrice is not null return 100 - specialPrice / Price * 100
+        if ($specialPrice !== null)
+        {
+            return 100 - $specialPrice / $winePrice * 100;
+        }
+
+        //If special price is null
+        return null;
+    }
+
     public function getExactLocationForWine(): ?string
     {
         $exactLocation = $this->location;

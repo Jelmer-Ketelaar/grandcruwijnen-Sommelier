@@ -106,22 +106,12 @@ class MealController extends AbstractController
         /** @var Product[] $products */
         $products = $this->getDoctrine()->getRepository(Product::class)->findWinesBySkus($skus);
 
-//        $calculatePercentage = null;
-
+//        $calculatePercentage = 0;
         foreach ($products as $product)
         {
 //            $priceSpecial = null;
             $productMatch = new ProductMatch($product, $skuScores[$product->getSku()]);
             $winePrice = $productMatch->product->getPrice();
-            $specialPrice = $productMatch->product->getSpecialPrice();
-//            dd($specialPrice);
-
-//             dd($specialPrice);
-
-            $calculatePercentage = ($specialPrice - $winePrice) / $winePrice * 100;
-
-//            dd($calculatePercentage);
-
 
             if ($minWinePrice > $winePrice)
             {
@@ -268,8 +258,6 @@ class MealController extends AbstractController
             'meal_id' => $mealArr,
             'wineSorts' => $wineSorts,
             'countWines' => $countWines,
-            'countProfile' => $countProfile,
-            'calculatePercentage' => $calculatePercentage
         ]);
     }
 
@@ -292,7 +280,7 @@ class MealController extends AbstractController
                     $ingredientId = substr($ingredient->ingredientId, 1, - 1);
                     if ($ing === $ingredientId)
                     {
-                        $ingredientNameId[] = [$ingredientId, $ingredient->name];
+                        $ingredientNameId[] = ['id' => $ingredientId, 'name' => $ingredient->name];
                     }
                 }
             }
