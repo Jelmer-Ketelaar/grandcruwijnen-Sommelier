@@ -38,7 +38,7 @@
     <div class="row"
          style='display: flex; flex-wrap: wrap;justify-content:right; margin-right: 1%; background-color: #e9dcd1;'>
         {#        <div style="width: 25%; background-color: #e9dcd1">#}
-        <div id="mySidenav" class="sidenav">
+        <div>
             <div id="slider-container" data-role="page">
                 <div data-role="main" class="ui-content">
                     <form method="GET" action="" data-ajax="false">
@@ -107,13 +107,13 @@
                 <div class="filter" id="wineProfile" style="margin-top: 20vh; margin-right: 10px">
 
                     <input id="Aards" name="wineProfile[]" value="Aards"
-                           type="checkbox" {% if countProfile['countAards'] == 0 %}  {% endif %} {% if 'Aards' in app.request.query.get('wineProfile') %} checked {% endif %}/>
+                           type="checkbox" {% if countProfile['countAards'] == 0 %} disabled {% endif %} {% if 'Aards' in app.request.query.get('wineProfile') %} checked {% endif %}/>
                     <input id="Complex" name="wineProfile[]" value="Complex"
-                           type="checkbox" {% if countProfile['countComplex'] == 0 %}  {% endif %} {% if 'Complex' in app.request.query.get('wineProfile') %} checked {% endif %}/>
+                           type="checkbox" {% if countProfile['countComplex'] == 0 %} disabled {% endif %} {% if 'Complex' in app.request.query.get('wineProfile') %} checked {% endif %}/>
                     <input id="rose" name="wineProfile[]" value="DonkerFruit"
-                           type="checkbox" {% if countProfile['countDonkerFruit'] == 0 %}  {% endif %} {% if 'DonkerFruit' in app.request.query.get('wineProfile') %} checked {% endif %}/>
+                           type="checkbox" {% if countProfile['countDonkerFruit'] == 0 %} disabled {% endif %} {% if 'DonkerFruit' in app.request.query.get('wineProfile') %} checked {% endif %}/>
                     <input id="Droog" name="wineProfile[]" value="Droog"
-                           type="checkbox" {% if countProfile['countDroog'] == 0 %}  {% endif %} {% if 'Droog' in app.request.query.get('wineProfile') %} checked {% endif %}/>
+                           type="checkbox" {% if countProfile['countDroog'] == 0 %} disabled {% endif %} {% if 'Droog' in app.request.query.get('wineProfile') %} checked {% endif %}/>
                     <input id="Houtgerijpt" name="wineProfile[]" value="Houtgerijpt"
                            type="checkbox" {% if countProfile['countHoutgerijpt'] == 0 %} disabled {% endif %} {% if 'Houtgerijpt' in app.request.query.get('wineProfile') %} checked {% endif %}/>
                     <input id="Krachtig" name="wineProfile[]" value="Krachtig"
