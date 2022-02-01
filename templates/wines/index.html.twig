@@ -32,15 +32,13 @@
             sommelier</h1>
         <p style="margin: 20px;">Hier kunt u kiezen uit de best bijpassende wijnen gezocht bij het geselecteerde
             gerecht.</p>
-        <button class="btn btn-primary"><span onclick="openNav()">Filter</span></button>
 
         {% set mealId = app.session.get('mealId') %}
     </div>
     <div class="row"
          style='display: flex; flex-wrap: wrap;justify-content:right; margin-right: 1%; background-color: #e9dcd1;'>
         {#        <div style="width: 25%; background-color: #e9dcd1">#}
-        <div id="filterBtn" class="filterbtn">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div id="mySidenav" class="sidenav">
             <div id="slider-container" data-role="page">
                 <div data-role="main" class="ui-content">
                     <form method="GET" action="" data-ajax="false">
@@ -203,12 +201,11 @@
 
     <script>
         function openNav() {
-        document.getElementById("filterBtn").style.width = "250px";
+            document.getElementById("mySidenav").style.width = "250px";
         }
 
-        /* Set the width of the side navigation to 0 */
         function closeNav() {
-        document.getElementById("filterBtn").style.width = "0";
+            document.getElementById("mySidenav").style.width = "0";
         }
     </script>
 {% endblock %}
