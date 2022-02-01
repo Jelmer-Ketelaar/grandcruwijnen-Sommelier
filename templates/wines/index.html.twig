@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('style/style.css') }}">
+    <link rel="stylesheet" href={{asset('')}}
 {% endblock %}
 
 {% block title %}
@@ -36,7 +37,7 @@
         {% set mealId = app.session.get('mealId') %}
     </div>
     <div class="row"
-         style='display: flex; flex-wrap: wrap;justify-content:right; margin-right: 1%; background-color: #e9dcd1;'>
+         style='justify-content:right; margin-right: 1%; background-color: #e9dcd1;'>
         {#        <div style="width: 25%; background-color: #e9dcd1">#}
         <div>
             <div id="slider-container" data-role="page">
@@ -60,7 +61,7 @@
 {#            filter devider---------------------------------------------------------------------------------------------------------#}
 
             <form method="GET" action="" data-ajax="false">
-                <div class="filter" id="wineSorts" style="margin-top: 20vh; margin-right: 10px; color: white">
+                <div class="filter" id="wineSorts" style="margin-top: 20vh; margin-left: 7vw;">
 
                     <input id="wit" name="wineSorts[]" value="Wit"
                            type="checkbox" {% if countWines['countWit'] == 0 %} disabled {% endif %} {% if 'Wit' in app.request.query.get('wineSorts') %} checked {% endif %}/>
@@ -103,8 +104,8 @@
                     </div>
                 </div>
             </form>
-             <form method="GET" action="" data-ajax="false">
-                <div class="filter" id="wineProfile" style="margin-top: 20vh; margin-right: 10px">
+            <form method="GET" action="" data-ajax="false">
+                <div class="filter" id="wineProfile" style="margin-top: 50vh; margin-left: 7vw">
 
                     <input id="Aards" name="wineProfile[]" value="Aards"
                            type="checkbox" {% if countProfile['countAards'] == 0 %} disabled {% endif %} {% if 'Aards' in app.request.query.get('wineProfile') %} checked {% endif %}/>
