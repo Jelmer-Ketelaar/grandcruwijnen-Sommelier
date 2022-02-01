@@ -105,6 +105,72 @@
                     </div>
                 </div>
             </form>
+             <form method="GET" action="" data-ajax="false">
+                <div class="filter" id="wineProfile" style="margin-top: 20vh; margin-right: 10px">
+
+                    <input id="Aards" name="wineProfile[]" value="Aards"
+                           type="checkbox" {% if countProfile['countAards'] == 0 %}  {% endif %} {% if 'Aards' in app.request.query.get('wineProfile') %} checked {% endif %}/>
+                    <input id="Complex" name="wineProfile[]" value="Complex"
+                           type="checkbox" {% if countProfile['countComplex'] == 0 %}  {% endif %} {% if 'Complex' in app.request.query.get('wineProfile') %} checked {% endif %}/>
+                    <input id="rose" name="wineProfile[]" value="DonkerFruit"
+                           type="checkbox" {% if countProfile['countDonkerFruit'] == 0 %}  {% endif %} {% if 'DonkerFruit' in app.request.query.get('wineProfile') %} checked {% endif %}/>
+                    <input id="Droog" name="wineProfile[]" value="Droog"
+                           type="checkbox" {% if countProfile['countDroog'] == 0 %}  {% endif %} {% if 'Droog' in app.request.query.get('wineProfile') %} checked {% endif %}/>
+                    <input id="Houtgerijpt" name="wineProfile[]" value="Houtgerijpt"
+                           type="checkbox" {% if countProfile['countHoutgerijpt'] == 0 %} disabled {% endif %} {% if 'Houtgerijpt' in app.request.query.get('wineProfile') %} checked {% endif %}/>
+                    <input id="Krachtig" name="wineProfile[]" value="Krachtig"
+                           type="checkbox" {% if countProfile['countKrachtig'] == 0 %} disabled {% endif %} {% if 'Krachtig' in app.request.query.get('wineProfile') %} checked {% endif %}/>
+                    <input id="Kruidig" name="wineProfile[]" value="Kruidig"
+                           type="checkbox" {% if countProfile['countKruidig'] == 0 %} disabled {% endif %} {% if 'Kruidig' in app.request.query.get('wineProfile') %} checked {% endif %}/>
+                    <input id="Mineraal" name="wineProfile[]" value="Mineraal"
+                           type="checkbox" {% if countProfile['countMineraal'] == 0 %} disabled {% endif %} {% if 'Mineraal' in app.request.query.get('wineProfile') %} checked {% endif %}/>
+                    <input id="RoodFruit" name="wineProfile[]" value="RoodFruit"
+                           type="checkbox" {% if countProfile['countRoodFruit'] == 0 %} disabled {% endif %} {% if 'RoodFruit' in app.request.query.get('wineProfile') %} checked {% endif %}/>
+                    <input id="Tannines" name="wineProfile[]" value="Tannines"
+                           type="checkbox" {% if countProfile['countTannines'] == 0 %} disabled {% endif %} {% if 'Tannines' in app.request.query.get('wineProfile') %} checked {% endif %}/>
+                    <input id="Vol" name="wineProfile[]" value="Vol"
+                           type="checkbox" {% if countProfile['countVol'] == 0 %} disabled {% endif %} {% if 'Vol' in app.request.query.get('wineProfile') %} checked {% endif %}/>
+       
+
+
+                    <div class="filter__control">
+                        <label class="filter__button" for="Aards">Aards
+                            <span style='color:#B0423D;'>({{ countProfile['countAards'] }})</span>
+                        </label>
+                        <label class="filter__button" for="Complex">Complex
+                            <span style='color:#B0423D;'>({{ countProfile['countComplex'] }})</span>
+                        </label>
+                        <label class="filter__button" for="rose">Donker Fruit
+                            <span style='color:#B0423D;'>({{ countProfile['countDonkerFruit'] }})</span>
+                        </label>
+                        <label class="filter__button" for="Droog">Droog
+                            <span style='color:#B0423D;'>({{ countProfile['countDroog'] }})</span>
+                        </label>
+                        <label class="filter__button" for="Houtgerijpt">Houtgerijpt
+                            <span style='color:#B0423D;'>({{ countProfile['countHoutgerijpt'] }})</span>
+                        </label>
+                        <label class="filter__button" for="Krachtig">Krachtig
+                            <span style='color:#B0423D;'>({{ countProfile['countKrachtig'] }})</span>
+                        </label>
+                        <label class="filter__button" for="Kruidig">Kruidig
+                            <span style='color:#B0423D;'>({{ countProfile['countKruidig'] }})</span>
+                        </label>
+                        <label class="filter__button" for="Mineraal">Mineraal
+                            <span style='color:#B0423D;'>({{ countProfile['countMineraal'] }})</span>
+                        </label>
+                        <label class="filter__button" for="RoodFruit">Rood Fruit
+                            <span style='color:#B0423D;'>({{ countProfile['countRoodFruit'] }})</span>
+                        </label>
+                        <label class="filter__button" for="Tannines">Tannines
+                            <span style='color:#B0423D;'>({{ countProfile['countTannines'] }})</span>
+                        </label>
+                        <label class="filter__button" for="Vol">Vol
+                            <span style='color:#B0423D;'>({{ countProfile['countVol'] }})</span>
+                        </label>
+                        <button id="wineProfileSubmit" type='submit' class="btn btn-danger btn-sm">Submit</button>
+                    </div>
+                </div>
+            </form>
 
         </div>
 

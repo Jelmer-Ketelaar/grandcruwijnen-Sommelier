@@ -5,6 +5,7 @@ namespace App\Service;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use phpDocumentor\Reflection\PseudoTypes\True_;
 
 class MealMatcherService
 {
@@ -131,8 +132,28 @@ class MealMatcherService
      * @throws GuzzleException
      */
     public function getWineProfileForWines($profileId)
-    {
-        $response = $this->client->request('GET', '/api/wines/'. $profileId);
-        return json_decode($response->getBody()->getContents());
+    {   
+        $wineProfiles = [];
+        foreach ($profileId as $ingredient) {
+
+            $url = 'https://www.grandcruwijnen.nl/nl/rest/nl/V1/products/'.$ingredient.'/attributes/';
+
+            $curl = curl_init($url);
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    
+            $headers = array(
+            "Accept: application/json",
+            "Content-Type: application/json",
+            "Authorization: Bearer jtkhznewoevgypc4cd2ndabga9gls70g"
+            );
+            curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+    
+            $resp = curl_exec($curl);
+            array_push($wineProfiles, $resp);
+            curl_close($curl);
+        }
+
+        return $wineProfiles;
     }
 }
