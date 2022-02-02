@@ -37,13 +37,11 @@
                 <div id="panel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2" hidden>
                     <p>
 
-                        Locatie: {{match.product.getExactLocationForWine()}}
+                        Locatie: {{match.product.getExactLocationForWine()['exactLocation']}}
                         <br>
                         Uw geselecteerde wijn ligt in het rode vlak.
                         <br>
-                        {% set locationLengthMin = match.product.getExactLocationForWine()|length - 1 %}
-                        {% set location = match.product.getExactLocationForWine()[:locationLengthMin] %}
-                        <img id='plattegrond' src='../img/winePlaces/{{ location }}.png'
+                        <img id='plattegrond' src='../img/winePlaces/{{ match.product.getExactLocationForWine()['locationForIMG'] }}.png'
                              onerror="this.onerror=null;">
                     </p>
                 </div>
@@ -72,7 +70,7 @@
                         </tr>
                         <tr>
                             <th>Locatie:</th>
-                            <td>{{ match.product.getExactLocationForWine }}</td>
+                            <td>{{ match.product.getExactLocationForWine['exactLocation'] }}</td>
                         </tr>
                         <tr>
                             <th>Streek:</th>
