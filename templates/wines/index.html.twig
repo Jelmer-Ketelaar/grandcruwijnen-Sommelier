@@ -36,7 +36,7 @@
 
         {% set mealId = app.session.get('mealId') %}
     </div>
-    <div class="row">
+    <div class="row3">
         <div class="filterWineSpecsAll">
             <div id="slider-container" data-role="page">
                 <h3 style="text-align: center;">Filters:</h3>
@@ -140,9 +140,10 @@
     </div>
        </div>
     <br>
-    {% include "wines/pagination.html.twig" %}
+
     <br>
     </body>
+    
 {% endblock %}
 {% block javascripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
