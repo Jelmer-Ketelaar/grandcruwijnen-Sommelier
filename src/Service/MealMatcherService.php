@@ -123,7 +123,6 @@ class MealMatcherService
             $ingredientMap[] = ['id' => $ingredient, 'amount' => 1];
         }
         $response = $this->client->request('POST', '/winestein/meals/create', ['json' => $ingredientMap]);
-        dd($response->getBody()->getContents());
 
         return json_decode($response->getBody()->getContents());
     }

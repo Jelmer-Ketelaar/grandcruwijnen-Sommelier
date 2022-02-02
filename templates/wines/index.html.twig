@@ -36,140 +36,26 @@
 
         {% set mealId = app.session.get('mealId') %}
     </div>
-    <div class="row"
-         style='justify-content:right; margin-right: 1%; background-color: #e9dcd1;'>
-        {#        <div style="width: 25%; background-color: #e9dcd1">#}
-        <div>
+    <div class="row">
+        <div class="filterWineSpecsAll">
             <div id="slider-container" data-role="page">
-                <div data-role="main" class="ui-content">
-                    <form method="GET" action="" data-ajax="false">
-                        <div data-role="rangeslider">
-                            <label style="color: white" for="price-min">Prijs:</label>
-                            <input class="price-s" style="background-color: #b5191f; color: #fff; font-weight: 100;"
-                                   type="range" name="price-min" id="price-min" value="{{ min_price }}"
-                                   min="{{ minWinePrice }}" max="{{ maxWinePrice|round }}" step="0.05">
-                            <label for="price-max"></label>
-                            <input class="price-label" style="background-color: #b5191f; color: #fff; font-weight: 100"
-                                   type="range" name="price-max" id="price-max" value="{{ max_price }}"
-                                   min="{{ minWinePrice }}" max="{{ maxWinePrice|round }}" step="0.05">
-                        </div>
-                        <button type="submit" class="btn btn-danger btn-sm">Submit</button>
-                    </form>
-                </div>
-
-{#            filter devider---------------------------------------------------------------------------------------------------------#}
-
-            <form method="GET" action="" data-ajax="false">
-                <div class="filter" id="wineSorts" style="margin-top: 20vh; margin-left: 7vw;">
-
-                    <input id="wit" name="wineSorts[]" value="Wit"
-                           type="checkbox" {% if countWines['countWit'] == 0 %} disabled {% endif %} {% if 'Wit' in app.request.query.get('wineSorts') %} checked {% endif %}/>
-                    <input id="rood" name="wineSorts[]" value="Rood"
-                           type="checkbox" {% if countWines['countRood'] == 0 %} disabled {% endif %} {% if 'Rood' in app.request.query.get('wineSorts') %} checked {% endif %}/>
-                    <input id="rose" name="wineSorts[]" value="Rosé"
-                           type="checkbox" {% if countWines['countRosé'] == 0 %} disabled {% endif %} {% if 'Rosé' in app.request.query.get('wineSorts') %} checked {% endif %}/>
-                    <input id="port" name="wineSorts[]" value="Port"
-                           type="checkbox" {% if countWines['countPort'] == 0 %} disabled {% endif %} {% if 'Port' in app.request.query.get('wineSorts') %} checked {% endif %}/>
-                    <input id="sherry" name="wineSorts[]" value="Sherry"
-                           type="checkbox" {% if countWines['countSherry'] == 0 %} disabled {% endif %} {% if 'Sherry' in app.request.query.get('wineSorts') %} checked {% endif %}/>
-                    <input id="madeira" name="wineSorts[]" value="Madeira"
-                           type="checkbox" {% if countWines['countMadeira'] == 0 %} disabled {% endif %} {% if 'Madeira' in app.request.query.get('wineSorts') %} checked {% endif %}/>
-                    <input id="vermout" name="wineSorts[]" value="Vermout"
-                           type="checkbox" {% if countWines['countVermout'] == 0 %} disabled {% endif %} {% if 'Vermout' in app.request.query.get('wineSorts') %} checked {% endif %}/>
-
-                    <div class="filter__control">
-                        <label class="filter__button" for="wit">Wit
-                            <span style='color:#B0423D;'>({{ countWines['countWit'] }})</span>
-                        </label>
-                        <label class="filter__button" for="rood">Rood
-                            <span style='color:#B0423D;'>({{ countWines['countRood'] }})</span>
-                        </label>
-                        <label class="filter__button" for="rose">Rosé
-                            <span style='color:#B0423D;'>({{ countWines['countRosé'] }})</span>
-                        </label>
-                        <label class="filter__button" for="port">Port
-                            <span style='color:#B0423D;'>({{ countWines['countPort'] }})</span>
-                        </label>
-                        <label class="filter__button" for="sherry">Sherry
-                            <span style='color:#B0423D;'>({{ countWines['countSherry'] }})</span>
-                        </label>
-                        <label class="filter__button" for="madeira">Madeira
-                            <span style='color:#B0423D;'>({{ countWines['countMadeira'] }})</span>
-                        </label>
-                        <label class="filter__button" for="vermout">Vermout
-                            <span style='color:#B0423D;'>({{ countWines['countVermout'] }})</span>
-                        </label>
-                        <button id="wineSortsSubmit" type='submit' class="btn btn-danger btn-sm">Submit</button>
+                <h3 style="text-align: center;">Filters:</h3>
+                <hr style="background-color:black;">
+                <form method="GET" action="" data-ajax="false">
+                    <div data-role="rangeslider">
+                        <label for="price-min">Prijs:</label>
+                        <input class="price-s" style="background-color: #b5191f; color: #fff; font-weight: 100;"
+                               type="range" name="price-min" id="price-min" value="{{ min_price }}"
+                               min="{{ minWinePrice }}" max="{{ maxWinePrice|round }}" step="0.05">
+                        <label for="price-max"></label>
+                        <input class="price-label" style="background-color: #b5191f; color: #fff; font-weight: 100"
+                               type="range" name="price-max" id="price-max" value="{{ max_price }}"
+                               min="{{ minWinePrice }}" max="{{ maxWinePrice|round }}" step="0.05">
                     </div>
-                </div>
-            </form>
-            <form method="GET" action="" data-ajax="false">
-                <div class="filter" id="wineProfile" style="margin-top: 50vh; margin-left: 7vw">
-
-                    <input id="Aards" name="wineProfile[]" value="Aards"
-                           type="checkbox" {% if countProfile['countAards'] == 0 %} disabled {% endif %} {% if 'Aards' in app.request.query.get('wineProfile') %} checked {% endif %}/>
-                    <input id="Complex" name="wineProfile[]" value="Complex"
-                           type="checkbox" {% if countProfile['countComplex'] == 0 %} disabled {% endif %} {% if 'Complex' in app.request.query.get('wineProfile') %} checked {% endif %}/>
-                    <input id="rose" name="wineProfile[]" value="DonkerFruit"
-                           type="checkbox" {% if countProfile['countDonkerFruit'] == 0 %} disabled {% endif %} {% if 'DonkerFruit' in app.request.query.get('wineProfile') %} checked {% endif %}/>
-                    <input id="Droog" name="wineProfile[]" value="Droog"
-                           type="checkbox" {% if countProfile['countDroog'] == 0 %} disabled {% endif %} {% if 'Droog' in app.request.query.get('wineProfile') %} checked {% endif %}/>
-                    <input id="Houtgerijpt" name="wineProfile[]" value="Houtgerijpt"
-                           type="checkbox" {% if countProfile['countHoutgerijpt'] == 0 %} disabled {% endif %} {% if 'Houtgerijpt' in app.request.query.get('wineProfile') %} checked {% endif %}/>
-                    <input id="Krachtig" name="wineProfile[]" value="Krachtig"
-                           type="checkbox" {% if countProfile['countKrachtig'] == 0 %} disabled {% endif %} {% if 'Krachtig' in app.request.query.get('wineProfile') %} checked {% endif %}/>
-                    <input id="Kruidig" name="wineProfile[]" value="Kruidig"
-                           type="checkbox" {% if countProfile['countKruidig'] == 0 %} disabled {% endif %} {% if 'Kruidig' in app.request.query.get('wineProfile') %} checked {% endif %}/>
-                    <input id="Mineraal" name="wineProfile[]" value="Mineraal"
-                           type="checkbox" {% if countProfile['countMineraal'] == 0 %} disabled {% endif %} {% if 'Mineraal' in app.request.query.get('wineProfile') %} checked {% endif %}/>
-                    <input id="RoodFruit" name="wineProfile[]" value="RoodFruit"
-                           type="checkbox" {% if countProfile['countRoodFruit'] == 0 %} disabled {% endif %} {% if 'RoodFruit' in app.request.query.get('wineProfile') %} checked {% endif %}/>
-                    <input id="Tannines" name="wineProfile[]" value="Tannines"
-                           type="checkbox" {% if countProfile['countTannines'] == 0 %} disabled {% endif %} {% if 'Tannines' in app.request.query.get('wineProfile') %} checked {% endif %}/>
-                    <input id="Vol" name="wineProfile[]" value="Vol"
-                           type="checkbox" {% if countProfile['countVol'] == 0 %} disabled {% endif %} {% if 'Vol' in app.request.query.get('wineProfile') %} checked {% endif %}/>
-       
-
-
-                    <div class="filter__control">
-                        <label class="filter__button" for="Aards">Aards
-                            <span style='color:#B0423D;'>({{ countProfile['countAards'] }})</span>
-                        </label>
-                        <label class="filter__button" for="Complex">Complex
-                            <span style='color:#B0423D;'>({{ countProfile['countComplex'] }})</span>
-                        </label>
-                        <label class="filter__button" for="rose">Donker Fruit
-                            <span style='color:#B0423D;'>({{ countProfile['countDonkerFruit'] }})</span>
-                        </label>
-                        <label class="filter__button" for="Droog">Droog
-                            <span style='color:#B0423D;'>({{ countProfile['countDroog'] }})</span>
-                        </label>
-                        <label class="filter__button" for="Houtgerijpt">Houtgerijpt
-                            <span style='color:#B0423D;'>({{ countProfile['countHoutgerijpt'] }})</span>
-                        </label>
-                        <label class="filter__button" for="Krachtig">Krachtig
-                            <span style='color:#B0423D;'>({{ countProfile['countKrachtig'] }})</span>
-                        </label>
-                        <label class="filter__button" for="Kruidig">Kruidig
-                            <span style='color:#B0423D;'>({{ countProfile['countKruidig'] }})</span>
-                        </label>
-                        <label class="filter__button" for="Mineraal">Mineraal
-                            <span style='color:#B0423D;'>({{ countProfile['countMineraal'] }})</span>
-                        </label>
-                        <label class="filter__button" for="RoodFruit">Rood Fruit
-                            <span style='color:#B0423D;'>({{ countProfile['countRoodFruit'] }})</span>
-                        </label>
-                        <label class="filter__button" for="Tannines">Tannines
-                            <span style='color:#B0423D;'>({{ countProfile['countTannines'] }})</span>
-                        </label>
-                        <label class="filter__button" for="Vol">Vol
-                            <span style='color:#B0423D;'>({{ countProfile['countVol'] }})</span>
-                        </label>
-                        <button id="wineProfileSubmit" type='submit' class="btn btn-danger btn-sm">Submit</button>
-                    </div>
-                </div>
-            </form>
-
+                    <button type="submit" class="btn btn-danger btn-sm">Filter</button>
+                </form>
+            </div>
+            {% include "wines/filter.html.twig" %}
         </div>
         {% for match in matches %}
             {% if match.product.specialPrice != 0 %}
@@ -227,7 +113,6 @@
                              class="imageWine" alt="{{ match.product.sku }}"/>
                     </center>
                     <p>{{ match.product.name }}</p>
-
                     <p>Prijs: €{{ match.product.price }}</p>
 
                     <!-- Trigger the modal with a button -->
@@ -253,7 +138,7 @@
                 </div>
         {% endfor %}
     </div>
-    {#    </div>#}
+       </div>
     <br>
     {% include "wines/pagination.html.twig" %}
     <br>
