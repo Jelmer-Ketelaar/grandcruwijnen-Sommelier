@@ -195,7 +195,7 @@ class MealController extends AbstractController
         $wineProfile = $request->query->get('wineProfile');
         foreach ($mealMatcherService->getWineProfileForWines($allSkus) as $amountProfile)
         {
-            $profiles = json_decode($amountProfile, true)['profiles'];
+            $profiles = json_decode($amountProfile, true);
 
             if (in_array('Aards', $profiles))
             {
