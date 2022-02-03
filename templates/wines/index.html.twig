@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('style/style.css') }}">
-    <link rel="stylesheet" href={{asset('')}}
+    {# <link rel="stylesheet" href={{asset('')}} #}
 {% endblock %}
 
 {% block title %}
@@ -13,11 +13,6 @@
 
 {% block body %}
     <body style="background-color: #e9dcd1;">
-    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" id="shopping-cart_btn"
-            style='display:block; float:right; margin-top: 58px; margin-right:170px ;'>
-        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-        Winkelmandje
-    </button>
     <div class="container">
         <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg'
              alt='logo' style='margin: 30px 30px 30px -7vw;'>
@@ -88,12 +83,8 @@
                     <i class="fa fa-info-circle" aria-hidden="true"></i>
                     Meer informatie
                 </button>
-                <button type="button" class="btn btn-danger btn-sm">
-                    <i class=" fa fa-shopping-cart" aria-hidden="true"></i>
-                    Winkelmandje
-                </button>
                 <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
-                        data-target="#ModalSommelier"
+                        data-target="#ModalSommelier{{ match.product.id }}"
                         style="padding-top: 1px; height: 30px;">
                     <i aria-hidden="true"></i>
                     <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg"
@@ -120,10 +111,6 @@
                             data-target="#myModal{{ match.product.id }}">
                         <i class="fa fa-info-circle" aria-hidden="true"></i>
                         Meer informatie
-                    </button>
-                    <button type="button" class="btn btn-danger btn-sm">
-                        <i class=" fa fa-shopping-cart" aria-hidden="true"></i>
-                        Winkelmandje
                     </button>
                     <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
                             data-target="#ModalSommelier{{ match.product.id }}"
