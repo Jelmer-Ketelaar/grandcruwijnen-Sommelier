@@ -20,7 +20,7 @@ body {
     line-height: 1.5;
 }
 
-/* .grid {
+.grid {
     display: inline-grid;
     border: #1111 1px solid;
     box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%),
@@ -30,7 +30,7 @@ body {
     width: 20vh;
     border-radius: 10%;
     background-color: #e9dcd1;
-} */
+}
 
 .grid-sub {
     display: inline-grid;
@@ -45,11 +45,11 @@ body {
     background-color: #e9dcd1;
 }
 
-/* .grid:active {
+.grid:active {
     box-shadow: 0 0 5px -1px rgb(0 0 0 / 30%), 0 0 15px -1px rgb(0 0 0 / 25%),
     0 0 20px -1px rgb(0 0 0 / 15%);
     transform: translateY(10px) translateX(10px);
-} */
+}
 
 .meal-name {
     color: #b5191f !important;
@@ -96,6 +96,7 @@ h1 {
     width: 100%;
     justify-content: center;
 }
+
 .col-sm-3 {
     float: right;
 }
@@ -151,7 +152,6 @@ button {
 }
 
 /* ---------------- end price slider ---------------------------------------- */
-
 /* ---------------- begin pagination ---------------------------------------- */
 
 #pagination {
@@ -160,6 +160,10 @@ button {
     justify-content: center;
     flex-direction: column;
     padding-bottom: 10px;
+}
+
+.hr-pagination {
+    opacity: 0;
 }
 
 #pagination ul {
@@ -196,10 +200,10 @@ button {
 }
 
 .row {
-    display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
-    justify-content: right !important;
     margin-right: 1%;
+    display: inline-block !important;
 }
 
 /* ---------------- end pagination ---------------------------------------- */
@@ -215,14 +219,14 @@ button {
 /* ---------------- begin checkbox filter ---------------------------------------- */
 
 .filter__control {
-line-height: 10px;
+    line-height: 10px;
 }
 
-.filterWineSpecs{
+.filterWineSpecs {
     position: absolute;
     z-index: 3;
-    left:150px;
-    top:460px;
+    left: 150px;
+    top: 460px;
 }
 
 .filter__button {
@@ -323,7 +327,14 @@ input[type="checkbox"]#vermout:checked, ~ .filter__control.filter__button[for="v
     padding: 10px 10px 10px 10px;
     margin: 5px;
     box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+    min-height: 35vh;
+    width: 25vw;
 }
+
+
+/*.buttons {*/
+/*    min-height: 30vh;*/
+/*}*/
 
 .mealsDescription {
     margin: 10px !important;
@@ -369,7 +380,8 @@ input[type="checkbox"]#vermout:checked, ~ .filter__control.filter__button[for="v
 }
 
 .badge {
-    position: relative;
+    position: absolute;
+    left: 10px;
     font-family: oswald, sans-serif;
     font-size: 20px;
     margin: 0 20vw 0 0;
@@ -473,6 +485,6 @@ input[type="checkbox"]#vermout:checked, ~ .filter__control.filter__button[for="v
     /*float: left;*/
 }
 
-.row3:before, .row3:after{
-    display: inline-block !important;
-}
+/*.row3:before, .row3:after {*/
+/*    display: inline-block !important;*/
+/*}*/
