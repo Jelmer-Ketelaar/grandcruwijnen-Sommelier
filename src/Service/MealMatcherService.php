@@ -149,7 +149,7 @@ class MealMatcherService
             curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
     
             $resp = curl_exec($curl);
-            array_push($wineProfiles, $resp);
+            $wineProfiles[] = $resp;
             curl_close($curl);
         }
 

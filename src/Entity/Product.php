@@ -9,7 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  */
-class Product {
+class Product
+{
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -144,18 +145,6 @@ class Product {
         return $this;
     }
 
-    public function getPrice(): ?float
-    {
-        return $this->price;
-    }
-
-    public function setPrice(float $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
     public function getStock(): ?int
     {
         return $this->stock;
@@ -252,6 +241,25 @@ class Product {
         return $this;
     }
 
+    public function calculateDiscountPercentage(): ?int
+    {
+        //get the special price via the getSpecialPrice function
+        $specialPrice = $this->getSpecialPrice();
+        //get the standard wine price via the getPrice function
+        $winePrice = $this->getPrice();
+        //If specialPrice is not null
+        if ($specialPrice !== null) {
+            //return 100 - specialPrice / Price * 100
+            // 100 - first because then you see the difference between 100 and the $specialPrice / $winePrice * 100.
+            // so if the outcome of $specialPrice / $winePrice * 100 == 87 then the 100 - does 100 - 87
+            return 100 - $specialPrice / $winePrice * 100;
+        }
+
+        //If special price is null return null
+        //no if statement because the condition is always 'true' because '$specialPrice !== null' is already 'false' at this point
+        return null;
+    }
+
     public function getSpecialPrice(): ?float
     {
         return $this->specialPrice;
@@ -264,27 +272,26 @@ class Product {
         return $this;
     }
 
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
     // can return int or null
     //This function returns standard null and only returns the percentage if there is a specialPrice
-    public function calculateDiscountPercentage(): ?int
-    {
-        $specialPrice = $this->getSpecialPrice();
-        $winePrice = $this->getPrice();
-        //If specialPrice is not null return 100 - specialPrice / Price * 100
-        if ($specialPrice !== null)
-        {
-            return 100 - $specialPrice / $winePrice * 100;
-        }
 
-        //If special price is null
-        return null;
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
+
+        return $this;
     }
 
     public function getExactLocationForWine(): ?array
     {
         $exactLocation = $this->location;
         $exactLocation = str_replace(array(',', ' '), '', $exactLocation);
-        $locationForIMG = substr($exactLocation,0 ,-1);
+        $locationForIMG = substr($exactLocation, 0, -1);
         $locations = ['exactLocation' => $exactLocation, 'locationForIMG' => $locationForIMG];
         return $locations;
     }
