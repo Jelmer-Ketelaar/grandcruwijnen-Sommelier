@@ -93,8 +93,9 @@ h1 {
 }
 
 #row {
+    position: relative;
+    left: 18%;
     width: 100%;
-    justify-content: center;
 }
 
 .col-sm-3 {
