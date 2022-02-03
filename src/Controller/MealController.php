@@ -189,7 +189,7 @@ class MealController extends AbstractController
         $allSkus = [];
 
         foreach ($matchesForPage as $idForWine) {
-            array_push($allSkus, $idForWine->product->getSku());
+            $allSkus[] = $idForWine->product->getSku();
         }
 
         $wineProfile = $request->query->get('wineProfile');

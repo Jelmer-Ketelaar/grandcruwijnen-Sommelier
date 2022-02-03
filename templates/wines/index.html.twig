@@ -22,7 +22,6 @@
         <img src='https://www.grandcruwijnen.nl/static/version1634749600/frontend/Grandcruwijnen/default/nl_NL/images/logo.svg'
              alt='logo' style='margin: 30px 30px 30px -7vw;'>
     </div>
-
     <div class="example-wrapper" style='text-align:center;padding-bottom:50px;'>
         <button style="position: relative; top: 5px;" type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                 onclick='goBack(window.location.href)'>
@@ -36,7 +35,7 @@
 
         {% set mealId = app.session.get('mealId') %}
     </div>
-    <div class="row3">
+    <div class="row">
         <div class="filterWineSpecsAll">
             <div id="slider-container" data-role="page">
                 <h3 style="text-align: center;">Filters:</h3>
@@ -83,6 +82,7 @@
                 {% endif %}
 
                 <!-- Trigger the modal with a button -->
+                <div class="buttons">
                 <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
                         data-target="#myModal{{ match.product.id }}">
                     <i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -100,9 +100,9 @@
                          alt="corkscrew">
                     Score: {{ match.score|number_format(0) }}
                 </button>
-
-                {% include "wines/modal.html.twig" %}
             </div>
+         {% include "wines/modal.html.twig" %}
+    </div>
             {% endif %}
         {% endfor %}
 
@@ -126,7 +126,7 @@
                         Winkelmandje
                     </button>
                     <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
-                            data-target="#ModalSommelier"
+                            data-target="#ModalSommelier{{ match.product.id }}"
                             style="padding-top: 1px; height: 30px;">
                         <i aria-hidden="true"></i>
                         <img src="https://www.grandcruwijnen.nl/media/menu_builder/c/o/corkscrew.svg"
@@ -134,16 +134,15 @@
                         Score: {{ match.score|number_format(0) }}
                     </button>
 
-                    {% include "wines/modal.html.twig" %}
+           {% include "wines/modal.html.twig" %}
                 </div>
         {% endfor %}
     </div>
-       </div>
-    <br>
-
-    <br>
+    <hr class="hr-pagination">
+    {% include "wines/pagination.html.twig" %}
+{#    <br>#}
     </body>
-    
+
 {% endblock %}
 {% block javascripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
