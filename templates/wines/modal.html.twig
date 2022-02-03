@@ -8,10 +8,7 @@
                 <h3 class="modal-title" style='text-align:center; margin-top:30px;'>{{ match.product.name }} </h3>
                 {% if match.product.specialPrice != 0 %}
                     <div class="badge2">
-                        {% set salePercentage = (match.product.specialPrice - match.product.price) %}
-                        {% set salePercentage2 = salePercentage/match.product.price %}
-                        {% set salePercentrage3 = (salePercentage2 * 100 ) | round(0) %}
-                        {{ salePercentrage3|replace({'-': ''}) }}%
+                        {{ match.product.calculateDiscountPercentage }}%
                     </div>
                 {% endif %}
             </div>
@@ -34,23 +31,18 @@
                 </div>
                 <div id="panel-1" role="tabpanel" tabindex="0" aria-labelledby="tab-1">
                     <div class="modal-body" style='text-align:left;margin:40px;'>
-                        <p>{{ match.product.description }}</p>
+                        <p>{{ match.product.description | raw}}</p>
                     </div>
                 </div>
                 <div id="panel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2" hidden>
                     <p>
 
-                        {% set location = match.product.location|split(',') %}
-                        {% set locationLengthMin = location[0]|length - 1 %}
-                        <br>
-                        Locatie: {{ location[0] }}
+                        Locatie: {{match.product.getExactLocationForWine()['exactLocation']}}
                         <br>
                         Uw geselecteerde wijn ligt in het rode vlak.
                         <br>
-
-
-                        <img id='plattegrond' src='../img/winePlaces/{{ location[0][:locationLengthMin] }}.png'
-                             onerror="this.onerror=null;">
+                        <img id='plattegrond' src='../img/winePlaces/{{ match.product.getExactLocationForWine()['locationForIMG'] }}.png'
+                             onerror="this.onerror= src='../img/winePlaces/errorimg.png';">
                     </p>
                 </div>
                 <div id="panel-3" role="tabpanel" tabindex="0" aria-labelledby="tab-3" hidden>
@@ -61,7 +53,7 @@
                             {% if(match.product.specialPrice == true) %}
                                 <td>
                                 <span class="original-price-modal" aria-label="Original Price">
-								€{{ match.product.price }}</span>
+                                €{{ match.product.price }}</span>
                                     &nbsp;&nbsp;
                                     <span aria-label="Sale Price">€{{ match.product.specialPrice }}</span>
                                     &nbsp;&nbsp;
@@ -78,7 +70,7 @@
                         </tr>
                         <tr>
                             <th>Locatie:</th>
-                            <td>{{ location[0] }}</td>
+                            <td>{{ match.product.getExactLocationForWine['exactLocation'] }}</td>
                         </tr>
                         <tr>
                             <th>Streek:</th>

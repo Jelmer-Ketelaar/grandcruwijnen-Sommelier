@@ -21,39 +21,39 @@
 <form action='' method='GET'>
     <div id='allList'>
         {% for ingredient in ingredients %}
+            {% set selectCheck = 'false' %}
             {% set ingredientId = ingredient.ingredientId|replace({'{': ''})|replace({'}': ''}) %}
-            {% set ingredientName = ingredient.name %}
+            {% for ingredientSelect in ingredientSelected %}
+                {% if ingredient.name in ingredientSelect %}
+                    {% set selectCheck = 'true' %}
+                {% endif %}
+            {% endfor %}
 
             <input id='{{ ingredientId }}' style='display:none;'
                    class='selectIngredient' type='checkbox' value='{{ ingredientId|e }}' name="ingredientId[]"
                    onclick='ingredientSelect()'
-                    {% if ingredientSelected != '' %}{% if ingredientId in ingredientSelected %} checked {% endif %} {% endif %}>
+                    {% if selectCheck == 'true' %} checked {% endif %}>
             <div class='ingredients'
-                    {% if ingredientSelected != '' %}{% if ingredientName not in ingredientSelected %} onclick='ingredientDivChoose({{ ingredientId|json_encode }})' {% endif %} {% endif %}
-                    {% if ingredientSelected != '' %}{% if ingredientName in ingredientSelected %} style='background-color:rgba(0, 0, 0, 0.09);' {% endif %} {% endif %}
+                    {% if selectCheck == 'true' %} onclick='ingredientDivChoose({{ ingredientId|json_encode }})' {% endif %}
+                    {% if selectCheck == 'true' %} style='background-color:rgba(0, 0, 0, 0.09);' {% endif %}
                  onclick='ingredientDivChoose({{ ingredientId|json_encode }})' style="cursor: pointer;">
-                {{ ingredientName }}
+                {{ ingredient.name }}
             </div>
         {% endfor %}
     </div>
     <button id='ingredientForm' type='submit' style='visibility:hidden;'>submitje</button>
 </form>
 
-{% set counterProduct = 0 %}
 {% for ingredient in ingredientSelected %}
-    {% set counterProduct = counterProduct + 1 %}
-    {% set ingredient = ingredient %}
     <div style='background-color:white; padding:10px; margin:10px; width:190px; text-align:left;'>
-        {{ ingredient }}
+        {{ ingredient['name'] }}
         <a><i class="far fa-trash-alt"
-              onclick='removeIngredient({{ ingredient|json_encode }})'
+              onclick='removeIngredient({{ ingredient['id']|json_encode }})'
               style='width:20px; float:right; cursor: pointer'></i></a>
     </div>
-
-
 {% endfor %}
 
-{% if ingredientSelected != '' %}
+{% if ingredientSelected is not empty %}
     <a href="{{ path('wines_for_ingredients', {ingredients: ingredientSelected}) }}"
        class='searchButton'>Bereken de best bijpassende wijnen</a>
 {% endif %}
@@ -89,12 +89,11 @@
 
         function ingredientDivChoose(idIngredient) {
             document.getElementById(idIngredient).click();
-            ingredientSelect();
+            //ingredientSelect();
         }
 
         function removeIngredient(nameIngredient) {
             document.getElementById(nameIngredient).click();
-            ingredientSelect();
         }
     </script>
 {% endblock %}

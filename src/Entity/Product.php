@@ -87,6 +87,10 @@ class Product {
      */
     private $specialPrice;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+
     public function getId(): ?int
     {
         return $this->id;
@@ -253,10 +257,41 @@ class Product {
         return $this->specialPrice;
     }
 
-    public function setSpecialPrice(?float $specialPrice): self
+    public function setSpecialPrice(float $specialPrice): self
     {
-        $this->specialPrice = $specialPrice;
+        $this->price = $specialPrice;
 
+        return $this;
+    }
+
+    // can return int or null
+    //This function returns standard null and only returns the percentage if there is a specialPrice
+    public function calculateDiscountPercentage(): ?int
+    {
+        $specialPrice = $this->getSpecialPrice();
+        $winePrice = $this->getPrice();
+        //If specialPrice is not null return 100 - specialPrice / Price * 100
+        if ($specialPrice !== null)
+        {
+            return 100 - $specialPrice / $winePrice * 100;
+        }
+
+        //If special price is null
+        return null;
+    }
+
+    public function getExactLocationForWine(): ?array
+    {
+        $exactLocation = $this->location;
+        $exactLocation = str_replace(array(',', ' '), '', $exactLocation);
+        $locationForIMG = substr($exactLocation,0 ,-1);
+        $locations = ['exactLocation' => $exactLocation, 'locationForIMG' => $locationForIMG];
+        return $locations;
+    }
+
+    public function setExactLocationForWine(?string $exactLocation): self
+    {
+        $this->exactLocation = $exactLocation;
         return $this;
     }
 }
