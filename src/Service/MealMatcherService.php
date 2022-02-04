@@ -146,11 +146,11 @@ class MealMatcherService
             "Content-Type: application/json",
             "Authorization: Bearer jtkhznewoevgypc4cd2ndabga9gls70g"
             );
-            curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+            /*curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
     
             $resp = curl_exec($curl);
             $wineProfiles[] = $resp;
-            curl_close($curl);
+            curl_close($curl);*/
         }
 
         return $wineProfiles;
