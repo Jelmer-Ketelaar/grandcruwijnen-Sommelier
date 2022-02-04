@@ -301,9 +301,8 @@ class Product
         $exactLocation = $this->location;
         $exactLocation = str_replace(array(',', ' '), '', $exactLocation);
         $locationForIMG = substr($exactLocation, 0, - 1);
-        $locations = ['exactLocation' => $exactLocation, 'locationForIMG' => $locationForIMG];
 
-        return $locations;
+        return $locations = ['exactLocation' => $exactLocation, 'locationForIMG' => $locationForIMG];
     }
 
     public function setExactLocationForWine(?string $exactLocation): self
