@@ -2,19 +2,26 @@
     <form method="GET" action="" data-ajax="false">
         <div style="visibility:hidden;">
             <input id="wit" name="wineSorts[]" value="Wit"
-                   type="checkbox" {% if countWines['countWit'] == 0 %} disabled {% endif %} {% if 'Wit' in app.request.query.get('wineSorts') %} checked {% endif %}/>
+                   type="checkbox" {% if countWines['countWit'] == 0 %} disabled {% endif %}
+                    {% if 'Wit' in app.request.query.get('wineSorts') %} checked {% endif %}/>
             <input id="rood" name="wineSorts[]" value="Rood"
-                   type="checkbox" {% if countWines['countRood'] == 0 %} disabled {% endif %} {% if 'Rood' in app.request.query.get('wineSorts') %} checked {% endif %}/>
+                   type="checkbox" {% if countWines['countRood'] == 0 %} disabled {% endif %}
+                    {% if 'Rood' in app.request.query.get('wineSorts') %} checked {% endif %}/>
             <input id="rose" name="wineSorts[]" value="Rosé"
-                   type="checkbox" {% if countWines['countRosé'] == 0 %} disabled {% endif %} {% if 'Rosé' in app.request.query.get('wineSorts') %} checked {% endif %}/>
+                   type="checkbox" {% if countWines['countRosé'] == 0 %} disabled {% endif %}
+                    {% if 'Rosé' in app.request.query.get('wineSorts') %} checked {% endif %}/>
             <input id="port" name="wineSorts[]" value="Port"
-                   type="checkbox" {% if countWines['countPort'] == 0 %} disabled {% endif %} {% if 'Port' in app.request.query.get('wineSorts') %} checked {% endif %}/>
+                   type="checkbox" {% if countWines['countPort'] == 0 %} disabled {% endif %}
+                    {% if 'Port' in app.request.query.get('wineSorts') %} checked {% endif %}/>
             <input id="sherry" name="wineSorts[]" value="Sherry"
-                   type="checkbox" {% if countWines['countSherry'] == 0 %} disabled {% endif %} {% if 'Sherry' in app.request.query.get('wineSorts') %} checked {% endif %}/>
+                   type="checkbox" {% if countWines['countSherry'] == 0 %} disabled {% endif %}
+                    {% if 'Sherry' in app.request.query.get('wineSorts') %} checked {% endif %}/>
             <input id="madeira" name="wineSorts[]" value="Madeira"
-                   type="checkbox" {% if countWines['countMadeira'] == 0 %} disabled {% endif %} {% if 'Madeira' in app.request.query.get('wineSorts') %} checked {% endif %}/>
+                   type="checkbox" {% if countWines['countMadeira'] == 0 %} disabled {% endif %}
+                    {% if 'Madeira' in app.request.query.get('wineSorts') %} checked {% endif %}/>
             <input id="vermout" name="wineSorts[]" value="Vermout"
-                   type="checkbox" {% if countWines['countVermout'] == 0 %} disabled {% endif %} {% if 'Vermout' in app.request.query.get('wineSorts') %} checked {% endif %}/>
+                   type="checkbox" {% if countWines['countVermout'] == 0 %} disabled {% endif %}
+                    {% if 'Vermout' in app.request.query.get('wineSorts') %} checked {% endif %}/>
         </div>
         <div class="filter__control">
             <label class="filter__button" for="wit">Wit
@@ -42,7 +49,7 @@
         </div>
     </form>
     <br>
-    <form method="GET" action="" data-ajax="false">
+    {# <form method="GET" action="" data-ajax="false">
         <div style="visibility:hidden;">
             <input id="Aards" name="wineProfile[]" value="Aards"
                    type="checkbox" {% if countProfile['countAards'] == 0 %} disabled {% endif %} {% if 'Aards' in app.request.query.get('wineProfile') %} checked {% endif %}/>
@@ -103,5 +110,5 @@
             </label>
             <button id="wineSortsSubmit" style="width:60%;" type='submit' class="btn btn-danger btn-sm">Filter</button>
         </div>
-    </form>
+    </form> #}
 </div>

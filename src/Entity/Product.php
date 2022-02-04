@@ -271,7 +271,8 @@ class Product
      * This function returns standard null and only returns the percentage if there is a specialPrice
      * @return int|null
      */
-    #[Pure] public function calculateDiscountPercentage(): ?int
+    #[Pure]
+    public function calculateDiscountPercentage(): ?int
     {
         $discountPercentage = null;
         //get the special price via the getSpecialPrice function
@@ -301,9 +302,8 @@ class Product
         $exactLocation = $this->location;
         $exactLocation = str_replace(array(',', ' '), '', $exactLocation);
         $locationForIMG = substr($exactLocation, 0, - 1);
-        $locations = ['exactLocation' => $exactLocation, 'locationForIMG' => $locationForIMG];
 
-        return $locations;
+        return ['exactLocation' => $exactLocation, 'locationForIMG' => $locationForIMG];
     }
 
     public function setExactLocationForWine(?string $exactLocation): self
